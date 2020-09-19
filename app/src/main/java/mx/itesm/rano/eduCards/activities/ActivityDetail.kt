@@ -14,6 +14,6 @@ class ActivityDetail : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
         val index = intent.getIntExtra("INDEX", 0)
         fragment = fragFragmentEventDetail as FragmentEventDetail
-        fragment.index = 0
+        fragment.index = index
     }
 }
