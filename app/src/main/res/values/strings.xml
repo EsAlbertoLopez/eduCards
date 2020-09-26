@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">eduCards</string>
+
+    <string-array name="Reasons">
+        <item>Violencia Física</item>
+        <item>Violencia Verbal</item>
+        <item>Comportamiento Inadecuado</item>
+        <item>Logro</item>
+        <item>Empatía</item>
+        <item>Participación</item>
+    </string-array>
 </resources>
