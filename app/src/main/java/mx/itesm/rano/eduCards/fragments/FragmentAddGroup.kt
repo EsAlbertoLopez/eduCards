@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_add_course.*
 import kotlinx.android.synthetic.main.fragment_add_group.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.models.Group
 
 class FragmentAddGroup : Fragment() {
     lateinit var root: View
@@ -45,8 +46,8 @@ class FragmentAddGroup : Fragment() {
     }
 
     private fun escribirDatos(gropuId: String, groupName: String) {
-        val course = Course(gropuId, groupName)
+        val group = Group(gropuId, groupName)
         val referencia = baseDatos.getReference("/Courses/TI80/Groups/$gropuId")
-        referencia.setValue(course)
+        referencia.setValue(group)
     }
 }
