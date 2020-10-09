@@ -6,10 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ListView
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.ListFragment
-import kotlinx.android.synthetic.main.activity_general.*
 import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 
@@ -31,7 +27,20 @@ class FragmentCourse : Fragment(), ListListener {
     }
 
     private fun setButtons() {
+        setCourseActionButtons()
         //setFragmentCourseList()
+    }
+    // CourseActionSSSSSSSS... >:(
+    private fun setCourseActionButtons() {
+        var btnAddCourse = root.findViewById<View>(R.id.btnAddCourse) as Button
+        btnAddCourse.setOnClickListener {
+            var fragment = FragmentAddCourse()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, fragment)
+                ?.addToBackStack(fragment.toString())
+                ?.replace(R.id.fragmentContainer, fragment)
+                ?.commit()
+        }
     }
 
     override fun itemClicked(index: Int) {
