@@ -30,7 +30,7 @@ class FragmentCourse : Fragment(), ListListener {
         setCourseActionButtons()
         //setFragmentCourseList()
     }
-    
+    // CourseActionSSSSSSSS... >:(
     private fun setCourseActionButtons() {
         var btnAddCourse = root.findViewById<View>(R.id.btnAddCourse) as Button
         btnAddCourse.setOnClickListener {
