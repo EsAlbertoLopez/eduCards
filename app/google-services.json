@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "970521990678",
+    "firebase_url": "https://educards-fbd0a.firebaseio.com",
+    "project_id": "educards-fbd0a",
+    "storage_bucket": "educards-fbd0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970521990678:android:b6d2f21b8c02258be6c737",
+        "android_client_info": {
+          "package_name": "mx.itesm.rano.eduCards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970521990678-1hngguqcg5kdbc0ifhi8fpa81uepekjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCACNCqCI3aorTCa3rufPB9Vmw3zXCnY9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970521990678-1hngguqcg5kdbc0ifhi8fpa81uepekjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
