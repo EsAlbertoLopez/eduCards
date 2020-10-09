@@ -14,21 +14,14 @@ class FragmentLive : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v =  inflater.inflate(R.layout.fragment_live, container, false)
-
         initializeSpinner(inflater, v, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
         initializeSpinner(inflater, v, R.id.courseSpinner, resources.getStringArray(R.array.Courses))
         initializeSpinner(inflater, v, R.id.studentSpinner, resources.getStringArray(R.array.Students))
-
-
-
-            return v
+        return v
     }
 
     private fun initializeSpinner(
@@ -48,8 +41,18 @@ class FragmentLive : Fragment(){
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
+    }
+
+    fun startChronometer(v: View) {
+
+    }
+
+    fun stopChronometer(v: View) {
+
+    }
+
+    fun resetChronometer(v: View) {
 
     }
 }

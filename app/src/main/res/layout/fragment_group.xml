@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentCourse">
+    tools:context=".fragments.FragmentGroup">
 
     <LinearLayout
-        android:id="@+id/layHeading"
+        android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -23,8 +23,8 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_black"
-            android:text="Courses"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Groups"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
             android:textColor="#000000" />
@@ -34,15 +34,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_light"
-            android:text="Choose your Course"
+            android:text="Choose a group for [Course name]"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#000000" />
     </LinearLayout>
 
     <fragment
-        android:id="@+id/fragmentFragmentCourseList"
-        android:name="mx.itesm.rano.eduCards.fragments.FragmentCourseList"
+        android:id="@+id/fragmentFragmentGroupList"
+        android:name="mx.itesm.rano.eduCards.fragments.FragmentGroupList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -52,7 +52,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layHeading"
-        tools:layout="@layout/simple_list_item_1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

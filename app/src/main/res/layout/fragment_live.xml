@@ -22,9 +22,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_black"
             android:text="Live"
             android:textAlignment="center"
@@ -35,9 +32,6 @@
             android:id="@+id/tvSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_light"
             android:text="Easy Student Reporting"
             android:textAlignment="center"
@@ -61,13 +55,10 @@
             android:id="@+id/tvRecordingStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Recording Status"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000" />
 
         <LinearLayout
@@ -87,13 +78,12 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000" />
 
-            <TextView
-                android:id="@+id/tvTimeCounter"
+            <Chronometer
+                android:id="@+id/chChronometer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:fontFamily="@font/nunitosans_extrabold"
-                android:text="00 : 00 . 0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#000000" />
@@ -116,13 +106,10 @@
             android:id="@+id/tvReportDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Report Details"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000" />
 
         <LinearLayout
@@ -235,7 +222,7 @@
                 android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/editTextTextMultiLineDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -257,9 +244,6 @@
                 android:id="@+id/tvCardActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nunitosans_extrabold"
                 android:text="Card Actions"
@@ -313,9 +297,6 @@
                 android:id="@+id/tvSessionActions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/nunitosans_extrabold"
                 android:text="Session Actions"
@@ -367,7 +348,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"  />
             </LinearLayout>
         </LinearLayout>
 
