@@ -262,7 +262,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/btDsicard"
+                    android:id="@+id/btnDsicard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -274,7 +274,7 @@
                     android:textColor="#000000" />
 
                 <Button
-                    android:id="@+id/btSave"
+                    android:id="@+id/btnSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -315,7 +315,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btRestart"
+                    android:id="@+id/btnRestart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -327,7 +327,7 @@
                     android:textColor="#000000" />
 
                 <Button
-                    android:id="@+id/btStopResume"
+                    android:id="@+id/btnStopResume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -339,7 +339,7 @@
                     android:textColor="#000000" />
 
                 <Button
-                    android:id="@+id/btStart"
+                    android:id="@+id/btnStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
