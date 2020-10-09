@@ -1,48 +1,59 @@
 package mx.itesm.rano.eduCards.fragments
-import android.R
-import android.content.Context
+
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.ListFragment
+import kotlinx.android.synthetic.main.activity_general.*
 import mx.itesm.rano.eduCards.Interfaces.ListListener
-import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.R
 
+class FragmentCourse : Fragment(), ListListener {
+    lateinit var root: View
 
-class FragmentCourse : ListFragment() {
-    var listener: ListListener? = null
-
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is ListListener){
-            listener = context
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val vista = super.onCreateView(inflater, container, savedInstanceState)
-        val courses = Array<String>(Course.courses.size){
-            Course.courses[it].name
-        }
-        val adaptador = ArrayAdapter<String>(inflater.context,
-            R.layout.simple_list_item_1 , courses)
-
-        listAdapter = adaptador
-        return vista
+        // Inflate the layout for this fragment
+        root = inflater.inflate(R.layout.fragment_course, container, false)
+        setButtons()
+        return root
     }
+
+    private fun setButtons() {
+        //setFragmentCourseList()
+    }
+
+    override fun itemClicked(index: Int) {
+        // doesnt work :(
+        println("Here!")
+        var fragment = FragmentGroup()
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.fragmentContainer, fragment)
+            ?.addToBackStack(fragment.toString())
+            ?.replace(R.id.fragmentContainer, fragment)
+            ?.commit()
+    }
+
+    //private fun setFragmentCourseList() {
+    //    val list = root.findViewById<View>(R.id.fragmentFragmentCourseList) as ListFragment
+    //    list.listView.setOnItemClickListener { adapterView, view, i, l ->
+    //        val fragment = FragmentGroup()
+    //        fragmentManager?.beginTransaction()
+    //            ?.replace(R.id.fragmentContainer, fragment)
+    //            ?.addToBackStack(fragment.toString())
+    //            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+    //            ?.commit()
+    //    }
+    //}
 }

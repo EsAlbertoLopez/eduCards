@@ -10,10 +10,9 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.ListFragment
 import mx.itesm.rano.eduCards.Interfaces.ListListener
-import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
 
-class FragmentListEstudiantes : ListFragment(){
+class FragmentStudentList : ListFragment(){
     var listener: ListListener? = null
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {

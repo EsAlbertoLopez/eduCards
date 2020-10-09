@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/layHeading"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -21,9 +21,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_black"
             android:text="Settings"
             android:textAlignment="center"
@@ -34,11 +31,8 @@
             android:id="@+id/tvSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_light"
-            android:text="Configure Workspace"
+            android:text="Configure your Workspace"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#000000" />
@@ -60,9 +54,6 @@
             android:id="@+id/tvProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Profile"
             android:textAlignment="textStart"
@@ -70,7 +61,7 @@
             android:textColor="#000000" />
 
         <Button
-            android:id="@+id/btSignInOut"
+            android:id="@+id/btnSignInOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign In" />
@@ -143,8 +134,6 @@
             android:id="@+id/tvView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="View"
             android:textAlignment="textStart"
@@ -180,8 +169,6 @@
             android:id="@+id/tvOther"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Other"
             android:textAlignment="textStart"
