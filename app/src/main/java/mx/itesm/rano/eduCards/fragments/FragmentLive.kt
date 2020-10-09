@@ -10,11 +10,15 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
+import java.text.DateFormat
+import java.util.*
 
 class FragmentLive : Fragment(){
     lateinit var root: View
     lateinit var inflater: LayoutInflater
     lateinit var chronometer: Chronometer
+    lateinit var calendar: Calendar
+    lateinit var currentDate: String
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
 
@@ -27,6 +31,7 @@ class FragmentLive : Fragment(){
         root = inflater.inflate(R.layout.fragment_live, container, false)
         setSpinners()
         setButtons()
+        setCalendar()
         return root
     }
 
@@ -97,5 +102,12 @@ class FragmentLive : Fragment(){
             btnStart.isEnabled = true
         }
         btnRestart.isEnabled = false
+    }
+
+    private fun setCalendar() {
+        calendar = Calendar.getInstance()
+        currentDate = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.time)
+        val tvDay = root.findViewById<View>(R.id.tvDay) as TextView
+        tvDay.text = currentDate
     }
 }
