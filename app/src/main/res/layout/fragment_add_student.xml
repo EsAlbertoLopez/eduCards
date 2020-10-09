@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FragmentAddStudent">
+
+    <LinearLayout
+        android:id="@+id/layHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Add"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_light"
+            android:text="New Student"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layNewStudentDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layHeading">
+
+        <TextView
+            android:id="@+id/tvStudentID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Student ID"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editTextTextStudentID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Type the New Student's ID"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/tvStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Student Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editTextTextStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Type the New Student's Name"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnSubmitNewStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit New Student" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
