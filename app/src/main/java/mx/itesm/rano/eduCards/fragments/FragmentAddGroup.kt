@@ -6,13 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_add_course.*
+import kotlinx.android.synthetic.main.fragment_add_group.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.models.Group
 
 class FragmentAddGroup : Fragment() {
     lateinit var root: View
+    private lateinit var baseDatos: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        baseDatos = FirebaseDatabase.getInstance()
     }
 
     override fun onCreateView(
@@ -31,8 +38,16 @@ class FragmentAddGroup : Fragment() {
     private fun setSubmitNewGroupButton() {
         var btnSubmitNewGroup = root.findViewById<View>(R.id.btnSubmitNewgroup) as Button
         btnSubmitNewGroup.setOnClickListener {
-            // Sustraer datos de los textFields para crear una nueva instancia de data class de Group,
-            // y enviar esos datos a Firebase
+            val groupId = editTextTextGroupID.text.toString()
+            val groupName = editTextTextGroupName.text.toString()
+
+            escribirDatos(groupId, groupName)
         }
+    }
+
+    private fun escribirDatos(gropuId: String, groupName: String) {
+        val group = Group(gropuId, groupName)
+        val referencia = baseDatos.getReference("/Courses/TI80/Groups/$gropuId")
+        referencia.setValue(group)
     }
 }

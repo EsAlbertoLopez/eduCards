@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout6"
+    android:id="@+id/frameLayout7"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentAddGroup">
+    tools:context=".fragments.FragmentAddStudent">
 
     <LinearLayout
         android:id="@+id/layHeading"
@@ -35,13 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_light"
-            android:text="New Group"
+            android:text="New Student"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lay"
+        android:id="@+id/layNewStudentDetails"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -55,45 +55,45 @@
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
         <TextView
-            android:id="@+id/tvGroupID"
+            android:id="@+id/tvStudentID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Group ID"
+            android:text="Student ID"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextTextGroupID"
+            android:id="@+id/editTextTextStudentID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type the New Group's ID"
+            android:hint="Type the New Student's ID"
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/tvGroupName"
+            android:id="@+id/tvStudentName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Group Name"
+            android:text="Student Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000" />
 
         <EditText
-            android:id="@+id/editTextTextGroupName"
+            android:id="@+id/editTextTextStudentName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type the New Group's Name"
+            android:hint="Type the New Student's Name"
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/btnSubmitNewgroup"
+            android:id="@+id/btnSubmitNewStudent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit New Group" />
+            android:text="Submit New Student" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

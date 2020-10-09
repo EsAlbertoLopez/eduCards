@@ -23,6 +23,7 @@ class FragmentGroup : Fragment() {
         return root
     }
 
+    //You forgot to add the other button method for clarity :c
     private fun setButtons() {
         var btnAddGroup = root.findViewById<View>(R.id.btnAddGroup)
         btnAddGroup.setOnClickListener {

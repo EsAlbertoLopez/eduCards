@@ -54,11 +54,17 @@ class FragmentCourseList : ListFragment() {
                         arrCourses.add(dataCourse)
                     }
 
-                    val adapter = ArrayAdapter<String>(context!!,
-                    android.R.layout.simple_list_item_1,
-                    arrCourses)
+                    if (context != null){
+                        val adapter = ArrayAdapter<String>(context!!,
+                            android.R.layout.simple_list_item_1,
+                            arrCourses)
 
-                    listAdapter = adapter
+                        listAdapter = adapter
+                    }else{
+                        println("Holi")
+                    }
+
+
                 }
             }
 

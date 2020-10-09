@@ -88,34 +88,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/slayManageOthers"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnCourses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Courses" />
-
-            <Button
-                android:id="@+id/btnGroups"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Groups" />
-
-            <Button
-                android:id="@+id/btnStudents"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Students" />
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
