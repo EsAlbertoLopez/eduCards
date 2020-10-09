@@ -29,9 +29,9 @@ class FragmentCardDetail : Fragment() {
         super.onStart()
 
         if(view != null) {
-            tvTitle.text = Student.students[index].name
-            tvDetail.text = Student.students[index].description
-            when(Student.students[index].type){
+            tvTitle.text = "Work"
+            tvDetail.text = "Work"
+            when("Violencia Física"){
                 "Violencia Física" ->  view!!.setBackgroundColor(Color.RED)
                 "Violencia Verbal" -> view!!.setBackgroundColor(Color.rgb(255, 69, 0))
                 "Comportamiento Inadecuado" -> view!!.setBackgroundColor(Color.rgb(255, 20, 147))
