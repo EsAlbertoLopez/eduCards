@@ -3,6 +3,7 @@ package mx.itesm.rano.eduCards.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Chronometer
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -16,6 +17,7 @@ import mx.itesm.rano.eduCards.models.CardStatistics
 
 class MainActivity : AppCompatActivity(), ListListener {
     lateinit var actionBar: ActionBar
+    lateinit var chronometer: Chronometer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +66,5 @@ class MainActivity : AppCompatActivity(), ListListener {
         val detail = Intent(this, groupList::class.java)
         detail.putExtra("INDEX", index)
         startActivity(detail)
-
     }
 }
