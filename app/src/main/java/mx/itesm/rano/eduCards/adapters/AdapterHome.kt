@@ -38,7 +38,6 @@ class AdapterHome(var cardStatistics: Array<CardStatistics>) :
             rowView.tvCardStatistic.text = cardStatistic.cardStatistic
             rowView.tvCardAmount.text = cardStatistic.cardAmount
             //set color
-            println("Hola amigos jeje")
         }
     }
 }
