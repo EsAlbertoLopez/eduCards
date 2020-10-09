@@ -11,10 +11,7 @@ import mx.itesm.rano.eduCards.Interfaces.ClickListener
 import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.adapters.AdapterHome
-import mx.itesm.rano.eduCards.fragments.FragmentGeneral
-import mx.itesm.rano.eduCards.fragments.FragmentHome
-import mx.itesm.rano.eduCards.fragments.FragmentLive
-import mx.itesm.rano.eduCards.fragments.FragmentSettings
+import mx.itesm.rano.eduCards.fragments.*
 import mx.itesm.rano.eduCards.models.CardStatistics
 
 class MainActivity : AppCompatActivity(), ListListener {
@@ -64,8 +61,9 @@ class MainActivity : AppCompatActivity(), ListListener {
     }
 
     override fun itemClicked(index: Int) {
-        val detail = Intent(this, ActivityDetail::class.java)
+        val detail = Intent(this, groupList::class.java)
         detail.putExtra("INDEX", index)
         startActivity(detail)
+
     }
 }

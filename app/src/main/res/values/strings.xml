@@ -9,4 +9,17 @@
         <item>Empatía</item>
         <item>Participación</item>
     </string-array>
+
+    <string-array name="Students">
+        <item>XXXXXXXXXX Juan</item>
+        <item>YYYYYYYYYY Pancho</item>
+        <item>ZZZZZZZZZZ Don Juan</item>
+        <item>AAAAAAAAAA Natalia</item>
+    </string-array>
+
+    <string-array name="Courses">
+        <item>Matematicas</item>
+        <item>Fisica</item>
+        <item>Quimica</item>
+    </string-array>
 </resources>
