@@ -35,7 +35,7 @@ class FragmentCourse : Fragment(), ListListener {
     }
 
     override fun itemClicked(index: Int) {
-        // doesnt work :(
+        // doesn't work :(
         println("Here!")
         var fragment = FragmentGroup()
         fragmentManager?.beginTransaction()
