@@ -32,8 +32,8 @@ class FragmentCourseList : ListFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val vista = super.onCreateView(inflater, container, savedInstanceState)
-        val courses = Array<String>(Course.courses.size){
-            Course.courses[it].name
+        val courses = Array<String>(4){
+            "Hola"
         }
         val adaptador = ArrayAdapter<String>(inflater.context,
             R.layout.simple_list_item_1 , courses)

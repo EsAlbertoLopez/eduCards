@@ -6,13 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_add_course.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.models.Course
 
 class FragmentAddCourse : Fragment() {
     lateinit var root: View
+    private lateinit var baseDatos: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        baseDatos = FirebaseDatabase.getInstance()
     }
 
     override fun onCreateView(
@@ -31,8 +36,16 @@ class FragmentAddCourse : Fragment() {
     private fun setSubmitNewCourseButton() {
         var btnSubmitNewCourse = root.findViewById<View>(R.id.btnSubmitNewCourse) as Button
         btnSubmitNewCourse.setOnClickListener {
-            // Sustraer datos de los textFields para crear una nueva instancia de data class de Course,
-            // y enviar esos datos a Firebase
+            val courseId = editTextTextCourseID.text.toString()
+            val courseName = editTextTextCourseName.text.toString()
+
+            escribirDatos(courseId, courseName)
         }
+    }
+
+    private fun escribirDatos(courseId: String, courseName: String) {
+        val course = Course(courseId, courseName)
+        val referencia = baseDatos.getReference("/Courses/$courseId")
+        referencia.setValue(course)
     }
 }
