@@ -8,8 +8,14 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.models.Student
 import java.text.DateFormat
 import java.util.*
 
@@ -22,8 +28,67 @@ class FragmentLive : Fragment(){
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
 
+    lateinit var arrCourses : MutableList<String>
+    lateinit var arrStudents: MutableList<String>
+
+    private lateinit var baseDatos: FirebaseDatabase
+
+    override fun onStart() {
+        super.onStart()
+        descargarDatosNubeCourses()
+        descargarDatosNubeStudents()
+    }
+
+    private fun descargarDatosNubeStudents() {
+        val referencia = baseDatos.getReference("/Courses/TI80/Groups/21/Alumnos")
+        referencia.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrStudents.clear()
+                for (registro in snapshot.children){
+                    val student = registro.getValue(Student::class.java)
+                    if (student != null){
+                        val dataStudent = "[${student.studentId}] ${student.name} "
+                        arrStudents.add(dataStudent)
+                    }
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+    private fun descargarDatosNubeCourses() {
+        val referencia = baseDatos.getReference("/Courses")
+        referencia.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrCourses.clear()
+                for (registro in snapshot.children){
+                    val course = registro.getValue(Course::class.java)
+                    if (course != null){
+                        val dataCourse = "[${course.courseKey}] ${course.name} "
+                        arrCourses.add(dataCourse)
+                    }
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        baseDatos = FirebaseDatabase.getInstance()
+        arrCourses = mutableListOf()
+        arrStudents = mutableListOf()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,9 +101,11 @@ class FragmentLive : Fragment(){
     }
 
     private fun setSpinners() {
+        print(arrCourses)
+        print(arrStudents)
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
-        setSpinner(inflater, root, R.id.courseSpinner, resources.getStringArray(R.array.Courses))
-        setSpinner(inflater, root, R.id.studentSpinner, resources.getStringArray(R.array.Students))
+        setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+        setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
     }
 
     private fun setSpinner(
