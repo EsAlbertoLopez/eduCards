@@ -12,7 +12,7 @@ import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.models.Course
 
 
-class courseFragment : ListFragment() {
+class FragmentCourse : ListFragment() {
     var listener: ListListener? = null
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
