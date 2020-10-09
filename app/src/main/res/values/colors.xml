@@ -9,4 +9,6 @@
     <color name="colorA">#980B4F</color>
     <color name="colorN">#004F7C</color>
     <color name="colorO">#00711E</color>
+    <color name="colorActivated">#7A7575</color>
+    <color name="colorDeactivated">#D1CDCD</color>
 </resources>
