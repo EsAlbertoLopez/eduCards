@@ -86,7 +86,9 @@ class FragmentCourseList : ListFragment() {
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position)
+        var element = arrCourses[position]
+        listener?.itemClicked(position, element)
+
     }
 
 }

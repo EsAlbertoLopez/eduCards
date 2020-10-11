@@ -1,6 +1,5 @@
 package mx.itesm.rano.eduCards.fragments
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,16 +14,19 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import mx.itesm.rano.eduCards.Interfaces.ListListener
-import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.activities.MainActivity
 import mx.itesm.rano.eduCards.models.Group
 
 class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrGroups : MutableList<String>
 
+
+
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position)
+        var element = arrGroups[position]
+        listener?.itemClicked(position, element)
     }
 
     override fun onAttach(context: Context) {
@@ -32,12 +34,16 @@ class FragmentGroupList : ListFragment(){
         if (context is ListListener){
             listener = context
         }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arrGroups = mutableListOf()
+
+
     }
+
+
 
     override fun onStart() {
         super.onStart()
@@ -51,16 +57,18 @@ class FragmentGroupList : ListFragment(){
         referencia.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroups.clear()
-                for (registro in snapshot.children){
+                for (registro in snapshot.children) {
                     val group = registro.getValue(Group::class.java)
-                    if (group != null){
+                    if (group != null) {
                         val dataCourse = "${group.name} "
                         arrGroups.add(dataCourse)
                     }
 
-                    val adapter = ArrayAdapter<String>(context!!,
+                    val adapter = ArrayAdapter<String>(
+                        context!!,
                         android.R.layout.simple_list_item_1,
-                        arrGroups)
+                        arrGroups
+                    )
 
                     listAdapter = adapter
                 }

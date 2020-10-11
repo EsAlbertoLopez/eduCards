@@ -2,19 +2,12 @@ package mx.itesm.rano.eduCards.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.ListView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.solver.widgets.WidgetContainer
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.ListFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_course.*
 import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.fragments.*
@@ -30,15 +23,22 @@ class MainActivity : AppCompatActivity(), ListListener {
         setFragment(FragmentHome())
     }
 
+    var element = ""
+
     private fun setBottomNavBar() {
         bottomNavBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     window.statusBarColor = resources.getColor(R.color.colorR)
-                    bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+                    bottomNavBar.itemIconTintList =
+                        resources.getColorStateList(R.color.colorPrimary)
                     bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
-                    ivGradient.setColorFilter(ContextCompat.getColor(this,
-                        R.color.colorR), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorR
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                     bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
@@ -47,10 +47,15 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.general -> {
                     window.statusBarColor = resources.getColor(R.color.colorA)
-                    bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+                    bottomNavBar.itemIconTintList =
+                        resources.getColorStateList(R.color.colorPrimary)
                     bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
-                    ivGradient.setColorFilter(ContextCompat.getColor(this,
-                        R.color.colorA), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorA
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                     bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
@@ -59,10 +64,15 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.live -> {
                     window.statusBarColor = resources.getColor(R.color.colorN)
-                    bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+                    bottomNavBar.itemIconTintList =
+                        resources.getColorStateList(R.color.colorPrimary)
                     bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
-                    ivGradient.setColorFilter(ContextCompat.getColor(this,
-                        R.color.colorN), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorN
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                     bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
@@ -71,10 +81,15 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.settings -> {
                     window.statusBarColor = resources.getColor(R.color.colorO)
-                    bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+                    bottomNavBar.itemIconTintList =
+                        resources.getColorStateList(R.color.colorPrimary)
                     bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
-                    ivGradient.setColorFilter(ContextCompat.getColor(this,
-                        R.color.colorO), android.graphics.PorterDuff.Mode.MULTIPLY)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorO
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
                     bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
@@ -94,8 +109,12 @@ class MainActivity : AppCompatActivity(), ListListener {
         window.statusBarColor = resources.getColor(R.color.colorR)
         bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
         bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
-        ivGradient.setColorFilter(ContextCompat.getColor(this,
-            R.color.colorR), android.graphics.PorterDuff.Mode.MULTIPLY)
+        ivGradient.setColorFilter(
+            ContextCompat.getColor(
+                this,
+                R.color.colorR
+            ), android.graphics.PorterDuff.Mode.MULTIPLY
+        )
         bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
     }
 
@@ -121,13 +140,17 @@ class MainActivity : AppCompatActivity(), ListListener {
         startActivity(intent)
     }
 
-    override fun itemClicked(index: Int) {
+
+
+    override fun itemClicked(index: Int, element: String) {
         //val detail = Intent(this, ActivityGroupList::class.java)
         //        //detail.putExtra("INDEX", index)
         //        //startActivity(detail)
         var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment is FragmentCourse) {
-            setFragmentWithBackStack(FragmentGroup())
+            setFragmentWithBackStack(FragmentGroup(element))
+
+            this.element = element
         } else if (currentFragment is FragmentGroup) {
             setFragmentWithBackStack(FragmentStudent())
         } else if (currentFragment is FragmentStudent) {

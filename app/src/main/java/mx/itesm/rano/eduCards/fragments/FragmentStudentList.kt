@@ -23,8 +23,9 @@ class FragmentStudentList : ListFragment(){
     lateinit var arrStudents : MutableList<String>
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        var element = arrStudents[position]
         super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position)
+        listener?.itemClicked(position, element)
     }
 
     override fun onAttach(context: Context) {

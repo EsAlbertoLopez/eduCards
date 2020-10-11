@@ -9,7 +9,7 @@ import android.widget.Button
 import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 
-class FragmentCourse : Fragment(), ListListener {
+class FragmentCourse : Fragment() {
     lateinit var root: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class FragmentCourse : Fragment(), ListListener {
         }
     }
 
-    override fun itemClicked(index: Int) {
+   /* override fun itemClicked(index: Int, element: String) {
         // doesn't work :(
         println("Here!")
         var fragment = FragmentGroup()
@@ -52,7 +52,7 @@ class FragmentCourse : Fragment(), ListListener {
             ?.addToBackStack(fragment.toString())
             ?.replace(R.id.fragmentContainer, fragment)
             ?.commit()
-    }
+    }*/
 
     //private fun setFragmentCourseList() {
     //    val list = root.findViewById<View>(R.id.fragmentFragmentCourseList) as ListFragment

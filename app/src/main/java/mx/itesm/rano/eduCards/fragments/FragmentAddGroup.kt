@@ -13,7 +13,9 @@ import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Group
 
-class FragmentAddGroup : Fragment() {
+class FragmentAddGroup(element: String) : Fragment() {
+
+    val element = element
     lateinit var root: View
     private lateinit var baseDatos: FirebaseDatabase
 
@@ -46,8 +48,9 @@ class FragmentAddGroup : Fragment() {
     }
 
     private fun escribirDatos(gropuId: String, groupName: String) {
+        val courseId = element.split("[", "]")[1]
         val group = Group(gropuId, groupName)
-        val referencia = baseDatos.getReference("/Courses/TI80/Groups/$gropuId")
+        val referencia = baseDatos.getReference("/Courses/$courseId/Groups/$gropuId")
         referencia.setValue(group)
     }
 }
