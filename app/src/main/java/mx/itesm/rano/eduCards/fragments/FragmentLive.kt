@@ -52,6 +52,8 @@ class FragmentLive : Fragment(){
                     }
 
                 }
+
+                setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -74,6 +76,7 @@ class FragmentLive : Fragment(){
                     }
 
                 }
+                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -101,11 +104,7 @@ class FragmentLive : Fragment(){
     }
 
     private fun setSpinners() {
-        print(arrCourses)
-        print(arrStudents)
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
-        setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
-        setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
     }
 
     private fun setSpinner(
