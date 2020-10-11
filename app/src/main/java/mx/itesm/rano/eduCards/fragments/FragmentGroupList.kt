@@ -60,7 +60,7 @@ class FragmentGroupList : ListFragment(){
                 for (registro in snapshot.children) {
                     val group = registro.getValue(Group::class.java)
                     if (group != null) {
-                        val dataCourse = "${group.name} "
+                        val dataCourse = "[${group.groupId}] ${group.name} "
                         arrGroups.add(dataCourse)
                     }
 

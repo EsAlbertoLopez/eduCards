@@ -12,9 +12,11 @@ import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Student
 
-class FragmentAddStudent : Fragment() {
+class FragmentAddStudent(course: String, groupId: String) : Fragment() {
     lateinit var root: View
     private lateinit var baseDatos: FirebaseDatabase
+    var course = course
+    var group = groupId
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,9 @@ class FragmentAddStudent : Fragment() {
 
     private fun escribirDatos(studentId: String, studentName: String) {
         val student = Student(studentId, studentName)
-        val referencia = baseDatos.getReference("/Courses/TI80/Groups/21/Alumnos/$studentId")
+        val courseId = course.split("[", "]")[1]
+        val groupId = group.split("[", "]")[1]
+        val referencia = baseDatos.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
         referencia.setValue(student)
     }
 }

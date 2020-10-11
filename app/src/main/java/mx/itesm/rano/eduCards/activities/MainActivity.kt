@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity(), ListListener {
         setFragment(FragmentHome())
     }
 
-    var element = ""
+    var course = ""
+    var group = ""
+    var student = ""
 
     private fun setBottomNavBar() {
         bottomNavBar.setOnNavigationItemSelectedListener { item ->
@@ -150,9 +152,10 @@ class MainActivity : AppCompatActivity(), ListListener {
         if (currentFragment is FragmentCourse) {
             setFragmentWithBackStack(FragmentGroup(element))
 
-            this.element = element
+            course = element
         } else if (currentFragment is FragmentGroup) {
-            setFragmentWithBackStack(FragmentStudent())
+            group = element
+            setFragmentWithBackStack(FragmentStudent(course, group))
         } else if (currentFragment is FragmentStudent) {
             setFragmentWithBackStack(FragmentCard())
         }
