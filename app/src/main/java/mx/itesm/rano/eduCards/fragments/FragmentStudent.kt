@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import mx.itesm.rano.eduCards.R
 
-class FragmentStudent : Fragment() {
+class FragmentStudent(course: String, group: String) : Fragment() {
     lateinit var root: View
 
+    var course = course
+    var group = group
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,7 +33,7 @@ class FragmentStudent : Fragment() {
     private fun setStudentActionsButtons() {
         var btnAddStudent = root.findViewById<View>(R.id.btnAddStudent) as Button
         btnAddStudent.setOnClickListener {
-            var fragment = FragmentAddStudent()
+            var fragment = FragmentAddStudent(course, group)
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
                 ?.addToBackStack(fragment.toString())
