@@ -13,11 +13,11 @@ import mx.itesm.rano.eduCards.models.Course
 
 class FragmentAddCourse : Fragment() {
     lateinit var root: View
-    private lateinit var baseDatos: FirebaseDatabase
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        baseDatos = FirebaseDatabase.getInstance()
+        database = FirebaseDatabase.getInstance()
     }
 
     override fun onCreateView(
@@ -38,14 +38,13 @@ class FragmentAddCourse : Fragment() {
         btnSubmitNewCourse.setOnClickListener {
             val courseId = editTextTextCourseID.text.toString()
             val courseName = editTextTextCourseName.text.toString()
-
-            escribirDatos(courseId, courseName)
+            writeDataToCloud(courseId, courseName)
         }
     }
 
-    private fun escribirDatos(courseId: String, courseName: String) {
+    private fun writeDataToCloud(courseId: String, courseName: String) {
         val course = Course(courseId, courseName)
-        val referencia = baseDatos.getReference("/Courses/$courseId")
-        referencia.setValue(course)
+        val reference = database.getReference("/Courses/$courseId")
+        reference.setValue(course)
     }
 }

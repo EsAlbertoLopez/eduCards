@@ -13,72 +13,23 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import mx.itesm.rano.eduCards.Interfaces.ListListener
-import mx.itesm.rano.eduCards.activities.MainActivity
+import mx.itesm.rano.eduCards.interfaces.ListListener
 import mx.itesm.rano.eduCards.models.Group
 
 class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrGroups : MutableList<String>
 
-
-
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
-        var element = arrGroups[position]
-        listener?.itemClicked(position, element)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is ListListener){
             listener = context
         }
-
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrGroups = mutableListOf()
-
-
-    }
-
-
-
-    override fun onStart() {
-        super.onStart()
-        descargarDatosNube()
-    }
-
-    private fun descargarDatosNube() {
-        val baseDatos = FirebaseDatabase.getInstance()
-        val referencia = baseDatos.getReference("/Courses/TI80/Groups")
-
-        referencia.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                arrGroups.clear()
-                for (registro in snapshot.children) {
-                    val group = registro.getValue(Group::class.java)
-                    if (group != null) {
-                        val dataCourse = "[${group.groupId}] ${group.name} "
-                        arrGroups.add(dataCourse)
-                    }
-
-                    val adapter = ArrayAdapter<String>(
-                        context!!,
-                        android.R.layout.simple_list_item_1,
-                        arrGroups
-                    )
-
-                    listAdapter = adapter
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
-            }
-
-        })
     }
 
     override fun onCreateView(
@@ -88,5 +39,42 @@ class FragmentGroupList : ListFragment(){
     ): View? {
         val vista = super.onCreateView(inflater, container, savedInstanceState)
         return vista
+    }
+
+    override fun onStart() {
+        super.onStart()
+        readDataFromCloud()
+    }
+
+    private fun readDataFromCloud() {
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference("/Courses/TI80/Groups")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrGroups.clear()
+                for (registro in snapshot.children) {
+                    val group = registro.getValue(Group::class.java)
+                    if (group != null) {
+                        val dataCourse = "[${group.key}] ${group.name} "
+                        arrGroups.add(dataCourse)
+                    }
+                    val adapter = ArrayAdapter<String>(
+                        context!!,
+                        android.R.layout.simple_list_item_1,
+                        arrGroups
+                    )
+                    listAdapter = adapter
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        super.onListItemClick(l, v, position, id)
+        var element = arrGroups[position]
+        listener?.itemClicked(position, element)
     }
 }

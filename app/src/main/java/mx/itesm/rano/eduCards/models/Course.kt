@@ -1,3 +1,3 @@
 package mx.itesm.rano.eduCards.models
 
-data class Course (val courseKey: String="", val name: String="")
+data class Course (val key: String="", val name: String="")

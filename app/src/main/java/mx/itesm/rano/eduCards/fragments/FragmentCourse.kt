@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import mx.itesm.rano.eduCards.Interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 
 class FragmentCourse : Fragment() {
@@ -27,11 +26,11 @@ class FragmentCourse : Fragment() {
     }
 
     private fun setButtons() {
-        setCourseActionButtons()
+        setCourseActionsButtons()
         //setFragmentCourseList()
     }
-    // CourseActionSSSSSSSS... >:(
-    private fun setCourseActionButtons() {
+
+    private fun setCourseActionsButtons() {
         var btnAddCourse = root.findViewById<View>(R.id.btnAddCourse) as Button
         btnAddCourse.setOnClickListener {
             var fragment = FragmentAddCourse()

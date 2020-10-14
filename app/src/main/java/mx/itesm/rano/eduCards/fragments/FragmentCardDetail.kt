@@ -12,7 +12,6 @@ import mx.itesm.rano.eduCards.models.Student
 
 class FragmentCardDetail : Fragment() {
 
-
     var index: Int = 0
     set(value) {
         if(value >= 0) {
@@ -24,10 +23,8 @@ class FragmentCardDetail : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-
     override fun onStart() {
         super.onStart()
-
         if(view != null) {
             tvTitle.text = "Work"
             tvDetail.text = "Work"

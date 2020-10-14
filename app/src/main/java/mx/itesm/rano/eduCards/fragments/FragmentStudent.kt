@@ -9,10 +9,10 @@ import android.widget.Button
 import mx.itesm.rano.eduCards.R
 
 class FragmentStudent(course: String, group: String) : Fragment() {
-    lateinit var root: View
-
     var course = course
     var group = group
+    lateinit var root: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
