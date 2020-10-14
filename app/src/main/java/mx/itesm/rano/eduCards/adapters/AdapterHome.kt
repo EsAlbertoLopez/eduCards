@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_statistic.view.*
-import mx.itesm.rano.eduCards.Interfaces.ClickListener
+import mx.itesm.rano.eduCards.interfaces.ClickListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.CardStatistics
 
@@ -34,7 +34,7 @@ class AdapterHome(var cardStatistics: Array<CardStatistics>) :
 
     class RowView(val rowView: View) : RecyclerView.ViewHolder(rowView) {
         fun set(cardStatistic: CardStatistics) {
-            rowView.tvCardColor.text = cardStatistic.cardColor
+            rowView.tvCardColor.text = cardStatistic.cardType
             rowView.tvCardStatistic.text = cardStatistic.cardStatistic
             rowView.tvCardAmount.text = cardStatistic.cardAmount
             //set color

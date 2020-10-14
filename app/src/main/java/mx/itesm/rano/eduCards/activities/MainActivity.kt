@@ -8,12 +8,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_main.*
-import mx.itesm.rano.eduCards.Interfaces.ListListener
+import mx.itesm.rano.eduCards.interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.fragments.*
 
 class MainActivity : AppCompatActivity(), ListListener {
     lateinit var actionBar: ActionBar
+    var course = ""
+    var group = ""
+    var student = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +25,6 @@ class MainActivity : AppCompatActivity(), ListListener {
         setInitialUI()
         setFragment(FragmentHome())
     }
-
-    var course = ""
-    var group = ""
-    var student = ""
 
     private fun setBottomNavBar() {
         bottomNavBar.setOnNavigationItemSelectedListener { item ->
@@ -143,7 +142,6 @@ class MainActivity : AppCompatActivity(), ListListener {
     }
 
 
-
     override fun itemClicked(index: Int, element: String) {
         //val detail = Intent(this, ActivityGroupList::class.java)
         //        //detail.putExtra("INDEX", index)
@@ -151,7 +149,6 @@ class MainActivity : AppCompatActivity(), ListListener {
         var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment is FragmentCourse) {
             setFragmentWithBackStack(FragmentGroup(element))
-
             course = element
         } else if (currentFragment is FragmentGroup) {
             group = element

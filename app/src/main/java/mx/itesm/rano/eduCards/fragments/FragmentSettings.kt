@@ -28,8 +28,13 @@ class FragmentSettings : Fragment() {
     }
 
     private fun setButtons() {
+        setProfileActionsButtons()
+    }
+
+    private fun setProfileActionsButtons() {
         setSignInButton()
     }
+
     private fun setSignInButton() {
         val button = root.findViewById<View>(R.id.btnSignInOut) as Button
         button.setOnClickListener {

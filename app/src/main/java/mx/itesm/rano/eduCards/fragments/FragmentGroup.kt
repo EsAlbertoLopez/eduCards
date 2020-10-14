@@ -9,15 +9,11 @@ import androidx.fragment.app.FragmentTransaction
 import mx.itesm.rano.eduCards.R
 
 class FragmentGroup(element: String) : Fragment() {
-    lateinit var root: View
-
     var element = element
+    lateinit var root: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
     }
 
     override fun onCreateView(
@@ -26,12 +22,14 @@ class FragmentGroup(element: String) : Fragment() {
     ): View? {
         root = inflater.inflate(R.layout.fragment_group, container, false)
         setButtons()
-
         return root
     }
 
-    //You forgot to add the other button method for clarity :c
     private fun setButtons() {
+        setGroupActionsButtons()
+    }
+
+    private fun setGroupActionsButtons() {
         var btnAddGroup = root.findViewById<View>(R.id.btnAddGroup)
         btnAddGroup.setOnClickListener {
             var fragment = FragmentAddGroup(element)

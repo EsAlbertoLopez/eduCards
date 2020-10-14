@@ -1,6 +1,5 @@
 package mx.itesm.rano.eduCards.fragments
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,19 +13,12 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import mx.itesm.rano.eduCards.Interfaces.ListListener
-import mx.itesm.rano.eduCards.models.Group
+import mx.itesm.rano.eduCards.interfaces.ListListener
 import mx.itesm.rano.eduCards.models.Student
 
 class FragmentStudentList : ListFragment(){
     var listener: ListListener? = null
-    lateinit var arrStudents : MutableList<String>
-
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        var element = arrStudents[position]
-        super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position, element)
-    }
+    lateinit var arrStudents: MutableList<String>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,16 +31,24 @@ class FragmentStudentList : ListFragment(){
         arrStudents = mutableListOf()
     }
 
-    override fun onStart() {
-        super.onStart()
-        descargarDatosNube()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val vista = super.onCreateView(inflater, container, savedInstanceState)
+        return vista
     }
 
-    private fun descargarDatosNube() {
-        val baseDatos = FirebaseDatabase.getInstance()
-        val referencia = baseDatos.getReference("/Courses/TI80/Groups/21/Alumnos")
+    override fun onStart() {
+        super.onStart()
+        readDataFromCloud()
+    }
 
-        referencia.addValueEventListener(object : ValueEventListener {
+    private fun readDataFromCloud() {
+        val database = FirebaseDatabase.getInstance()
+        val reference = database.getReference("/Courses/TI80/Groups/21/Alumnos")
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
                 for (registro in snapshot.children){
@@ -65,20 +65,15 @@ class FragmentStudentList : ListFragment(){
                     listAdapter = adapter
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
             }
-
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val vista = super.onCreateView(inflater, container, savedInstanceState)
-        return vista
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        var element = arrStudents[position]
+        super.onListItemClick(l, v, position, id)
+        listener?.itemClicked(position, element)
     }
 }

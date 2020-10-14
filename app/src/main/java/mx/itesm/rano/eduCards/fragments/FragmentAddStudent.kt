@@ -9,18 +9,17 @@ import android.widget.Button
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_add_student.*
 import mx.itesm.rano.eduCards.R
-import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Student
 
-class FragmentAddStudent(course: String, groupId: String) : Fragment() {
-    lateinit var root: View
-    private lateinit var baseDatos: FirebaseDatabase
+class FragmentAddStudent(course: String, group: String) : Fragment() {
     var course = course
-    var group = groupId
+    var group = group
+    lateinit var root: View
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        baseDatos = FirebaseDatabase.getInstance()
+        database = FirebaseDatabase.getInstance()
     }
 
     override fun onCreateView(
@@ -41,16 +40,15 @@ class FragmentAddStudent(course: String, groupId: String) : Fragment() {
         btnSubmitNewStudent.setOnClickListener {
             val studentId = editTextTextStudentID.text.toString()
             val studentName = editTextTextStudentName.text.toString()
-
-            escribirDatos(studentId, studentName)
+            writeDataToCloud(studentId, studentName)
         }
     }
 
-    private fun escribirDatos(studentId: String, studentName: String) {
+    private fun writeDataToCloud(studentId: String, studentName: String) {
         val student = Student(studentId, studentName)
         val courseId = course.split("[", "]")[1]
         val groupId = group.split("[", "]")[1]
-        val referencia = baseDatos.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
+        val referencia = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
         referencia.setValue(student)
     }
 }

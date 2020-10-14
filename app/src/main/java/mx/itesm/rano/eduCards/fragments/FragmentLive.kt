@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,76 +19,20 @@ import java.text.DateFormat
 import java.util.*
 
 class FragmentLive : Fragment(){
+    var pauseOffset: Long = 0
+    var chronometerState: Boolean = false
     lateinit var root: View
     lateinit var inflater: LayoutInflater
     lateinit var chronometer: Chronometer
     lateinit var calendar: Calendar
     lateinit var currentDate: String
-    var pauseOffset: Long = 0
-    var chronometerState: Boolean = false
-
-    lateinit var arrCourses : MutableList<String>
+    lateinit var arrCourses: MutableList<String>
     lateinit var arrStudents: MutableList<String>
-
-    private lateinit var baseDatos: FirebaseDatabase
-
-    override fun onStart() {
-        super.onStart()
-        descargarDatosNubeCourses()
-        descargarDatosNubeStudents()
-    }
-
-    private fun descargarDatosNubeStudents() {
-        val referencia = baseDatos.getReference("/Courses/TI80/Groups/21/Alumnos")
-        referencia.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                arrStudents.clear()
-                for (registro in snapshot.children){
-                    val student = registro.getValue(Student::class.java)
-                    if (student != null){
-                        val dataStudent = "[${student.studentId}] ${student.name} "
-                        arrStudents.add(dataStudent)
-                    }
-
-                }
-
-                setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
-            }
-
-        })
-    }
-
-    private fun descargarDatosNubeCourses() {
-        val referencia = baseDatos.getReference("/Courses")
-        referencia.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                arrCourses.clear()
-                for (registro in snapshot.children){
-                    val course = registro.getValue(Course::class.java)
-                    if (course != null){
-                        val dataCourse = "[${course.courseKey}] ${course.name} "
-                        arrCourses.add(dataCourse)
-                    }
-
-                }
-                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
-            }
-
-        })
-    }
-
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        baseDatos = FirebaseDatabase.getInstance()
+        database = FirebaseDatabase.getInstance()
         arrCourses = mutableListOf()
         arrStudents = mutableListOf()
     }
@@ -103,6 +46,57 @@ class FragmentLive : Fragment(){
         return root
     }
 
+    override fun onStart() {
+        super.onStart()
+        readDataFromCloud()
+    }
+
+    private fun readDataFromCloud() {
+        readCourseDataFromCloud()
+        readStudentDataFromCloud()
+    }
+
+    private fun readStudentDataFromCloud() {
+        val reference = database.getReference("/Courses/TI80/Groups/21/Alumnos")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrStudents.clear()
+                for (register in snapshot.children){
+                    val student = register.getValue(Student::class.java)
+                    if (student != null){
+                        val dataStudent = "[${student.key}] ${student.name} "
+                        arrStudents.add(dataStudent)
+                    }
+                }
+                setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun readCourseDataFromCloud() {
+        val reference = database.getReference("/Courses")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrCourses.clear()
+                for (register in snapshot.children){
+                    val course = register.getValue(Course::class.java)
+                    if (course != null){
+                        val dataCourse = "[${course.key}] ${course.name} "
+                        arrCourses.add(dataCourse)
+                    }
+                }
+                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+
+        })
+    }
+
     private fun setSpinners() {
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
     }
@@ -114,13 +108,11 @@ class FragmentLive : Fragment(){
         val adapter = ArrayAdapter<String>(inflater.context,
             android.R.layout.simple_spinner_item, reasons)
         spinner?.adapter = adapter
-
         spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 println(reasons[p2])
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
