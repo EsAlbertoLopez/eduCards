@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_add_group.*
 import mx.itesm.rano.eduCards.R
@@ -39,7 +40,12 @@ class FragmentAddGroup(element: String) : Fragment() {
         btnSubmitNewGroup.setOnClickListener {
             val groupId = editTextTextGroupID.text.toString()
             val groupName = editTextTextGroupName.text.toString()
-            writeDataToCloud(groupId, groupName)
+            if (groupId != "" && groupName != "") {
+                writeDataToCloud(groupId, groupName)
+            } else{
+                Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 

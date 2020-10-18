@@ -54,15 +54,21 @@ class FragmentStudentList : ListFragment(){
                 for (registro in snapshot.children){
                     val student = registro.getValue(Student::class.java)
                     if (student != null){
-                        val dataCourse = "${student.name} "
+                        val dataCourse = "[${student.key}] ${student.name} "
                         arrStudents.add(dataCourse)
                     }
 
-                    val adapter = ArrayAdapter<String>(context!!,
-                        android.R.layout.simple_list_item_1,
-                        arrStudents)
+                    if (context != null) {
+                        val adapter = ArrayAdapter<String>(
+                            context!!,
+                            android.R.layout.simple_list_item_1,
+                            arrStudents
+                        )
 
-                    listAdapter = adapter
+                        listAdapter = adapter
+                    }else{
+                        println("Holi")
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {

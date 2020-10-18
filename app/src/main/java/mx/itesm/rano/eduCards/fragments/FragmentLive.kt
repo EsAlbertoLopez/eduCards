@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
 import java.text.DateFormat
 import java.util.*
@@ -28,13 +29,16 @@ class FragmentLive : Fragment(){
     lateinit var currentDate: String
     lateinit var arrCourses: MutableList<String>
     lateinit var arrStudents: MutableList<String>
+    lateinit var arrGroup: MutableList<String>
     private lateinit var database: FirebaseDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance()
         arrCourses = mutableListOf()
         arrStudents = mutableListOf()
+        arrGroup = mutableListOf()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,7 +57,30 @@ class FragmentLive : Fragment(){
 
     private fun readDataFromCloud() {
         readCourseDataFromCloud()
+        readGroupDataFromCloud()
         readStudentDataFromCloud()
+
+    }
+
+    private fun readGroupDataFromCloud() {
+
+        val reference = database.getReference("/Courses/TI80/Groups/")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrGroup.clear()
+                for (register in snapshot.children){
+                    val group = register.getValue(Group::class.java)
+                    if (group != null){
+                        val dataGroup = "[${group.key}] ${group.name} "
+                        arrGroup.add(dataGroup)
+                    }
+                }
+                setSpinner(inflater, root, R.id.groupSpinner, arrGroup.toTypedArray())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun readStudentDataFromCloud() {
@@ -88,7 +115,9 @@ class FragmentLive : Fragment(){
                         arrCourses.add(dataCourse)
                     }
                 }
-                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+                var currentCourse = setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+
+
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
@@ -102,21 +131,30 @@ class FragmentLive : Fragment(){
     }
 
     private fun setSpinner(
-        inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>) {
+
+        inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>): String {
         val spinner = v?.findViewById<Spinner>(optSpinner)
         val reasons = stringArray
         val adapter = ArrayAdapter<String>(inflater.context,
             android.R.layout.simple_spinner_item, reasons)
+        var index = 0
         spinner?.adapter = adapter
         spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                println(reasons[p2])
+                println("HERE AGAIN")
+                println("Spinner as is $spinner")
+                println("Spinner as int ${optSpinner == 2131361900}")
+
+                //currentCourse = reasons[p2]
+                //println(currentCourse)
+                //println(reasons[p2])
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
+        return reasons[index]
     }
 
     private fun setButtons() {
