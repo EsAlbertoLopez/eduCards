@@ -16,6 +16,7 @@ import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
+import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
 
@@ -31,6 +32,10 @@ class FragmentLive : Fragment(){
     lateinit var arrStudents: MutableList<String>
     lateinit var arrGroup: MutableList<String>
     private lateinit var database: FirebaseDatabase
+    lateinit var selectedCourse: String
+    lateinit var selectedGroup: String
+    lateinit var selectedStudent: String
+    lateinit var selectedCause: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,19 +57,14 @@ class FragmentLive : Fragment(){
 
     override fun onStart() {
         super.onStart()
-        readDataFromCloud()
-    }
-
-    private fun readDataFromCloud() {
         readCourseDataFromCloud()
-        readGroupDataFromCloud()
-        readStudentDataFromCloud()
 
     }
 
     private fun readGroupDataFromCloud() {
 
-        val reference = database.getReference("/Courses/TI80/Groups/")
+        val courseId = selectedCourse.split("[", "]")[1]
+        val reference = database.getReference("/Courses/$courseId/Groups/")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroup.clear()
@@ -84,7 +84,9 @@ class FragmentLive : Fragment(){
     }
 
     private fun readStudentDataFromCloud() {
-        val reference = database.getReference("/Courses/TI80/Groups/21/Alumnos")
+        val courseId = selectedCourse.split("[", "]")[1]
+        val groupId = selectedGroup.split("[", "]")[1]
+        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
@@ -115,7 +117,7 @@ class FragmentLive : Fragment(){
                         arrCourses.add(dataCourse)
                     }
                 }
-                var currentCourse = setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
 
 
             }
@@ -128,23 +130,46 @@ class FragmentLive : Fragment(){
 
     private fun setSpinners() {
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
+
+
     }
 
     private fun setSpinner(
 
-        inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>): String {
+        inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>) {
         val spinner = v?.findViewById<Spinner>(optSpinner)
         val reasons = stringArray
         val adapter = ArrayAdapter<String>(inflater.context,
             android.R.layout.simple_spinner_item, reasons)
-        var index = 0
         spinner?.adapter = adapter
         spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                println("HERE AGAIN")
-                println("Spinner as is $spinner")
-                println("Spinner as int ${optSpinner == 2131361900}")
+                println("check to change id ${optSpinner == 2131361900}")
+                println("Spinner as int $optSpinner")
+
+                when (optSpinner){
+                    2131361918 -> {
+                        selectedCourse = reasons[p2]
+                        try {
+                            readGroupDataFromCloud()
+                        }catch (e:Exception){
+                            Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    2131361995 -> {
+                        selectedGroup = reasons[p2]
+                        try {
+                            readStudentDataFromCloud()
+                        }catch (e:Exception){
+                            Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+                //Course id 2131361918
+                //Group id 2131361995
+                //Student id 2131362147
 
                 //currentCourse = reasons[p2]
                 //println(currentCourse)
@@ -154,7 +179,7 @@ class FragmentLive : Fragment(){
                 TODO("Not yet implemented")
             }
         }
-        return reasons[index]
+
     }
 
     private fun setButtons() {
