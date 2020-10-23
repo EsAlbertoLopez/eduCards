@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Identification"
+            android:hint="Your Identification"
             android:inputType="textPersonName" />
 
         <TextView
@@ -96,6 +96,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign In" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you don't have an account, try signing up!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameLayout10"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragments.FragmentSignUp">
 
     <LinearLayout
         android:id="@+id/layHeading"
@@ -21,139 +23,123 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_black"
-            android:text="Settings"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Sign Up"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_light"
-            android:text="Configure your Workspace"
+            android:text="Sign your Credentials to Be Able to Enable your Workspace"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layProfiles"
+        android:id="@+id/laySignUpDetails"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
         <TextView
-            android:id="@+id/tvProfile"
+            android:id="@+id/tvInstitute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Profile"
-            android:textAlignment="textStart"
+            android:text="Institute"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/textColorPrimary" />
 
-        <Button
-            android:id="@+id/btnSignInOut"
+        <EditText
+            android:id="@+id/editTextTextOrganizationID3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign In" />
-
-        <LinearLayout
-            android:id="@+id/slayManageData"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/btnSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Sign Up" />
-
-            <Button
-                android:id="@+id/btnErase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Erase Data" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layProfiles">
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Your Institute"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/tvView"
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
-            android:text="View"
-            android:textAlignment="textStart"
+            android:text="Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/textColorPrimary" />
 
-        <Button
-            android:id="@+id/btnViewMode"
+        <EditText
+            android:id="@+id/editTextTextOrganizationID2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dark Mode" />
-
-        <Button
-            android:id="@+id/btnLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Language" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layAdvanced"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layView">
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Your Name"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/tvOther"
+            android:id="@+id/tvIdentification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Other"
-            android:textAlignment="textStart"
+            android:text="Identification"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/textColorPrimary" />
 
-        <Button
-            android:id="@+id/btnAbout"
+        <EditText
+            android:id="@+id/editTextTextOrganizationID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="About" />
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Your Identification"
+            android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Password"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Your Password"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you already have an account, try signing in!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,12 +33,25 @@ class FragmentSettings : Fragment() {
 
     private fun setProfileActionsButtons() {
         setSignInButton()
+        setSignUpButton()
     }
 
     private fun setSignInButton() {
         val button = root.findViewById<View>(R.id.btnSignInOut) as Button
         button.setOnClickListener {
             val fragment = FragmentSignIn()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, fragment)
+                ?.addToBackStack(fragment.toString())
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                ?.commit()
+        }
+    }
+
+    private fun setSignUpButton() {
+        val button = root.findViewById<View>(R.id.btnSignUp) as Button
+        button.setOnClickListener {
+            val fragment = FragmentSignUp()
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
                 ?.addToBackStack(fragment.toString())
