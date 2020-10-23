@@ -36,6 +36,7 @@ class FragmentSignUp : Fragment() {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if(currentUser != null) {
+            println("Login succsesfull")
             print("User: ${currentUser?.displayName}")
         }
         else{

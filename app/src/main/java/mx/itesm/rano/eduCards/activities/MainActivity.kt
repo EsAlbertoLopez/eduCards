@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), ListListener {
     var course = ""
     var group = ""
     var student = ""
-    var loginFlag = true
+    var loginFlag:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.view.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.activities.MainActivity
 
 class FragmentSettings : Fragment() {
     lateinit var root: View
+    lateinit var mainActivity: MainActivity
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,7 @@ class FragmentSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.fragment_settings, container, false)
+        mainActivity = context as MainActivity
         setButtons()
         return root
     }
@@ -38,13 +43,28 @@ class FragmentSettings : Fragment() {
 
     private fun setSignInButton() {
         val button = root.findViewById<View>(R.id.btnSignInOut) as Button
+        if (mainActivity.loginFlag == false) {
+            button.setText("Sign In")
+        } else {
+            button.setText("Sign Out")
+        }
         button.setOnClickListener {
-            val fragment = FragmentSignIn()
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.fragmentContainer, fragment)
-                ?.addToBackStack(fragment.toString())
-                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                ?.commit()
+            if (mainActivity.loginFlag == false) {
+                button.setText("Sign Out")
+                val fragment = FragmentSignIn()
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragmentContainer, fragment)
+                    ?.addToBackStack(fragment.toString())
+                    ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    ?.commit()
+            } else {
+                button.setText("Sign In")
+                mAuth = FirebaseAuth.getInstance()
+                mAuth.signOut()
+                mainActivity.loginFlag=false
+                mainActivity.deactivateApplication("Settings")
+            }
+
         }
     }
 
