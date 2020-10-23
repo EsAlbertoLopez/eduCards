@@ -47,7 +47,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:divider="?android:dividerHorizontal"
         android:orientation="vertical"
+        android:showDividers="beginning|end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
@@ -98,7 +100,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:divider="?android:dividerHorizontal"
         android:orientation="vertical"
+        android:showDividers="beginning|end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layRecordingStatus">
@@ -117,7 +121,9 @@
             android:id="@+id/slayEventDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:showDividers="beginning|end">
 
             <TextView
                 android:id="@+id/tvEventDescription"
@@ -141,39 +147,10 @@
                 android:gravity="start|top"
                 android:hint="Write about what just happened"
                 android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:maxLength="280"
+                android:maxLines="3"
                 android:textColor="?android:attr/textColorPrimary" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/slayCardType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvCardType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nunitosans_extrabold"
-                android:text="Type"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="?android:attr/textColorPrimary"
-                android:ellipsize="end"/>
-
-            <Spinner
-                android:id="@+id/cardTypeSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:dropDownWidth="match_parent"
-                android:spinnerMode="dialog"
-                android:textAlignment="center"
-                tools:listfooter="Choose"
-                tools:listheader="Card Type" />
 
         </LinearLayout>
 
@@ -181,81 +158,56 @@
             android:id="@+id/layCardDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:showDividers="middle|beginning|end">
 
             <LinearLayout
-                android:id="@+id/slayStudent"
-                android:layout_width="wrap_content"
+                android:id="@+id/slayCardType"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:ellipsize="end">
+                android:divider="?android:dividerHorizontal"
+                android:showDividers="middle">
 
                 <TextView
-                    android:id="@+id/tvGroupName"
+                    android:id="@+id/tvCardType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
+                    android:ellipsize="end"
                     android:fontFamily="@font/nunitosans_extrabold"
-                    android:text="Student"
+                    android:text="Type"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="?android:attr/textColorPrimary" />
 
                 <Spinner
-                    android:id="@+id/studentSpinner"
+                    android:id="@+id/cardTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:dropDownWidth="match_parent"
+                    android:dropDownWidth="wrap_content"
                     android:spinnerMode="dialog"
                     android:textAlignment="center" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/slayGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:ellipsize="end">
-
-                <TextView
-                    android:id="@+id/tvGroupLive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/nunitosans_extrabold"
-                    android:text="Group"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <Spinner
-                    android:id="@+id/groupSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:dropDownWidth="match_parent"
-                    android:spinnerMode="dialog"
-                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/slayCourse"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:ellipsize="end">
+                android:divider="?android:dividerHorizontal"
+                android:ellipsize="end"
+                android:showDividers="middle">
 
                 <TextView
                     android:id="@+id/tvCourseName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:fontFamily="@font/nunitosans_extrabold"
                     android:text="Course"
                     android:textAlignment="center"
@@ -268,7 +220,68 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:dropDownWidth="match_parent"
+                    android:dropDownWidth="wrap_content"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/slayGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="?android:dividerHorizontal"
+                android:ellipsize="end"
+                android:showDividers="middle">
+
+                <TextView
+                    android:id="@+id/tvGroupName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/nunitosans_extrabold"
+                    android:text="Group"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <Spinner
+                    android:id="@+id/groupSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:dropDownWidth="wrap_content"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/slayStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="?android:dividerHorizontal"
+                android:ellipsize="end"
+                android:showDividers="middle">
+
+                <TextView
+                    android:id="@+id/tvStudentName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/nunitosans_extrabold"
+                    android:text="Student"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <Spinner
+                    android:id="@+id/studentSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:dropDownWidth="wrap_content"
                     android:spinnerMode="dialog"
                     android:textAlignment="center" />
 
@@ -284,7 +297,9 @@
             android:id="@+id/slayCardActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:showDividers="beginning|end">
 
             <TextView
                 android:id="@+id/tvCardActions"
@@ -337,7 +352,9 @@
             android:id="@+id/slaySessionActions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:showDividers="beginning|end">
 
             <TextView
                 android:id="@+id/tvSessionActions"
