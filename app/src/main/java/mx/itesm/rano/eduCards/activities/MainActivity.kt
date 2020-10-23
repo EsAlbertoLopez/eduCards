@@ -1,18 +1,20 @@
 package mx.itesm.rano.eduCards.activities
 
 import android.content.Intent
-import android.content.res.Configuration
+import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_main.*
-import mx.itesm.rano.eduCards.interfaces.ListListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.fragments.*
+import mx.itesm.rano.eduCards.interfaces.ListListener
+
 
 class MainActivity : AppCompatActivity(), ListListener {
     lateinit var actionBar: ActionBar
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), ListListener {
             setFragment(FragmentAuthenticationLock("Home"))
         }
         bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
+        hideBottomNavBarWhenKeyboardIsShown()
     }
 
     fun activateApplication(screen: String) {
@@ -199,6 +202,22 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
             }
             true
+        }
+    }
+
+    private fun hideBottomNavBarWhenKeyboardIsShown() {
+        window.decorView.viewTreeObserver.addOnGlobalLayoutListener {
+            val r = Rect()
+            window.decorView.getWindowVisibleDisplayFrame(r)
+            val screenHeight = window.decorView.rootView.height
+            val keypadHeight: Int = screenHeight - r.bottom
+            if (keypadHeight > screenHeight * 0.15) {
+                bottomNavBar.visibility = View.GONE
+                ivGradient.visibility = View.GONE
+            } else {
+                bottomNavBar.visibility = View.VISIBLE
+                ivGradient.visibility = View.VISIBLE
+            }
         }
     }
 
