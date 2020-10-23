@@ -135,7 +135,6 @@ class FragmentLive : Fragment(){
     }
 
     private fun setSpinner(
-
         inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>) {
         val spinner = v?.findViewById<Spinner>(optSpinner)
         val reasons = stringArray

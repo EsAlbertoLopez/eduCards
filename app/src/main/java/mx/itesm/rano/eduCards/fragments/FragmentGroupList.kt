@@ -19,6 +19,7 @@ import mx.itesm.rano.eduCards.models.Group
 class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrGroups : MutableList<String>
+    var selected = "NADA"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -27,9 +28,15 @@ class FragmentGroupList : ListFragment(){
         }
     }
 
+    fun getValueParent(){
+        val myParent = parentFragment as FragmentGroup
+        selected = myParent.element
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrGroups = mutableListOf()
+        getValueParent()
     }
 
     override fun onCreateView(
@@ -43,12 +50,15 @@ class FragmentGroupList : ListFragment(){
 
     override fun onStart() {
         super.onStart()
+        println("Starting")
+        println(selected)
         readDataFromCloud()
     }
 
     private fun readDataFromCloud() {
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses/TI80/Groups")
+        val courseId = selected.split("[", "]")[1]
+        val reference = database.getReference("/Courses/$courseId/Groups")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroups.clear()
