@@ -27,7 +27,7 @@
             android:text="Sign In"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textColor="#000000"
+            android:textColor="?android:attr/textColorPrimary"
             android:textStyle="bold" />
 
         <TextView
@@ -37,7 +37,8 @@
             android:fontFamily="@font/nunitosans_light"
             android:text="Log your Credentials to Enable your Workspace"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +62,7 @@
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Identification"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#000000" />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
             android:id="@+id/editTextTextOrganizationID"
@@ -79,7 +80,7 @@
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Password"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#000000" />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
             android:id="@+id/editTextTextPassword"
