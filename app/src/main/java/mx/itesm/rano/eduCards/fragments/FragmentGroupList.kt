@@ -58,12 +58,17 @@ class FragmentGroupList : ListFragment(){
                         val dataCourse = "[${group.key}] ${group.name} "
                         arrGroups.add(dataCourse)
                     }
-                    val adapter = ArrayAdapter<String>(
-                        context!!,
-                        android.R.layout.simple_list_item_1,
-                        arrGroups
-                    )
-                    listAdapter = adapter
+                    if (context != null) {
+                        val adapter = ArrayAdapter<String>(
+                            context!!,
+                            android.R.layout.simple_list_item_1,
+                            arrGroups
+                        )
+
+                        listAdapter = adapter
+                    }else{
+                        println("Holi")
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {

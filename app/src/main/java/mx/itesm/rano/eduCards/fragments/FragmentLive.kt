@@ -14,7 +14,9 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
+import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
+import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
 
@@ -28,13 +30,20 @@ class FragmentLive : Fragment(){
     lateinit var currentDate: String
     lateinit var arrCourses: MutableList<String>
     lateinit var arrStudents: MutableList<String>
+    lateinit var arrGroup: MutableList<String>
     private lateinit var database: FirebaseDatabase
+    lateinit var selectedCourse: String
+    lateinit var selectedGroup: String
+    lateinit var selectedStudent: String
+    lateinit var selectedCause: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance()
         arrCourses = mutableListOf()
         arrStudents = mutableListOf()
+        arrGroup = mutableListOf()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,16 +57,36 @@ class FragmentLive : Fragment(){
 
     override fun onStart() {
         super.onStart()
-        readDataFromCloud()
+        readCourseDataFromCloud()
+
     }
 
-    private fun readDataFromCloud() {
-        readCourseDataFromCloud()
-        readStudentDataFromCloud()
+    private fun readGroupDataFromCloud() {
+
+        val courseId = selectedCourse.split("[", "]")[1]
+        val reference = database.getReference("/Courses/$courseId/Groups/")
+        reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                arrGroup.clear()
+                for (register in snapshot.children){
+                    val group = register.getValue(Group::class.java)
+                    if (group != null){
+                        val dataGroup = "[${group.key}] ${group.name} "
+                        arrGroup.add(dataGroup)
+                    }
+                }
+                setSpinner(inflater, root, R.id.groupSpinner, arrGroup.toTypedArray())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun readStudentDataFromCloud() {
-        val reference = database.getReference("/Courses/TI80/Groups/21/Alumnos")
+        val courseId = selectedCourse.split("[", "]")[1]
+        val groupId = selectedGroup.split("[", "]")[1]
+        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
@@ -89,6 +118,8 @@ class FragmentLive : Fragment(){
                     }
                 }
                 setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+
+
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
@@ -99,9 +130,12 @@ class FragmentLive : Fragment(){
 
     private fun setSpinners() {
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
+
+
     }
 
     private fun setSpinner(
+
         inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>) {
         val spinner = v?.findViewById<Spinner>(optSpinner)
         val reasons = stringArray
@@ -111,12 +145,41 @@ class FragmentLive : Fragment(){
         spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                println(reasons[p2])
+                println("check to change id ${optSpinner == 2131361900}")
+                println("Spinner as int $optSpinner")
+
+                when (optSpinner){
+                    2131361918 -> {
+                        selectedCourse = reasons[p2]
+                        try {
+                            readGroupDataFromCloud()
+                        }catch (e:Exception){
+                            Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    2131361995 -> {
+                        selectedGroup = reasons[p2]
+                        try {
+                            readStudentDataFromCloud()
+                        }catch (e:Exception){
+                            Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
+                //Course id 2131361918
+                //Group id 2131361995
+                //Student id 2131362147
+
+                //currentCourse = reasons[p2]
+                //println(currentCourse)
+                //println(reasons[p2])
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
+
     }
 
     private fun setButtons() {

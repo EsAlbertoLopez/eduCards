@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_add_student.*
 import mx.itesm.rano.eduCards.R
@@ -40,7 +41,12 @@ class FragmentAddStudent(course: String, group: String) : Fragment() {
         btnSubmitNewStudent.setOnClickListener {
             val studentId = editTextTextStudentID.text.toString()
             val studentName = editTextTextStudentName.text.toString()
-            writeDataToCloud(studentId, studentName)
+            if (studentId != "" && studentName != "") {
+                writeDataToCloud(studentId, studentName)
+            } else{
+                Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 
