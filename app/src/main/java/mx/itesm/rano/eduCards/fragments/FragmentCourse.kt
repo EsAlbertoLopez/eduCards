@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.activities.MainActivity
 
 class FragmentCourse : Fragment() {
     lateinit var root: View

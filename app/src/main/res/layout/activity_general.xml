@@ -26,7 +26,7 @@
             android:text="Courses"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textColor="#000000" />
+            android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
             android:id="@+id/tvSubtitle"
@@ -39,7 +39,7 @@
             android:text="Choose your Course"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000" />
+            android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
     <fragment

@@ -1,9 +1,11 @@
 package mx.itesm.rano.eduCards.activities
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -17,23 +19,43 @@ class MainActivity : AppCompatActivity(), ListListener {
     var course = ""
     var group = ""
     var student = ""
+    var loginFlag = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setBottomNavBar()
         setInitialUI()
-        setFragment(FragmentHome())
     }
 
-    private fun setBottomNavBar() {
+    private fun setInitialUI() {
+        if (loginFlag == true) {
+            activateApplication("Home")
+            setFragment(FragmentHome())
+        } else {
+            deactivateApplication("Home")
+            setFragment(FragmentAuthenticationLock("Home"))
+        }
+        bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
+    }
+
+    fun activateApplication(screen: String) {
+        setActiveBottomNavBar()
+        setActiveUI(screen)
+    }
+
+    fun deactivateApplication(screen: String) {
+        setInactiveBottomNavBar()
+        setInactiveUI(screen)
+    }
+
+    private fun setActiveBottomNavBar() {
         bottomNavBar.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     window.statusBarColor = resources.getColor(R.color.colorR)
-                    bottomNavBar.itemIconTintList =
-                        resources.getColorStateList(R.color.colorPrimary)
-                    bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
                     ivGradient.setColorFilter(
                         ContextCompat.getColor(
                             this,
@@ -48,9 +70,9 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.general -> {
                     window.statusBarColor = resources.getColor(R.color.colorA)
-                    bottomNavBar.itemIconTintList =
-                        resources.getColorStateList(R.color.colorPrimary)
-                    bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
                     ivGradient.setColorFilter(
                         ContextCompat.getColor(
                             this,
@@ -65,9 +87,9 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.live -> {
                     window.statusBarColor = resources.getColor(R.color.colorN)
-                    bottomNavBar.itemIconTintList =
-                        resources.getColorStateList(R.color.colorPrimary)
-                    bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
                     ivGradient.setColorFilter(
                         ContextCompat.getColor(
                             this,
@@ -82,9 +104,9 @@ class MainActivity : AppCompatActivity(), ListListener {
                 }
                 R.id.settings -> {
                     window.statusBarColor = resources.getColor(R.color.colorO)
-                    bottomNavBar.itemIconTintList =
-                        resources.getColorStateList(R.color.colorPrimary)
-                    bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
                     ivGradient.setColorFilter(
                         ContextCompat.getColor(
                             this,
@@ -96,27 +118,134 @@ class MainActivity : AppCompatActivity(), ListListener {
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.settings).setEnabled(false)
                     setFragment(FragmentSettings())
+                    //deactivateApplication("Settings")
                 }
             }
             true
         }
     }
 
-    private fun setInitialUI() {
+    private fun setInactiveBottomNavBar() {
+        bottomNavBar.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    window.statusBarColor = resources.getColor(R.color.colorDeactivated)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorDeactivated
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                    bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
+                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
+                    setFragment(FragmentAuthenticationLock("Home"))
+                }
+                R.id.general -> {
+                    window.statusBarColor = resources.getColor(R.color.colorDeactivated)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorDeactivated
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
+                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
+                    setFragment(FragmentAuthenticationLock("General"))
+                }
+                R.id.live -> {
+                    window.statusBarColor = resources.getColor(R.color.colorDeactivated)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorDeactivated
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
+                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
+                    setFragment(FragmentAuthenticationLock("Live"))
+                }
+                R.id.settings -> {
+                    window.statusBarColor = resources.getColor(R.color.colorO)
+                    //bottomNavBar.itemIconTintList =
+                    //    resources.getColorStateList(R.color.colorPrimary)
+                    //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+                    ivGradient.setColorFilter(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.colorO
+                        ), android.graphics.PorterDuff.Mode.MULTIPLY
+                    )
+                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
+                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(false)
+                    setFragment(FragmentSettings())
+                    //activateApplication("Settings")
+                }
+            }
+            true
+        }
+    }
+
+    private fun setActiveUI(screen: String) {
+        var color = 0
+        when (screen) {
+            "Home" -> color = R.color.colorR
+            "General" -> color = R.color.colorA
+            "Live" -> color = R.color.colorN
+            "Settings" -> color = R.color.colorO
+        }
         actionBar = getSupportActionBar()!!
         if(actionBar != null) {
             actionBar?.hide()
         }
-        window.statusBarColor = resources.getColor(R.color.colorR)
-        bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
-        bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+        window.statusBarColor = resources.getColor(color)
+        //bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+        //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
         ivGradient.setColorFilter(
             ContextCompat.getColor(
                 this,
-                R.color.colorR
+                color
             ), android.graphics.PorterDuff.Mode.MULTIPLY
         )
-        bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
+        //bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
+    }
+
+    private fun setInactiveUI(screen: String) {
+        var color = 0
+        when (screen) {
+            "Home", "General", "Live" -> color = R.color.colorDeactivated
+            "Settings" -> color = R.color.colorO
+        }
+        actionBar = getSupportActionBar()!!
+        if(actionBar != null) {
+            actionBar?.hide()
+        }
+        window.statusBarColor = resources.getColor(color)
+        //bottomNavBar.itemIconTintList = resources.getColorStateList(R.color.colorPrimary)
+        //bottomNavBar.itemTextColor = resources.getColorStateList(R.color.colorPrimary)
+        ivGradient.setColorFilter(
+            ContextCompat.getColor(
+                this,
+                color
+            ), android.graphics.PorterDuff.Mode.MULTIPLY
+        )
+        //bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -158,4 +287,7 @@ class MainActivity : AppCompatActivity(), ListListener {
         }
     }
 
+    fun printPug() {
+        print("OWO");
+    }
 }

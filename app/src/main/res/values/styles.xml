@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LightTheme" parent="AppTheme">
+        <item name="backgroundColor">@color/colorLightBackground</item>
+    </style>
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="backgroundColor">@color/colorA</item>
+    </style>
+
 </resources>
