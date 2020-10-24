@@ -19,6 +19,8 @@ import mx.itesm.rano.eduCards.models.Student
 class FragmentStudentList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrStudents: MutableList<String>
+    var course = "NADA"
+    var group = "NADA"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,6 +31,13 @@ class FragmentStudentList : ListFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrStudents = mutableListOf()
+        getValueParent()
+    }
+
+    fun getValueParent(){
+        val myParent = parentFragment as FragmentStudent
+        course = myParent.course
+        group = myParent.group
     }
 
     override fun onCreateView(
@@ -46,8 +55,10 @@ class FragmentStudentList : ListFragment(){
     }
 
     private fun readDataFromCloud() {
+        val courseId = course.split("[", "]")[1]
+        val groupId = group.split("[", "]")[1]
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses/TI80/Groups/21/Alumnos")
+        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()

@@ -14,7 +14,8 @@
         <activity android:name=".activities.ActivityStudentList" />
         <activity android:name=".activities.ActivityGroupList" />
         <activity android:name=".activities.ActivityCardDetail" />
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
