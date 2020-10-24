@@ -156,7 +156,7 @@ class FragmentLive : Fragment(){
                             Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
                         }
                     }
-                    2131361995 -> {
+                    2131361999 -> {
                         selectedGroup = reasons[p2]
                         try {
                             readStudentDataFromCloud()
