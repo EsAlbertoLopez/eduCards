@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.models.Card
 import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
@@ -156,7 +157,7 @@ class FragmentLive : Fragment(){
                             Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
                         }
                     }
-                    2131361995 -> {
+                    2131361999 -> {
                         selectedGroup = reasons[p2]
                         try {
                             readStudentDataFromCloud()
@@ -164,11 +165,17 @@ class FragmentLive : Fragment(){
                             Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
                         }
                     }
+                    2131362153 -> {
+                        selectedStudent = reasons[p2]
+                    }
+                    2131361900 ->{
+                        selectedCause = reasons[p2]
+                    }
                 }
 
-                //Course id 2131361918
-                //Group id 2131361995
-                //Student id 2131362147
+                //Course id  2131361918
+                //Group id   2131361995
+                //Student id 2131362153
 
                 //currentCourse = reasons[p2]
                 //println(currentCourse)
@@ -186,6 +193,17 @@ class FragmentLive : Fragment(){
     }
 
     private fun setCardActionsButtons() {
+        val btnSave = root.findViewById<View>(R.id.btnSave) as Button
+        btnSave.setOnClickListener{
+            val courseId = selectedCourse.split("[", "]")[1]
+            val groupId = selectedGroup.split("[", "]")[1]
+            val studentId = selectedStudent.split("[", "]")[1]
+            val cause = selectedCause
+            val explanation = editTextTextMultiLineDescription.text.toString()
+
+            writeDataToCloud(courseId, groupId, studentId, cause, explanation)
+
+        }
         chronometer = root.findViewById(R.id.chChronometer) as Chronometer
         val btnStart = root.findViewById<View>(R.id.btnStart) as Button
         btnStart.setOnClickListener {
@@ -222,6 +240,15 @@ class FragmentLive : Fragment(){
             btnStart.isEnabled = true
         }
         btnRestart.isEnabled = false
+    }
+
+    private fun writeDataToCloud(courseId: String, groupId: String, studentId: String, cause: String, explanation: String) {
+        val card = Card(cause, explanation)
+        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
+        val ref = reference.push()
+
+        ref.setValue(card)
+
     }
 
     private fun setCalendar() {
