@@ -10,20 +10,21 @@ import kotlinx.android.synthetic.main.fragment_card_detail.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Student
 
-class FragmentCardDetail : Fragment() {
+class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
 
-    var index: Int = 0
-    set(value) {
-        if(value >= 0) {
-            field = value
-        }
-    }
+    var course = selectedCourse
+    var group = selectedGroup
+    var student = selectedStudent
+    var key = keyEvent
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onStart() {
+        
+
         super.onStart()
         if(view != null) {
             tvTitle.text = "Work"

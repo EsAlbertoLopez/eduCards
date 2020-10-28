@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity(), ListListener {
     var course = ""
     var group = ""
     var student = ""
-    var loginFlag:Boolean = false
+    var keyEvent = ""
+    var loginFlag:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -336,6 +337,9 @@ class MainActivity : AppCompatActivity(), ListListener {
         } else if (currentFragment is FragmentStudent) {
             student = element
             setFragmentWithBackStack(FragmentCauses(course, group, student))
+        } else if (currentFragment is FragmentCauses){
+            keyEvent = element
+            setFragmentWithBackStack(FragmentCardDetail(course, group, student, keyEvent))
         }
     }
 

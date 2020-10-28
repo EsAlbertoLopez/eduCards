@@ -20,6 +20,7 @@ import mx.itesm.rano.eduCards.models.Student
 class FragmentCausesList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrCauses: MutableList<String>
+    lateinit var arrKeys: MutableList<String>
     var course = "NADA"
     var group = "NADA"
     var student = "NADA"
@@ -33,6 +34,7 @@ class FragmentCausesList : ListFragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrCauses = mutableListOf()
+        arrKeys = mutableListOf()
         getValueParent()
     }
 
@@ -71,6 +73,7 @@ class FragmentCausesList : ListFragment(){
                     if (cause != null){
                         val dataCourse = "[${cause.description}]"
                         arrCauses.add(dataCourse)
+                        arrKeys.add(registro.key.toString())
                     }
 
                     if (context != null) {
@@ -93,7 +96,7 @@ class FragmentCausesList : ListFragment(){
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        var element = arrCauses[position]
+        var element = arrKeys[position]
         super.onListItemClick(l, v, position, id)
         listener?.itemClicked(position, element)
     }
