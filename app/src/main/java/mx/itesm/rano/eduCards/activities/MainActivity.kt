@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), ListListener {
     var group = ""
     var student = ""
     var keyEvent = ""
-    var loginFlag:Boolean = true
+    var loginFlag:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

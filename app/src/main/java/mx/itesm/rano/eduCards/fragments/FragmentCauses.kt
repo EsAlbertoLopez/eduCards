@@ -26,8 +26,4 @@ class FragmentCauses(selectedCourse: String, selectedGroup: String, selectedStud
         root = inflater.inflate(R.layout.fragment_causes, container, false)
         return root
     }
-
-
-
-
 }

@@ -24,8 +24,6 @@ class FragmentSignIn : Fragment() {
     lateinit var inflater: LayoutInflater
     lateinit var mainActivity: MainActivity
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth=FirebaseAuth.getInstance()
@@ -52,7 +50,6 @@ class FragmentSignIn : Fragment() {
         mainActivity = context as MainActivity
         makeLogIn()
         return root
-
     }
     private fun makeLogIn(){
         val email = root.findViewById<View>(R.id.editTextTextOrganizationID) as EditText

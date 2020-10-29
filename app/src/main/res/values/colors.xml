@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorPrimary">#00000000</color>
+    <color name="colorPrimaryDark">#00FFFFFF</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorLightBackground">#FFFFFF</color>
     <color name="colorBlackBackground">#001C26</color>
@@ -9,6 +9,12 @@
     <color name="colorA">#980B4F</color>
     <color name="colorN">#004F7C</color>
     <color name="colorO">#00711E</color>
+    <color name="card1">#cb4b16 </color>
+    <color name="card2">#dc322f</color>
+    <color name="card3">#d33682</color>
+    <color name="card4">#6c71c4</color>
+    <color name="card5">#268bd2</color>
+    <color name="card6">#2aa198</color>
     <color name="colorActivated">#7A7575</color>
     <color name="colorDeactivated">#7A7575</color>
 </resources>

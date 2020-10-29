@@ -21,9 +21,9 @@ class FragmentCausesList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrCauses: MutableList<String>
     lateinit var arrKeys: MutableList<String>
-    var course = "NADA"
-    var group = "NADA"
-    var student = "NADA"
+    var course = "None"
+    var group = "None"
+    var student = "None"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -75,14 +75,12 @@ class FragmentCausesList : ListFragment(){
                         arrCauses.add(dataCourse)
                         arrKeys.add(registro.key.toString())
                     }
-
                     if (context != null) {
                         val adapter = ArrayAdapter<String>(
                             context!!,
                             android.R.layout.simple_list_item_1,
                             arrCauses
                         )
-
                         listAdapter = adapter
                     }else{
                         println("Holi")

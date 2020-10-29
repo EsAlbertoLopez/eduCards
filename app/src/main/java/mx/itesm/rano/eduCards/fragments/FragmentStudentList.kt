@@ -19,8 +19,8 @@ import mx.itesm.rano.eduCards.models.Student
 class FragmentStudentList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrStudents: MutableList<String>
-    var course = "NADA"
-    var group = "NADA"
+    var course = "None"
+    var group = "None"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,14 +68,12 @@ class FragmentStudentList : ListFragment(){
                         val dataCourse = "[${student.key}] ${student.name} "
                         arrStudents.add(dataCourse)
                     }
-
                     if (context != null) {
                         val adapter = ArrayAdapter<String>(
                             context!!,
                             android.R.layout.simple_list_item_1,
                             arrStudents
                         )
-
                         listAdapter = adapter
                     }else{
                         println("Holi")
