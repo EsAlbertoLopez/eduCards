@@ -19,7 +19,7 @@ import mx.itesm.rano.eduCards.models.Group
 class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrGroups : MutableList<String>
-    var selected = "NADA"
+    var selected = "None"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,7 +74,6 @@ class FragmentGroupList : ListFragment(){
                             android.R.layout.simple_list_item_1,
                             arrGroups
                         )
-
                         listAdapter = adapter
                     }else{
                         println("Holi")

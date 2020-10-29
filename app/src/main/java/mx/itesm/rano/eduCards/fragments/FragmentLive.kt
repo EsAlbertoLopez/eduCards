@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_live.*
 import mx.itesm.rano.eduCards.R
+import mx.itesm.rano.eduCards.activities.MainActivity
 import mx.itesm.rano.eduCards.models.Card
 import mx.itesm.rano.eduCards.models.Course
 import mx.itesm.rano.eduCards.models.Group
@@ -20,12 +21,12 @@ import mx.itesm.rano.eduCards.models.Student
 import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
-import kotlin.math.exp
 
 class FragmentLive : Fragment(){
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
     lateinit var root: View
+    lateinit var mainActivity: MainActivity
     lateinit var inflater: LayoutInflater
     lateinit var chronometer: Chronometer
     lateinit var calendar: Calendar
@@ -39,7 +40,6 @@ class FragmentLive : Fragment(){
     lateinit var selectedStudent: String
     lateinit var selectedCause: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = FirebaseDatabase.getInstance()
@@ -51,6 +51,7 @@ class FragmentLive : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_live, container, false)
+        mainActivity = context as MainActivity
         setSpinners()
         setButtons()
         setCalendar()
@@ -64,7 +65,6 @@ class FragmentLive : Fragment(){
     }
 
     private fun readGroupDataFromCloud() {
-
         val courseId = selectedCourse.split("[", "]")[1]
         val reference = database.getReference("/Courses/$courseId/Groups/")
         reference.addValueEventListener(object : ValueEventListener {
@@ -132,8 +132,6 @@ class FragmentLive : Fragment(){
 
     private fun setSpinners() {
         setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
-
-
     }
 
     private fun setSpinner(
@@ -145,11 +143,9 @@ class FragmentLive : Fragment(){
         spinner?.adapter = adapter
         spinner?.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
                 println("check to change id ${optSpinner == 2131361900}")
                 println("Spinner as int $optSpinner")
-                println(spinner)
-
                 when (optSpinner){
                     2131361918 -> {
                         selectedCourse = reasons[p2]
@@ -183,15 +179,15 @@ class FragmentLive : Fragment(){
                 //println(currentCourse)
                 //println(reasons[p2])
             }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
-
     }
 
     private fun setButtons() {
         setCardActionsButtons()
+        setSessionActionsButtons()
     }
 
     private fun setCardActionsButtons() {
@@ -202,12 +198,19 @@ class FragmentLive : Fragment(){
             val studentId = selectedStudent.split("[", "]")[1]
             val cause = selectedCause
             val explanation = editTextTextMultiLineDescription.text.toString()
-
             writeDataToCloud(courseId, groupId, studentId, cause, explanation)
-
         }
+        val btnDiscard = root.findViewById<View>(R.id.btnDsicard) as Button
+        btnDiscard.setOnClickListener {
+            if (arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty()) {
 
+            } else {
 
+            }
+        }
+    }
+
+    private fun setSessionActionsButtons() {
         chronometer = root.findViewById(R.id.chChronometer) as Chronometer
         val btnStart = root.findViewById<View>(R.id.btnStart) as Button
         btnStart.setOnClickListener {
@@ -248,7 +251,7 @@ class FragmentLive : Fragment(){
 
     private fun writeDataToCloud(courseId: String, groupId: String, studentId: String, cause: String, explanation: String) {
         val card = Card(cause, explanation)
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/$cause/")
+        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
         val ref = reference.push()
 
         ref.setValue(card)

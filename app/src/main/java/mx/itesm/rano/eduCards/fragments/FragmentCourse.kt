@@ -28,7 +28,6 @@ class FragmentCourse : Fragment() {
 
     private fun setButtons() {
         setCourseActionsButtons()
-        //setFragmentCourseList()
     }
 
     private fun setCourseActionsButtons() {
@@ -42,27 +41,4 @@ class FragmentCourse : Fragment() {
                 ?.commit()
         }
     }
-
-   /* override fun itemClicked(index: Int, element: String) {
-        // doesn't work :(
-        println("Here!")
-        var fragment = FragmentGroup()
-        fragmentManager?.beginTransaction()
-            ?.replace(R.id.fragmentContainer, fragment)
-            ?.addToBackStack(fragment.toString())
-            ?.replace(R.id.fragmentContainer, fragment)
-            ?.commit()
-    }*/
-
-    //private fun setFragmentCourseList() {
-    //    val list = root.findViewById<View>(R.id.fragmentFragmentCourseList) as ListFragment
-    //    list.listView.setOnItemClickListener { adapterView, view, i, l ->
-    //        val fragment = FragmentGroup()
-    //        fragmentManager?.beginTransaction()
-    //            ?.replace(R.id.fragmentContainer, fragment)
-    //            ?.addToBackStack(fragment.toString())
-    //            ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-    //            ?.commit()
-    //    }
-    //}
 }
