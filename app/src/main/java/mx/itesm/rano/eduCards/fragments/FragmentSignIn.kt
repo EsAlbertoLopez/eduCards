@@ -25,7 +25,6 @@ import kotlin.collections.HashMap
 
 
 class FragmentSignIn : Fragment() {
-
     private lateinit var mAuth: FirebaseAuth
     lateinit var root: View
     lateinit var inflater: LayoutInflater
