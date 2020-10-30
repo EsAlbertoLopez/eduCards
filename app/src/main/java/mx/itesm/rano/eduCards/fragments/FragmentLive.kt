@@ -128,13 +128,10 @@ class FragmentLive : Fragment(){
                     }
                 }
                 setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
-
-
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
             }
-
         })
     }
 

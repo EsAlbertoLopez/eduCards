@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(), ListListener {
     //lateinit var fragmentLive: FragmentLive
     //lateinit var fragmentSettings : FragmentSettings
     //lateinit var currentFragment : Fragment
+    lateinit var username: String
     var course = ""
     var group = ""
     var student = ""

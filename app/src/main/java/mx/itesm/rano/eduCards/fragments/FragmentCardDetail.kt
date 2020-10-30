@@ -52,14 +52,14 @@ class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selected
                     time = card.time
                 }
                 if(view != null) {
-                    tvStudentName.text = student
+                    tvStudentName.text = student.split("[", "]")[2]
                     tvCardType.text = cause
                     tvCardDescription.text = description
                     tvCardAuthor.text = author
                     tvCardDate.text = date
                     tvCardTime.text = time
                     when(cause){
-                        "Violencia Física" ->  view!!.setBackgroundColor(resources.getColor(R.color.card1))
+                        "Violencia Física" -> view!!.setBackgroundColor(resources.getColor(R.color.card1))
                         "Violencia Verbal" -> view!!.setBackgroundColor(resources.getColor(R.color.card2))
                         "Comportamiento Inadecuado" -> view!!.setBackgroundColor(resources.getColor(R.color.card3))
                         "Logro" -> view!!.setBackgroundColor(resources.getColor(R.color.card4))
@@ -68,6 +68,7 @@ class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selected
                     }
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
             }

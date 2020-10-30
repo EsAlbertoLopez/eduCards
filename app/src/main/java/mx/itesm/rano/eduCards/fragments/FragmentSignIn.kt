@@ -117,7 +117,7 @@ class FragmentSignIn : Fragment() {
                         // If sign in fails, display a message to the user.
                         println("signInWithEmail:failure ${task.exception}")
                         Toast.makeText(mainActivity,
-                            "Authentication failed.",
+                            "Authentication failed: ${task.exception?.localizedMessage}",
                             Toast.LENGTH_SHORT).show()
                         updateUI(null)
                     }
