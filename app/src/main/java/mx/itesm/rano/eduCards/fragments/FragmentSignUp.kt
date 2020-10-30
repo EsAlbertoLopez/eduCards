@@ -96,7 +96,7 @@ class FragmentSignUp : Fragment() {
                         // Sign in success, update UI with the signed-in user's information
                         println("createUserWithEmail:success")
                         val user = mAuth.currentUser
-
+                        user?.sendEmailVerification()
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
