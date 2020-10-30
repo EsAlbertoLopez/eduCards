@@ -69,7 +69,6 @@ class FragmentSignIn : Fragment() {
 
 
     private fun signIn(email: String, password: String){
-
         mAuth.signInWithEmailAndPassword(email,password)
             .addOnCompleteListener(this.context as MainActivity,
                 OnCompleteListener<AuthResult?> { task ->

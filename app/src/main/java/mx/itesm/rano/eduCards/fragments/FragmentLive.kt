@@ -1,11 +1,17 @@
 package mx.itesm.rano.eduCards.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.text.set
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,11 +42,11 @@ class FragmentLive : Fragment(){
     lateinit var arrCourses: MutableList<String>
     lateinit var arrStudents: MutableList<String>
     lateinit var arrGroup: MutableList<String>
-    private lateinit var database: FirebaseDatabase
     lateinit var selectedCourse: String
     lateinit var selectedGroup: String
     lateinit var selectedStudent: String
     lateinit var selectedCause: String
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,13 +63,13 @@ class FragmentLive : Fragment(){
         setSpinners()
         setButtons()
         setCalendar()
+        setReportDetails()
         return root
     }
 
     override fun onStart() {
         super.onStart()
         readCourseDataFromCloud()
-
     }
 
     private fun readGroupDataFromCloud() {
@@ -195,21 +201,59 @@ class FragmentLive : Fragment(){
     private fun setCardActionsButtons() {
         val btnSave = root.findViewById<View>(R.id.btnSave) as Button
         btnSave.setOnClickListener{
-            val courseId = selectedCourse.split("[", "]")[1]
-            val groupId = selectedGroup.split("[", "]")[1]
-            val studentId = selectedStudent.split("[", "]")[1]
-            val cause = selectedCause
-            val explanation = editTextTextMultiLineDescription.text.toString()
-            writeDataToCloud(courseId, groupId, studentId, cause, explanation)
+            if (arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty()) {
+                Toast.makeText(mainActivity,
+                    "Nothing to save",
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                var alertDialogBuilder : AlertDialog.Builder = AlertDialog.Builder(mainActivity)
+                alertDialogBuilder.setTitle("Save Card?")
+                    .setMessage("")
+                    .setPositiveButton("Yes", DialogInterface.OnClickListener{
+                            dialog, id ->
+                        Toast.makeText(mainActivity,
+                            "Saving card",
+                            Toast.LENGTH_SHORT).show()
+                        val courseId = selectedCourse.split("[", "]")[1]
+                        val groupId = selectedGroup.split("[", "]")[1]
+                        val studentId = selectedStudent.split("[", "]")[1]
+                        val cause = selectedCause
+                        val description = editTextTextMultiLineDescription.text.toString()
+                        writeDataToCloud(courseId, groupId, studentId, cause, description)
+                        editTextTextMultiLineDescription.text.clear()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener{
+                            dialog, id -> dialog.cancel()
+                    })
+                alertDialogBuilder.create().show()
+            }
         }
         val btnDiscard = root.findViewById<View>(R.id.btnDsicard) as Button
         btnDiscard.setOnClickListener {
             if (arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty()) {
-
+                Toast.makeText(mainActivity,
+                    "Nothing to discard",
+                    Toast.LENGTH_SHORT).show()
             } else {
-
+                var alertDialogBuilder : AlertDialog.Builder = AlertDialog.Builder(mainActivity)
+                alertDialogBuilder.setTitle("Discard Card?")
+                    .setMessage("Doing so clears this card's description")
+                    .setPositiveButton("Yes", DialogInterface.OnClickListener{
+                        dialog, id ->
+                        Toast.makeText(mainActivity,
+                            "Proceeding to discard",
+                            Toast.LENGTH_SHORT).show()
+                        var editTextDescription = root.findViewById<View>(R.id.editTextTextMultiLineDescription) as EditText
+                        editTextDescription.text.clear()
+                    })
+                    .setNegativeButton("Cancel", DialogInterface.OnClickListener{
+                            dialog, id -> dialog.cancel()
+                    })
+                alertDialogBuilder.create().show()
             }
         }
+        btnSave.isEnabled = false
+        btnDiscard.isEnabled = false
     }
 
     private fun setSessionActionsButtons() {
@@ -259,9 +303,7 @@ class FragmentLive : Fragment(){
         val card = Card(cause, explanation, "Joaquin", dateTime[0], dateTime[1])
         val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
         val ref = reference.push()
-
         ref.setValue(card)
-
     }
 
     private fun setCalendar() {
@@ -269,5 +311,24 @@ class FragmentLive : Fragment(){
         currentDate = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.time)
         val tvDay = root.findViewById<View>(R.id.tvDay) as TextView
         tvDay.text = currentDate
+    }
+
+    private fun setReportDetails() {
+        var editTextDescription = root.findViewById<View>(R.id.editTextTextMultiLineDescription) as EditText
+        editTextDescription.addTextChangedListener (object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // Fires right as the text is being changed (even supplies the range of text)
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // Fires right before text is changing
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                btnDsicard.isEnabled = !(arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty())
+                btnSave.isEnabled = !(arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty())
+                //tvDisplay.setText(s.toString())
+            }
+        })
     }
 }
