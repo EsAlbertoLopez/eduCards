@@ -69,11 +69,13 @@ class FragmentSignUp : Fragment() {
                 if (etPassword != null) {
                     val etInstituteName = root.findViewById<View>(R.id.editTextTextInstitute) as EditText
                     val etInstructorName = root.findViewById<View>(R.id.editTextTextInstructorName) as EditText
+                    val etUsername=root.findViewById<View>(R.id.editTextTextUsername) as EditText
                     val email = etEmail.text.toString()
                     val instituteName=etInstituteName.text.toString()
                     val instructorName =etInstructorName.text.toString()
-                    if (instituteName != "" && instructorName != "" && email != "") {
-                        writeDataToCloud(email, instructorName, instituteName)
+                    val username= etUsername.text.toString()
+                    if (instituteName != "" && instructorName != "" && email != "" && username!="") {
+                        writeDataToCloud(username, instructorName, instituteName,email)
                     } else {
                         Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG)
                             .show()
@@ -111,9 +113,9 @@ class FragmentSignUp : Fragment() {
 
     }
 
-    private fun writeDataToCloud(email: String, instructorName: String, instituteName: String) {
-        val instructor = Instructor(email, instructorName, instituteName,mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>())
-        val reference = database.getReference("/Instructors/$email")
+    private fun writeDataToCloud(username: String, instructorName: String, instituteName: String, email: String) {
+        val instructor = Instructor(username, instructorName, instituteName,email,mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>())
+        val reference = database.getReference("/Instructors/$username")
         reference.setValue(instructor)
     }
 }
