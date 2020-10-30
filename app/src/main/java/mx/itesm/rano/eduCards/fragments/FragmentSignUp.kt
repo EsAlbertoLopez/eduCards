@@ -12,20 +12,24 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
+import mx.itesm.rano.eduCards.models.Instructor
 
 
 class FragmentSignUp : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     lateinit var root: View
     lateinit var inflater: LayoutInflater
+    private lateinit var database: FirebaseDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
-
-
+        database = FirebaseDatabase.getInstance()
     }
 
     override fun onStart() {
@@ -35,42 +39,51 @@ class FragmentSignUp : Fragment() {
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
-        if(currentUser != null) {
+        if (currentUser != null) {
             println("Login succsesfull")
             print("User: ${currentUser?.displayName}")
-        }
-        else{
+        } else {
             print("No has hecho log in")
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_sign_up, container, false)
         createAccounts()
         return root
 
     }
-    private fun createAccounts(){
-        val email = root.findViewById<View>(R.id.editTextTextOrganizationID) as EditText
-        val password=root.findViewById<View>(R.id.editTextTextPassword) as EditText
-        val btnSignUp=root.findViewById<View>(R.id.btnSignUp) as Button
-        btnSignUp.setOnClickListener{
-            if (email != null) {
-                if (password != null) {
-                    createAccount(email.text.toString(),password.text.toString())
+
+
+    private fun createAccounts() {
+        val etEmail = root.findViewById<View>(R.id.editTextTextOrganizationID) as EditText
+        val etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
+        val btnSignUp = root.findViewById<View>(R.id.btnSignUp) as Button
+        btnSignUp.setOnClickListener {
+            if (etEmail != null) {
+                if (etPassword != null) {
+                    val instituteName = editTextTextOrganizationID3.text.toString()
+                    val instructorName = editTextTextOrganizationID2.text.toString()
+                    val email = editTextTextOrganizationID.text.toString()
+                    if (instituteName != "" && instructorName != "" && email != "") {
+                        writeDataToCloud(email, instructorName, instituteName)
+                    } else {
+                        Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                    createAccount(etEmail.text.toString(), etPassword.text.toString())
                 }
             }
         }
 
     }
 
-
-
-
-
-
-    fun createAccount(email: String, password: String){
+    fun createAccount(email: String, password: String) {
 
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this.context as MainActivity,
@@ -79,10 +92,11 @@ class FragmentSignUp : Fragment() {
                         // Sign in success, update UI with the signed-in user's information
                         println("createUserWithEmail:success")
                         val user = mAuth.currentUser
+
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        println("createUserWithEmail:failure ${ task.exception}")
+                        println("createUserWithEmail:failure ${task.exception}")
                         Toast.makeText(
                             this.context as MainActivity, "Authentication failed.",
                             Toast.LENGTH_SHORT
@@ -93,5 +107,11 @@ class FragmentSignUp : Fragment() {
                     // ...
                 })
 
+    }
+
+    private fun writeDataToCloud(instituteName: String, instructorName: String, email: String) {
+        val instructor = Instructor(email, instructorName, instituteName)
+        val reference = database.getReference("/Teachers/$instituteName")
+        reference.setValue(instructor)
     }
 }
