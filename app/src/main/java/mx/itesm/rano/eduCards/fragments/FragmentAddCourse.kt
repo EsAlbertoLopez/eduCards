@@ -28,6 +28,7 @@ class FragmentAddCourse(user: String) : Fragment() {
     ): View? {
         root = inflater.inflate(R.layout.fragment_add_course, container, false)
         setNewCourseDetailsButtons()
+
         return root
     }
 

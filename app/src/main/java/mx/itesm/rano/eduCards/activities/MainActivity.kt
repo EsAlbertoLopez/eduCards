@@ -1,9 +1,13 @@
 package mx.itesm.rano.eduCards.activities
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -26,12 +30,13 @@ class MainActivity : AppCompatActivity(), ListListener {
     //lateinit var fragmentLive: FragmentLive
     //lateinit var fragmentSettings : FragmentSettings
     //lateinit var currentFragment : Fragment
-    var username = "pug_del_diablo"
+    var username = "None"
+    var instructor = "None"
     var course = ""
     var group = ""
     var student = ""
     var keyEvent = ""
-    var loginFlag:Boolean = true
+    var loginFlag:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -332,7 +337,6 @@ class MainActivity : AppCompatActivity(), ListListener {
         if (currentFragment is FragmentCourse) {
             course = element
             setFragmentWithBackStack(FragmentGroup(username, course))
-
         } else if (currentFragment is FragmentGroup) {
             group = element
             setFragmentWithBackStack(FragmentStudent(username, course, group))
@@ -343,6 +347,23 @@ class MainActivity : AppCompatActivity(), ListListener {
             keyEvent = element
             setFragmentWithBackStack(FragmentCardDetail(username, course, group, student, keyEvent))
         }
+    }
+
+    fun resolveThemeAttr(context: Context, @AttrRes attrRes: Int): TypedValue {
+        val theme = context.theme
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attrRes, typedValue, true)
+        return typedValue
+    }
+
+    @ColorInt
+    fun resolveColorAttr(context: Context, @AttrRes colorAttr: Int): Int {
+        val resolvedAttr = resolveThemeAttr(context, colorAttr)
+        val colorRes = if (resolvedAttr.resourceId != 0)
+            resolvedAttr.resourceId
+        else
+            resolvedAttr.data
+        return ContextCompat.getColor(context, colorRes)
     }
 
     fun printPug() {

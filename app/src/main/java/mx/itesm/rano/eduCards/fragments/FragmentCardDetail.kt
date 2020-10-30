@@ -45,7 +45,7 @@ class FragmentCardDetail(user:String, selectedCourse: String, selectedGroup: Str
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val card = snapshot.getValue(Card::class.java)
-                if (card != null){
+                if (card != null) {
                     cause = card.type
                     description = card.description
                     author = card.author

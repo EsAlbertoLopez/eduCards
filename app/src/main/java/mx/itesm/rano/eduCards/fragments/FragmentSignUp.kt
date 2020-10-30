@@ -1,6 +1,8 @@
 package mx.itesm.rano.eduCards.fragments
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
@@ -35,6 +37,7 @@ class FragmentSignUp : Fragment() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnSignUp: Button
+    private lateinit var connectivityChangeReceiver: BroadcastReceiver
     private lateinit var connectivityManager: ConnectivityManager
     private lateinit var database: FirebaseDatabase
     private lateinit var mAuth: FirebaseAuth
@@ -61,6 +64,7 @@ class FragmentSignUp : Fragment() {
         mainActivity = context as MainActivity
         connectivityManager = mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         setLayoutVariables()
+        setConnectivityChangeReceiver()
         checkConnectivityStatus()
         setSignUpButton()
         setReportDetails()
@@ -269,6 +273,16 @@ class FragmentSignUp : Fragment() {
         })
     }
 
+    private fun setConnectivityChangeReceiver() {
+        connectivityChangeReceiver = object : BroadcastReceiver() {
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                if (p1?.action.equals("android.net.conn.CONNECTIVITY_CHANGE", false)) {
+                    checkConnectivityStatus()
+                }
+            }
+        }
+    }
+
     private fun checkConnectivityStatus(): Boolean {
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
@@ -278,6 +292,7 @@ class FragmentSignUp : Fragment() {
         } else {
             //tvSubtitle.setTextColor(resources.getColor(android:attr/textColorPrimary))
             tvSubtitle.text = "Create your Account"
+            tvSubtitle.setTextColor(mainActivity.resolveColorAttr(mainActivity, android.R.attr.textColorPrimary))
         }
         return isConnected
     }

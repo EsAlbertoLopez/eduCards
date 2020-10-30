@@ -18,7 +18,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
+import mx.itesm.rano.eduCards.models.Card
 import mx.itesm.rano.eduCards.models.Instructor
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class FragmentSignIn : Fragment() {
@@ -82,15 +85,15 @@ class FragmentSignIn : Fragment() {
                 TODO("Not yet implemented")
             }
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (record in snapshot.children) {
-                    val instructor = record.getValue() as String
-                    print(instructor)
-                    if (instructor != null) {
-                        if (instructor.contains(email)) {
-                            signIn(username, email, password)
-                        } else {
-                            print("Failed to verify")
-                        }
+                val instructor = snapshot.getValue(Instructor::class.java)
+                if (instructor != null) {
+                    var recordedEmail = instructor.email
+                    var recordedName = instructor.name
+                    if (recordedEmail == email) {
+                        println("recordedEmail $recordedEmail")
+                        signIn(username, recordedName, email, password)
+                    } else {
+                        print("Failed to verify")
                     }
                 }
             }
@@ -98,22 +101,33 @@ class FragmentSignIn : Fragment() {
         })
     }
 
-    private fun signIn(username: String, email: String, password: String){
+    private fun signIn(username: String, name: String, email: String, password: String){
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this.context as MainActivity,
                 OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        println("signInWithEmail:success")
-                        mainActivity.activateApplication("Settings")
-                        mainActivity.loginFlag = true
-                        Toast.makeText(mainActivity,
-                        "Authentication succeeded",
-                        Toast.LENGTH_SHORT).show()
                         val user: FirebaseUser? = mAuth.currentUser
-                        mainActivity.username = username
-                        mainActivity.printPug()
-                        updateUI(user)
+                        if (user != null) {
+                            if (user.isEmailVerified) {
+                                println("signInWithEmail:success")
+                                mainActivity.activateApplication("Settings")
+                                mainActivity.loginFlag = true
+                                Toast.makeText(mainActivity,
+                                    "Authentication succeeded",
+                                    Toast.LENGTH_LONG).show()
+                                mainActivity.username = username
+                                mainActivity.instructor = name
+                                mainActivity.printPug()
+                                updateUI(user)
+                            } else {
+                                Toast.makeText(
+                                    mainActivity,
+                                    "Verify your account to fire up eduCards",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     } else {
                         // If sign in fails, display a message to the user.
                         println("signInWithEmail:failure ${task.exception}")

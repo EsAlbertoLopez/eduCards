@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.itesm.rano.eduCards">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ActivityGeneral"></activity>
-        <activity android:name=".activities.ActivitySignIn" />
-        <activity android:name=".activities.ActivityStudentList" />
-        <activity android:name=".activities.ActivityGroupList" />
         <activity android:name=".activities.ActivityCardDetail" />
         <activity android:name=".activities.MainActivity"
             android:theme="@style/SplashTheme">
