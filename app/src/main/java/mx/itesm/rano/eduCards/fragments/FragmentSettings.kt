@@ -8,7 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.view.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
 
@@ -38,7 +37,8 @@ class FragmentSettings : Fragment() {
 
     private fun setProfileActionsButtons() {
         setSignInButton()
-        setAbouButton()
+        setSignUpButton()
+        setAboutButton()
     }
 
     private fun setSignInButton() {
@@ -68,7 +68,19 @@ class FragmentSettings : Fragment() {
         }
     }
 
-    private fun setAbouButton(){
+    private fun setSignUpButton() {
+        val button = root.findViewById<View>(R.id.btnSignUp) as Button
+        button.setOnClickListener {
+            val fragment = FragmentSignUp()
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, fragment)
+                ?.addToBackStack(fragment.toString())
+                ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                ?.commit()
+        }
+    }
+
+    private fun setAboutButton(){
         val button = root.findViewById<View>(R.id.btnAbout) as Button
         button.setOnClickListener {
             val fragment = FragmentAbout()
