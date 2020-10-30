@@ -61,15 +61,17 @@ class FragmentSignUp : Fragment() {
 
 
     private fun createAccounts() {
-        val etEmail = root.findViewById<View>(R.id.editTextTextOrganizationID) as EditText
+        val etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
         val etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
         val btnSignUp = root.findViewById<View>(R.id.btnSignUp) as Button
         btnSignUp.setOnClickListener {
             if (etEmail != null) {
                 if (etPassword != null) {
-                    val instituteName = editTextTextOrganizationID3.text.toString()
-                    val instructorName = editTextTextOrganizationID2.text.toString()
-                    val email = editTextTextOrganizationID.text.toString()
+                    val etInstituteName = root.findViewById<View>(R.id.editTextTextInstitute) as EditText
+                    val etInstructorName = root.findViewById<View>(R.id.editTextTextInstructorName) as EditText
+                    val email = etEmail.text.toString()
+                    val instituteName=etInstituteName.text.toString()
+                    val instructorName =etInstructorName.text.toString()
                     if (instituteName != "" && instructorName != "" && email != "") {
                         writeDataToCloud(email, instructorName, instituteName)
                     } else {
@@ -109,9 +111,9 @@ class FragmentSignUp : Fragment() {
 
     }
 
-    private fun writeDataToCloud(instituteName: String, instructorName: String, email: String) {
-        val instructor = Instructor(email, instructorName, instituteName)
-        val reference = database.getReference("/Teachers/$instituteName")
+    private fun writeDataToCloud(email: String, instructorName: String, instituteName: String) {
+        val instructor = Instructor(email, instructorName, instituteName,mutableListOf<String>(),mutableListOf<String>(),mutableListOf<String>())
+        val reference = database.getReference("/Instructors/$email")
         reference.setValue(instructor)
     }
 }

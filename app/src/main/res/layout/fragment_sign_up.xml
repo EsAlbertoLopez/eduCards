@@ -65,7 +65,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextTextOrganizationID3"
+            android:id="@+id/editTextTextInstitute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -84,7 +84,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextTextOrganizationID2"
+            android:id="@+id/editTextTextInstructorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -103,7 +103,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextTextOrganizationID"
+            android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

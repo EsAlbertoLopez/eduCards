@@ -1,6 +1,5 @@
 package mx.itesm.rano.eduCards.fragments
 
-import android.R.attr
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,7 +51,7 @@ class FragmentSignIn : Fragment() {
         return root
     }
     private fun makeLogIn(){
-        val email = root.findViewById<View>(R.id.editTextTextOrganizationID) as EditText
+        val email = root.findViewById<View>(R.id.editTextTextEmail) as EditText
         val password=root.findViewById<View>(R.id.editTextTextPassword) as EditText
         val btnSignIn=root.findViewById<View>(R.id.btnSignIn) as Button
         btnSignIn.setOnClickListener{
