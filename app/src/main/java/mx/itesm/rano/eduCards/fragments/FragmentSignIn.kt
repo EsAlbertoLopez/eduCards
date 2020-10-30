@@ -12,8 +12,13 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
+import mx.itesm.rano.eduCards.models.Instructor
 
 
 class FragmentSignIn : Fragment() {
@@ -22,6 +27,7 @@ class FragmentSignIn : Fragment() {
     lateinit var root: View
     lateinit var inflater: LayoutInflater
     lateinit var mainActivity: MainActivity
+    lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +53,49 @@ class FragmentSignIn : Fragment() {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_sign_in, container, false)
         mainActivity = context as MainActivity
+        database= FirebaseDatabase.getInstance()
         makeLogIn()
         return root
     }
+
     private fun makeLogIn(){
-        val email = root.findViewById<View>(R.id.editTextTextEmail) as EditText
-        val password=root.findViewById<View>(R.id.editTextTextPassword) as EditText
+        val etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
+        val etUsername=root.findViewById<View>(R.id.editTextTextUsername) as EditText
+        val etPassword=root.findViewById<View>(R.id.editTextTextPassword) as EditText
         val btnSignIn=root.findViewById<View>(R.id.btnSignIn) as Button
         btnSignIn.setOnClickListener{
             if(mainActivity.loginFlag==false) {
                 btnSignIn.setText("SIGN IN")
-                if (email != null) {
-                    if (password != null) {
-                        signIn(email.text.toString(), password.text.toString())
+                if (etEmail != null) {
+                    if (etPassword != null) {
+                        verifyAccount(etUsername.text.toString(), etEmail.text.toString(), etPassword.text.toString())
                     }
                 }
             }
         }
+    }
+
+    private fun verifyAccount(username: String, email: String, password: String) {
+        var reference = database.getReference("/Instructors/$username")
+        reference.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (record in snapshot.children) {
+                    val instructor = record.getValue() as String
+                    print(instructor)
+                    if (instructor != null) {
+                        if (instructor.contains(email)) {
+                            signIn(email, password)
+                        } else {
+                            print("Failed to verify")
+                        }
+                    }
+                }
+            }
+
+        })
     }
 
 
@@ -94,6 +126,7 @@ class FragmentSignIn : Fragment() {
                 })
 
     }
+
 
 
 }

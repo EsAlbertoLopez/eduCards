@@ -65,7 +65,7 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextTextUsername2"
+            android:id="@+id/editTextTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

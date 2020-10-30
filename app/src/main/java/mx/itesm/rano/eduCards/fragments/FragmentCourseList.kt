@@ -51,8 +51,8 @@ class FragmentCourseList : ListFragment() {
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCourses.clear()
-                for (registro in snapshot.children){
-                    val course = registro.getValue(Course::class.java)
+                for (record in snapshot.children){
+                    val course = record.getValue(Course::class.java)
                     if (course != null){
                         val dataCourse = "[${course.key}] ${course.name} "
                         arrCourses.add(dataCourse)
