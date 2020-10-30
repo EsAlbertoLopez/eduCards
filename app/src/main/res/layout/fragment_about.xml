@@ -28,7 +28,7 @@
             android:text="About Us"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textColor="#000000"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="40sp" />
 
         <ImageView
@@ -71,6 +71,7 @@
                 android:text="eduCards"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="30sp"
                 android:textStyle="bold|italic" />
         </LinearLayout>
@@ -105,6 +106,7 @@
             android:layout_height="wrap_content"
             android:text="The main objective of this project is focused on the area of education, where what is sought is for teachers to have better control of their students in a more automated way. It is a record of conduct through a system of cards, whether of good or bad behavior. "
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="16dp" />
 
         <TextView
@@ -133,6 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="Alberto Lopez "
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16dp" />
 
                 <TextView
@@ -141,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nataly Lopez "
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16dp" />
 
                 <TextView
@@ -149,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:text="Oswaldo Morales "
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16dp" />
 
                 <TextView
@@ -157,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:text="Raúl Ortiz"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16dp" />
 
             </LinearLayout>
@@ -178,6 +184,7 @@
             android:layout_height="wrap_content"
             android:text="E-mail:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="18sp" />
 
         <TextView
@@ -186,6 +193,7 @@
             android:layout_height="wrap_content"
             android:text="rano.edu.itesm@gmail.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
