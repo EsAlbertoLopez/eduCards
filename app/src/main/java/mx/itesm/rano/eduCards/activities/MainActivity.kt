@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), ListListener {
     //lateinit var fragmentLive: FragmentLive
     //lateinit var fragmentSettings : FragmentSettings
     //lateinit var currentFragment : Fragment
-    var username: String? = null
+    var username = "pug_del_diablo"
     var course = ""
     var group = ""
     var student = ""
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(), ListListener {
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
-                    setFragment(FragmentCourse())
+                    setFragment(FragmentCourse(username))
                 }
                 R.id.live -> {
                     window.statusBarColor = resources.getColor(R.color.colorN)
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), ListListener {
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
-                    setFragment(FragmentLive())
+                    setFragment(FragmentLive(username))
                 }
                 R.id.settings -> {
                     window.statusBarColor = resources.getColor(R.color.colorO)
@@ -330,17 +330,18 @@ class MainActivity : AppCompatActivity(), ListListener {
         //        //startActivity(detail)
         var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment is FragmentCourse) {
-            setFragmentWithBackStack(FragmentGroup(element))
             course = element
+            setFragmentWithBackStack(FragmentGroup(username, course))
+
         } else if (currentFragment is FragmentGroup) {
             group = element
-            setFragmentWithBackStack(FragmentStudent(course, group))
+            setFragmentWithBackStack(FragmentStudent(username, course, group))
         } else if (currentFragment is FragmentStudent) {
             student = element
-            setFragmentWithBackStack(FragmentCauses(course, group, student))
+            setFragmentWithBackStack(FragmentCauses(username, course, group, student))
         } else if (currentFragment is FragmentCauses){
             keyEvent = element
-            setFragmentWithBackStack(FragmentCardDetail(course, group, student, keyEvent))
+            setFragmentWithBackStack(FragmentCardDetail(username, course, group, student, keyEvent))
         }
     }
 

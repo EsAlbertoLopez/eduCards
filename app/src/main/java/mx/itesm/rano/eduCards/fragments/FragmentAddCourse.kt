@@ -12,8 +12,9 @@ import kotlinx.android.synthetic.main.fragment_add_course.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Course
 
-class FragmentAddCourse : Fragment() {
+class FragmentAddCourse(user: String) : Fragment() {
     lateinit var root: View
+    var userLogged = user
     private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class FragmentAddCourse : Fragment() {
 
     private fun writeDataToCloud(courseId: String, courseName: String) {
         val course = Course(courseId, courseName)
-        val reference = database.getReference("/Courses/$courseId")
+        val reference = database.getReference("/Instructors/$userLogged/Courses/$courseId")
         reference.setValue(course)
     }
 }

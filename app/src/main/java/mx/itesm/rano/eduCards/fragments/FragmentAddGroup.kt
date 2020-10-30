@@ -12,8 +12,9 @@ import kotlinx.android.synthetic.main.fragment_add_group.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Group
 
-class FragmentAddGroup(element: String) : Fragment() {
+class FragmentAddGroup(user:String, element: String) : Fragment() {
     val element = element
+    val user = user
     lateinit var root: View
     private lateinit var database: FirebaseDatabase
 
@@ -52,7 +53,7 @@ class FragmentAddGroup(element: String) : Fragment() {
     private fun writeDataToCloud(groupId: String, groupName: String) {
         val courseId = element.split("[", "]")[1]
         val group = Group(groupId, groupName)
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId")
+        val reference = database.getReference("Instructors/$user/Courses/$courseId/Groups/$groupId")
         reference.setValue(group)
     }
 }

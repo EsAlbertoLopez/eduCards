@@ -21,6 +21,7 @@ class FragmentStudentList : ListFragment(){
     lateinit var arrStudents: MutableList<String>
     var course = "None"
     var group = "None"
+    var user = "None"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,6 +39,7 @@ class FragmentStudentList : ListFragment(){
         val myParent = parentFragment as FragmentStudent
         course = myParent.course
         group = myParent.group
+        user = myParent.user
     }
 
     override fun onCreateView(
@@ -58,7 +60,7 @@ class FragmentStudentList : ListFragment(){
         val courseId = course.split("[", "]")[1]
         val groupId = group.split("[", "]")[1]
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos")
+        val reference = database.getReference("Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()

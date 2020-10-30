@@ -19,6 +19,7 @@ import mx.itesm.rano.eduCards.models.Course
 class FragmentCourseList : ListFragment() {
     var listener: ListListener? = null
     lateinit var arrCourses : MutableList<String>
+    var curretnInstructor = ""
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -29,6 +30,12 @@ class FragmentCourseList : ListFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrCourses = mutableListOf()
+        getValueParent()
+    }
+
+    fun getValueParent() {
+        val myParent = parentFragment as FragmentCourse
+        curretnInstructor = myParent.loginUser
     }
 
     override fun onCreateView(
@@ -47,7 +54,7 @@ class FragmentCourseList : ListFragment() {
 
     private fun readDataFromCloud() {
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses")
+        val reference = database.getReference("Instructors/$curretnInstructor/Courses")
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCourses.clear()

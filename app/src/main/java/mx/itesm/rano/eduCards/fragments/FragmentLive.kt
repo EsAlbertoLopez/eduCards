@@ -30,7 +30,8 @@ import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentLive : Fragment(){
+class FragmentLive(username: String) : Fragment(){
+    var user = username
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
     lateinit var root: View
@@ -74,7 +75,7 @@ class FragmentLive : Fragment(){
 
     private fun readGroupDataFromCloud() {
         val courseId = selectedCourse.split("[", "]")[1]
-        val reference = database.getReference("/Courses/$courseId/Groups/")
+        val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroup.clear()
@@ -96,7 +97,7 @@ class FragmentLive : Fragment(){
     private fun readStudentDataFromCloud() {
         val courseId = selectedCourse.split("[", "]")[1]
         val groupId = selectedGroup.split("[", "]")[1]
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos")
+        val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
@@ -116,7 +117,7 @@ class FragmentLive : Fragment(){
     }
 
     private fun readCourseDataFromCloud() {
-        val reference = database.getReference("/Courses")
+        val reference = database.getReference("/Instructors/$user/Courses")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCourses.clear()
@@ -297,8 +298,8 @@ class FragmentLive : Fragment(){
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
         val dateTime = currentDate.split(" ")
-        val card = Card(cause, explanation, "Joaquin", dateTime[0], dateTime[1])
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
+        val card = Card(cause, explanation, user, dateTime[0], dateTime[1])
+        val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
         val ref = reference.push()
         ref.setValue(card)
     }

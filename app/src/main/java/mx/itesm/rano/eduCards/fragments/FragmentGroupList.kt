@@ -20,6 +20,7 @@ class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrGroups : MutableList<String>
     var selected = "None"
+    var user = "None"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -31,6 +32,7 @@ class FragmentGroupList : ListFragment(){
     fun getValueParent(){
         val myParent = parentFragment as FragmentGroup
         selected = myParent.element
+        user = myParent.user
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +60,7 @@ class FragmentGroupList : ListFragment(){
     private fun readDataFromCloud() {
         val database = FirebaseDatabase.getInstance()
         val courseId = selected.split("[", "]")[1]
-        val reference = database.getReference("/Courses/$courseId/Groups")
+        val reference = database.getReference("Instructors/$user/Courses/$courseId/Groups")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroups.clear()

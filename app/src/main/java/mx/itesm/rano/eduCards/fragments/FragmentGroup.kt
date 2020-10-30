@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import mx.itesm.rano.eduCards.R
 
-class FragmentGroup(element: String) : Fragment() {
+class FragmentGroup(user:String, element: String) : Fragment() {
     var element = element
+    val user = user
     lateinit var root: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class FragmentGroup(element: String) : Fragment() {
     private fun setGroupActionsButtons() {
         var btnAddGroup = root.findViewById<View>(R.id.btnAddGroup)
         btnAddGroup.setOnClickListener {
-            var fragment = FragmentAddGroup(element)
+            var fragment = FragmentAddGroup(user, element)
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
                 ?.addToBackStack(fragment.toString())

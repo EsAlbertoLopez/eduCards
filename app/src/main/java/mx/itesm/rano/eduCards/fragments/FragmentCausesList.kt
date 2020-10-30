@@ -21,6 +21,7 @@ class FragmentCausesList : ListFragment(){
     var listener: ListListener? = null
     lateinit var arrCauses: MutableList<String>
     lateinit var arrKeys: MutableList<String>
+    var user = "None"
     var course = "None"
     var group = "None"
     var student = "None"
@@ -40,6 +41,7 @@ class FragmentCausesList : ListFragment(){
 
     fun getValueParent(){
         val myParent = parentFragment as FragmentCauses
+        user = myParent.user
         course = myParent.course
         group = myParent.group
         student = myParent.student
@@ -64,7 +66,7 @@ class FragmentCausesList : ListFragment(){
         val groupId = group.split("[", "]")[1]
         val studentId = student.split("[", "]")[1]
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
+        val reference = database.getReference("Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCauses.clear()

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_card_detail.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Card
 
-class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
+class FragmentCardDetail(user:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
     var course = selectedCourse
     var group = selectedGroup
     var student = selectedStudent
@@ -25,6 +25,7 @@ class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selected
     var author = ""
     var date = ""
     var time = ""
+    var user = user
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,7 @@ class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selected
         val groupId = group.split("[", "]")[1]
         val studentId = student.split("[", "]")[1]
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/$key")
+        val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/$key")
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val card = snapshot.getValue(Card::class.java)

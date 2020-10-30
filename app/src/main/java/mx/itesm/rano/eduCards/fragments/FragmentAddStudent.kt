@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.fragment_add_student.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Student
 
-class FragmentAddStudent(course: String, group: String) : Fragment() {
+class FragmentAddStudent(user:String, course: String, group: String) : Fragment() {
+    var user = user
     var course = course
     var group = group
     lateinit var root: View
@@ -54,7 +55,7 @@ class FragmentAddStudent(course: String, group: String) : Fragment() {
         val student = Student(studentId, studentName)
         val courseId = course.split("[", "]")[1]
         val groupId = group.split("[", "]")[1]
-        val referencia = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
+        val referencia = database.getReference("Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
         referencia.setValue(student)
     }
 }
