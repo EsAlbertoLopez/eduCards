@@ -20,6 +20,8 @@ import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
 import java.lang.Exception
 import java.text.DateFormat
+import java.text.Format
+import java.text.SimpleDateFormat
 import java.util.*
 
 class FragmentLive : Fragment(){
@@ -146,8 +148,8 @@ class FragmentLive : Fragment(){
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, p2: Int, p3: Long) {
                 println("check to change id ${optSpinner == 2131361900}")
                 println("Spinner as int $optSpinner")
-                when (optSpinner){
-                    2131361918 -> {
+                when (spinner){
+                    v?.findViewById<Spinner>(R.id.courseSpinner) -> {
                         selectedCourse = reasons[p2]
                         try {
                             readGroupDataFromCloud()
@@ -155,7 +157,7 @@ class FragmentLive : Fragment(){
                             Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
                         }
                     }
-                    2131361999 -> {
+                    v?.findViewById<Spinner>(R.id.groupSpinner) -> {
                         selectedGroup = reasons[p2]
                         try {
                             readStudentDataFromCloud()
@@ -163,10 +165,10 @@ class FragmentLive : Fragment(){
                             Toast.makeText(context, "Error: $e", Toast.LENGTH_LONG).show()
                         }
                     }
-                    2131362153 -> {
+                    v?.findViewById<Spinner>(R.id.studentSpinner) -> {
                         selectedStudent = reasons[p2]
                     }
-                    2131361900 ->{
+                    v?.findViewById<Spinner>(R.id.cardTypeSpinner) ->{
                         selectedCause = reasons[p2]
                     }
                 }
@@ -250,7 +252,11 @@ class FragmentLive : Fragment(){
     }
 
     private fun writeDataToCloud(courseId: String, groupId: String, studentId: String, cause: String, explanation: String) {
-        val card = Card(cause, explanation)
+
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        val dateTime = currentDate.split(" ")
+        val card = Card(cause, explanation, "Joaquin", dateTime[0], dateTime[1])
         val reference = database.getReference("/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
         val ref = reference.push()
 
