@@ -70,8 +70,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Your Institute"
-            android:inputType="textPersonName" />
+            android:hint="Type your organization's name"
+            android:inputType="textPersonName"
+            android:maxLength="32" />
 
         <TextView
             android:id="@+id/tvName"
@@ -88,8 +89,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Your Name"
-            android:inputType="textPersonName" />
+            android:hint="Type your name"
+            android:inputType="textPersonName"
+            android:maxLength="32" />
 
         <TextView
             android:id="@+id/tvIdentification"
@@ -106,8 +108,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Your Identification"
-            android:inputType="textEmailAddress" />
+            android:hint="Type your email"
+            android:inputType="textEmailAddress"
+            android:maxLength="24" />
 
         <TextView
             android:id="@+id/tvPassword"
@@ -124,8 +127,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="Your Password"
-            android:inputType="textPassword" />
+            android:hint="Type your password"
+            android:inputType="textPassword"
+            android:maxLength="16" />
 
         <Button
             android:id="@+id/btnSignUp"
