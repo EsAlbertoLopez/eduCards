@@ -87,7 +87,7 @@ class FragmentSignIn : Fragment() {
                     print(instructor)
                     if (instructor != null) {
                         if (instructor.contains(email)) {
-                            signIn(email, password)
+                            signIn(username, email, password)
                         } else {
                             print("Failed to verify")
                         }
@@ -98,9 +98,8 @@ class FragmentSignIn : Fragment() {
         })
     }
 
-
-    private fun signIn(email: String, password: String){
-        mAuth.signInWithEmailAndPassword(email,password)
+    private fun signIn(username: String, email: String, password: String){
+        mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this.context as MainActivity,
                 OnCompleteListener<AuthResult?> { task ->
                     if (task.isSuccessful) {
@@ -112,6 +111,8 @@ class FragmentSignIn : Fragment() {
                         "Authentication succeeded",
                         Toast.LENGTH_SHORT).show()
                         val user: FirebaseUser? = mAuth.currentUser
+                        mainActivity.username = username
+                        mainActivity.printPug()
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.

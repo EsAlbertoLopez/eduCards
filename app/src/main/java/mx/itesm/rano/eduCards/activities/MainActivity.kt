@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), ListListener {
     //lateinit var fragmentLive: FragmentLive
     //lateinit var fragmentSettings : FragmentSettings
     //lateinit var currentFragment : Fragment
-    lateinit var username: String
+    var username: String? = null
     var course = ""
     var group = ""
     var student = ""
@@ -34,12 +34,12 @@ class MainActivity : AppCompatActivity(), ListListener {
     var loginFlag:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setInitialUI()
         setCalendar()
+        printPug()
     }
 
     private fun setInitialUI() {
@@ -345,6 +345,6 @@ class MainActivity : AppCompatActivity(), ListListener {
     }
 
     fun printPug() {
-        print("UwUr");
+        println("User : ${username}")
     }
 }
