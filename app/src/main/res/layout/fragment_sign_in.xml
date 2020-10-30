@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
         <TextView
-            android:id="@+id/tvIdentification"
+            android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunitosans_extrabold"
