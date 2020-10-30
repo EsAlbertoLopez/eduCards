@@ -30,6 +30,7 @@ class FragmentSignIn : Fragment() {
     lateinit var inflater: LayoutInflater
     lateinit var mainActivity: MainActivity
     lateinit var database: FirebaseDatabase
+    var signedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,18 +85,21 @@ class FragmentSignIn : Fragment() {
                 TODO("Not yet implemented")
             }
             override fun onDataChange(snapshot: DataSnapshot) {
-                val instructor = snapshot.getValue(Instructor::class.java)
-                if (instructor != null) {
-                    var recordedEmail = instructor.email
-                    var recordedName = instructor.name
-                    if (recordedEmail == email) {
-                        println("recordedEmail $recordedEmail")
-                        signIn(username, recordedName, email, password)
-                    } else {
-                        print("Failed to verify")
+                if (signedIn == false){
+                    val instructor = snapshot.getValue(Instructor::class.java)
+                    if (instructor != null) {
+                        var recordedEmail = instructor.email
+                        var recordedName = instructor.name
+                        if (recordedEmail == email) {
+                            println("recordedEmail $recordedEmail")
+                            signIn(username, recordedName, email, password)
+                        } else {
+                            print("Failed to verify")
+                        }
                     }
+                    signedIn = true
                 }
-            }
+        }
 
         })
     }

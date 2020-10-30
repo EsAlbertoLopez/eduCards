@@ -58,7 +58,6 @@ class FragmentCourseList : ListFragment() {
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCourses.clear()
-                println("DATA CAMBIÓ")
                 for (record in snapshot.children){
                     val course = record.getValue(Course::class.java)
                     if (course != null){
