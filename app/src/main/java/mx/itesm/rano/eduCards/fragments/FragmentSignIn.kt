@@ -134,6 +134,12 @@ class FragmentSignIn : Fragment() {
                                 mainActivity.printPug()
                                 updateUI(user)
                                 signedIn = true
+                                var fragment = FragmentHome()
+                                fragmentManager?.beginTransaction()
+                                    ?.replace(R.id.fragmentContainer, fragment)
+                                    ?.addToBackStack(fragment.toString())
+                                    ?.replace(R.id.fragmentContainer, fragment)
+                                    ?.commit()
                             } else {
                                 Toast.makeText(
                                     mainActivity,
