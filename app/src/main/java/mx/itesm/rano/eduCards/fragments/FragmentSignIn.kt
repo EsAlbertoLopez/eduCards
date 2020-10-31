@@ -85,19 +85,18 @@ class FragmentSignIn : Fragment() {
                 TODO("Not yet implemented")
             }
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (signedIn == false){
-                    val instructor = snapshot.getValue(Instructor::class.java)
-                    if (instructor != null) {
-                        var recordedEmail = instructor.email
-                        var recordedName = instructor.name
-                        if (recordedEmail == email) {
-                            println("recordedEmail $recordedEmail")
+                val instructor = snapshot.getValue(Instructor::class.java)
+                if (instructor != null) {
+                    var recordedEmail = instructor.email
+                    var recordedName = instructor.name
+                    if (recordedEmail == email) {
+                        println("recordedEmail $recordedEmail")
+                        if (signedIn == false) {
                             signIn(username, recordedName, email, password)
-                        } else {
-                            print("Failed to verify")
                         }
+                    } else {
+                        print("Failed to verify")
                     }
-                    signedIn = true
                 }
         }
 
@@ -123,6 +122,7 @@ class FragmentSignIn : Fragment() {
                                 mainActivity.instructor = name
                                 mainActivity.printPug()
                                 updateUI(user)
+                                signedIn = true
                             } else {
                                 Toast.makeText(
                                     mainActivity,
