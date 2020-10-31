@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), ListListener {
             //currentFragment = fragmentHome
         } else {
             deactivateApplication("Home")
-            setFragment(FragmentAuthenticationLock("Home"))
+            setFragment(FragmentSignIn())
         }
         bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
         hideBottomNavBarWhenKeyboardIsShown()
@@ -345,7 +345,7 @@ class MainActivity : AppCompatActivity(), ListListener {
             setFragmentWithBackStack(FragmentCauses(username, course, group, student))
         } else if (currentFragment is FragmentCauses){
             keyEvent = element
-            setFragmentWithBackStack(FragmentCardDetail(username, course, group, student, keyEvent))
+            setFragmentWithBackStack(FragmentCardDetail(instructor,username, course, group, student, keyEvent))
         }
     }
 

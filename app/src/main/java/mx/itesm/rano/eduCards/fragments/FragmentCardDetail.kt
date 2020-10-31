@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_card_detail.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Card
 
-class FragmentCardDetail(user:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
+class FragmentCardDetail(instructor:String, user:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
     var course = selectedCourse
     var group = selectedGroup
     var student = selectedStudent
@@ -25,6 +25,7 @@ class FragmentCardDetail(user:String, selectedCourse: String, selectedGroup: Str
     var author = ""
     var date = ""
     var time = ""
+    var instructor = instructor
     var user = user
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +57,7 @@ class FragmentCardDetail(user:String, selectedCourse: String, selectedGroup: Str
                     tvStudentName.text = student.split("[", "]")[2]
                     tvCardType.text = cause
                     tvCardDescription.text = description
-                    tvCardAuthor.text = author
+                    tvCardAuthor.text = instructor
                     tvCardDate.text = date
                     tvCardTime.text = time
                     when(cause){
