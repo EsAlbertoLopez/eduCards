@@ -294,7 +294,6 @@ class FragmentLive(username: String) : Fragment(){
     }
 
     private fun writeDataToCloud(courseId: String, groupId: String, studentId: String, cause: String, explanation: String) {
-
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
         val dateTime = currentDate.split(" ")

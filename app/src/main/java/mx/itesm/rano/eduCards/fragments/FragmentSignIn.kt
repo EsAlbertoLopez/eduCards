@@ -1,11 +1,14 @@
 package mx.itesm.rano.eduCards.fragments
 
+import android.content.BroadcastReceiver
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.OnCompleteListener
@@ -18,18 +21,22 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
-import mx.itesm.rano.eduCards.models.Card
 import mx.itesm.rano.eduCards.models.Instructor
-import java.util.*
-import kotlin.collections.HashMap
 
 
 class FragmentSignIn : Fragment() {
+    private lateinit var root: View
+    private lateinit var mainActivity: MainActivity
+    private lateinit var tvSubtitle : TextView
+    private lateinit var etEmail: EditText
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var btnSignIn: Button
+    private lateinit var connectivityChangeReceiver: BroadcastReceiver
+    private lateinit var connectivityManager: ConnectivityManager
+    private lateinit var inflater: LayoutInflater
+    private lateinit var database: FirebaseDatabase
     private lateinit var mAuth: FirebaseAuth
-    lateinit var root: View
-    lateinit var inflater: LayoutInflater
-    lateinit var mainActivity: MainActivity
-    lateinit var database: FirebaseDatabase
     var signedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,26 +50,29 @@ class FragmentSignIn : Fragment() {
         updateUI(currentUser)
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-        if(currentUser != null) {
-            print("User: ${currentUser?.displayName}")
-        }
-        else{
-            print("No has hecho log in")
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_sign_in, container, false)
         mainActivity = context as MainActivity
         signedIn = mainActivity.loginFlag
-        database= FirebaseDatabase.getInstance()
-        makeLogIn()
+        database = FirebaseDatabase.getInstance()
+        setLayoutVariables()
+        setLogInButton()
         return root
     }
 
-    private fun makeLogIn(){
+    private fun setLayoutVariables() {
+        tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
+        etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
+        etUsername = root.findViewById<View>(R.id.editTextTextUsername) as EditText
+        etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
+    }
+
+    private fun setLogInButton() {
         val etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
         val etUsername=root.findViewById<View>(R.id.editTextTextUsername) as EditText
         val etPassword=root.findViewById<View>(R.id.editTextTextPassword) as EditText
@@ -146,6 +156,13 @@ class FragmentSignIn : Fragment() {
 
     }
 
-
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if(currentUser != null) {
+            print("Signed In User: ${currentUser?.displayName}")
+        }
+        else{
+            print("No Sign In Account has been foud")
+        }
+    }
 
 }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import mx.itesm.rano.eduCards.R
 
-class FragmentCauses(user:String, selectedCourse: String, selectedGroup: String, selectedStudent: String) : Fragment() {
+class FragmentCauses(user: String, selectedCourse: String, selectedGroup: String, selectedStudent: String) : Fragment() {
 
     var user = user
     var course = selectedCourse
