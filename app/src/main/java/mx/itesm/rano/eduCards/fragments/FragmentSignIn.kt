@@ -56,6 +56,7 @@ class FragmentSignIn : Fragment() {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_sign_in, container, false)
         mainActivity = context as MainActivity
+        signedIn = mainActivity.loginFlag
         database= FirebaseDatabase.getInstance()
         makeLogIn()
         return root
