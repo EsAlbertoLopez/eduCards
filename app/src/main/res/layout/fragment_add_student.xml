@@ -91,6 +91,23 @@
             android:hint="Type the New Student's Name"
             android:inputType="textPersonName" />
 
+        <TextView
+            android:id="@+id/tvMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tutor Mail"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#1B1A1A"
+            android:textSize="34sp" />
+
+        <EditText
+            android:id="@+id/editTextTutorMailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Type the tutotr's mail"
+            android:inputType="textEmailAddress" />
+
         <Button
             android:id="@+id/btnSubmitNewStudent"
             android:layout_width="match_parent"

@@ -2,6 +2,8 @@ package mx.itesm.rano.eduCards.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.text.Editable
@@ -10,8 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.text.set
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,7 +26,6 @@ import mx.itesm.rano.eduCards.models.Group
 import mx.itesm.rano.eduCards.models.Student
 import java.lang.Exception
 import java.text.DateFormat
-import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,10 +41,12 @@ class FragmentLive(username: String) : Fragment(){
     lateinit var currentDate: String
     lateinit var arrCourses: MutableList<String>
     lateinit var arrStudents: MutableList<String>
+    var arrMail: MutableList<String> = arrayListOf()
     lateinit var arrGroup: MutableList<String>
     lateinit var selectedCourse: String
     lateinit var selectedGroup: String
     lateinit var selectedStudent: String
+    lateinit var mailTutor: String
     lateinit var selectedCause: String
     private lateinit var database: FirebaseDatabase
 
@@ -86,7 +87,13 @@ class FragmentLive(username: String) : Fragment(){
                         arrGroup.add(dataGroup)
                     }
                 }
-                setSpinner(inflater, root, R.id.groupSpinner, arrGroup.toTypedArray())
+                setSpinner(
+                    inflater,
+                    root,
+                    R.id.groupSpinner,
+                    arrGroup.toTypedArray(),
+                    arrMail.toTypedArray()
+                )
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
@@ -101,14 +108,16 @@ class FragmentLive(username: String) : Fragment(){
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
+                arrMail.clear()
                 for (register in snapshot.children){
                     val student = register.getValue(Student::class.java)
                     if (student != null){
-                        val dataStudent = "[${student.key}] ${student.name} "
+                        val dataStudent = "[${student.key}] ${student.name}"
                         arrStudents.add(dataStudent)
+                        arrMail.add(student.mailTutor)
                     }
                 }
-                setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray())
+                setSpinner(inflater, root, R.id.studentSpinner, arrStudents.toTypedArray(), arrMail.toTypedArray())
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
@@ -126,9 +135,16 @@ class FragmentLive(username: String) : Fragment(){
                     if (course != null){
                         val dataCourse = "[${course.key}] ${course.name} "
                         arrCourses.add(dataCourse)
+
                     }
                 }
-                setSpinner(inflater, root, R.id.courseSpinner, arrCourses.toTypedArray())
+                setSpinner(
+                    inflater,
+                    root,
+                    R.id.courseSpinner,
+                    arrCourses.toTypedArray(),
+                    arrMail.toTypedArray()
+                )
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
@@ -137,11 +153,22 @@ class FragmentLive(username: String) : Fragment(){
     }
 
     private fun setSpinners() {
-        setSpinner(inflater, root, R.id.cardTypeSpinner, resources.getStringArray(R.array.Reasons))
+        setSpinner(
+            inflater,
+            root,
+            R.id.cardTypeSpinner,
+            resources.getStringArray(R.array.Reasons),
+            arrMail.toTypedArray()
+        )
     }
 
     private fun setSpinner(
-        inflater: LayoutInflater, v: View?, optSpinner: Int, stringArray: Array<String>) {
+        inflater: LayoutInflater,
+        v: View?,
+        optSpinner: Int,
+        stringArray: Array<String>,
+        mailArray: Array<String>
+    ) {
         val spinner = v?.findViewById<Spinner>(optSpinner)
         val reasons = stringArray
         val adapter = ArrayAdapter<String>(inflater.context,
@@ -171,6 +198,7 @@ class FragmentLive(username: String) : Fragment(){
                     }
                     v?.findViewById<Spinner>(R.id.studentSpinner) -> {
                         selectedStudent = reasons[p2]
+                        mailTutor = mailArray[p2]
                     }
                     v?.findViewById<Spinner>(R.id.cardTypeSpinner) ->{
                         selectedCause = reasons[p2]
@@ -218,6 +246,7 @@ class FragmentLive(username: String) : Fragment(){
                         val cause = selectedCause
                         val description = editTextTextMultiLineDescription.text.toString()
                         writeDataToCloud(courseId, groupId, studentId, cause, description)
+                        sendMail(cause, description)
                         editTextTextMultiLineDescription.text.clear()
                     })
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener{
@@ -252,6 +281,23 @@ class FragmentLive(username: String) : Fragment(){
         }
         btnSave.isEnabled = false
         btnDiscard.isEnabled = false
+    }
+
+    private fun sendMail(cause: String, description: String) {
+        val subject = cause
+        val miIntent = Intent(Intent.ACTION_SEND)
+        miIntent.data = Uri.parse("mailto:")
+        miIntent.type = "text/plain"
+
+        miIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mailTutor))
+        miIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        miIntent.putExtra(Intent.EXTRA_TEXT, "El alumno ${selectedStudent.split("[", "]")[2]} hizo ${description}")
+
+        try {
+            startActivity(Intent.createChooser(miIntent, "Choose Email Client..."))
+        }catch (e: Exception){
+            Toast.makeText(mainActivity, e.message, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setSessionActionsButtons() {

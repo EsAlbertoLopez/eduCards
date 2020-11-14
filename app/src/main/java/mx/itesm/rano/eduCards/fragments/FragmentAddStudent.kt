@@ -42,8 +42,9 @@ class FragmentAddStudent(user:String, course: String, group: String) : Fragment(
         btnSubmitNewStudent.setOnClickListener {
             val studentId = editTextTextStudentID.text.toString()
             val studentName = editTextTextStudentName.text.toString()
+            val studentMail = editTextTutorMailAddress.text.toString()
             if (studentId != "" && studentName != "") {
-                writeDataToCloud(studentId, studentName)
+                writeDataToCloud(studentId, studentName, studentMail)
             } else{
                 Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
             }
@@ -51,8 +52,8 @@ class FragmentAddStudent(user:String, course: String, group: String) : Fragment(
         }
     }
 
-    private fun writeDataToCloud(studentId: String, studentName: String) {
-        val student = Student(studentId, studentName)
+    private fun writeDataToCloud(studentId: String, studentName: String, studentMail: String) {
+        val student = Student(studentId, studentName, studentMail)
         val courseId = course.split("[", "]")[1]
         val groupId = group.split("[", "]")[1]
         val referencia = database.getReference("Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId")
