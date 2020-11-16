@@ -93,7 +93,11 @@ class FragmentSignIn : Fragment() {
         var reference = database.getReference("/Instructors/$username")
         reference.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(
+                    mainActivity,
+                    "Error: $error",
+                    Toast.LENGTH_LONG
+                ).show()
             }
             override fun onDataChange(snapshot: DataSnapshot) {
                 val instructor = snapshot.getValue(Instructor::class.java)
