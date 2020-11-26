@@ -43,13 +43,13 @@ class FragmentSettings : Fragment() {
 
     private fun setSignInButton() {
         val button = root.findViewById<View>(R.id.btnSignInOut) as Button
-        if (mainActivity.loginFlag == false) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             button.setText("Sign In")
         } else {
             button.setText("Sign Out")
         }
         button.setOnClickListener {
-            if (mainActivity.loginFlag == false) {
+            if (FirebaseAuth.getInstance().currentUser == null) {
                 button.setText("Sign Out")
                 val fragment = FragmentSignIn()
                 fragmentManager?.beginTransaction()

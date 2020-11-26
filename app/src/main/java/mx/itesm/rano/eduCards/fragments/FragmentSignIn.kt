@@ -90,7 +90,8 @@ class FragmentSignIn : Fragment() {
     }
 
     private fun verifyAccount(username: String, email: String, password: String) {
-        var reference = database.getReference("/Instructors/$username")
+        var emailNodots = (email.replace(".", "__dot__")).toLowerCase()
+        var reference = database.getReference("/Instructors/$emailNodots")
         reference.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(
@@ -130,6 +131,8 @@ class FragmentSignIn : Fragment() {
                                 println("signInWithEmail:success")
                                 mainActivity.activateApplication("Settings")
                                 mainActivity.loginFlag = true
+                                println("hola ${user.email}")
+
                                 Toast.makeText(mainActivity,
                                     "Authentication succeeded",
                                     Toast.LENGTH_LONG).show()

@@ -152,7 +152,8 @@ class FragmentSignUp : Fragment() {
 
     private fun writeDataToCloud(username: String, instructor: String, institute: String, email: String) {
         val instructor = Instructor(username, instructor, institute, email)
-        val reference = database.getReference("/Instructors/$username")
+        val emailNoDots = (email.replace(".", "__dot__")).toLowerCase()
+        val reference = database.getReference("/Instructors/$emailNoDots")
         reference.setValue(instructor)
     }
 
