@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 import mx.itesm.rano.eduCards.R
 
-class FragmentStudent(user:String, course: String, group: String) : Fragment() {
-    var user = user
+class FragmentStudent(course: String, group: String) : Fragment() {
+    var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
     var course = course
     var group = group
     lateinit var root: View

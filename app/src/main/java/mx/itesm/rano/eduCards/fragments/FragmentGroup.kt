@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
+import com.google.firebase.auth.FirebaseAuth
 import mx.itesm.rano.eduCards.R
 
-class FragmentGroup(user:String, element: String) : Fragment() {
+class FragmentGroup( element: String) : Fragment() {
     var element = element
-    val user = user
+    val user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
     lateinit var root: View
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -43,7 +43,7 @@ class FragmentAddGroup(user:String, element: String) : Fragment() {
             val groupName = editTextTextGroupName.text.toString()
             if (groupId != "" && groupName != "") {
                 writeDataToCloud(groupId, groupName)
-                var fragment = FragmentGroup(user, element)
+                var fragment = FragmentGroup(element)
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainer, fragment)
                     ?.addToBackStack(fragment.toString())

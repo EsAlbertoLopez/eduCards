@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_card_detail.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Card
 
-class FragmentCardDetail(instructor:String, user:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
+class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
     var course = selectedCourse
     var group = selectedGroup
     var student = selectedStudent
@@ -26,7 +27,7 @@ class FragmentCardDetail(instructor:String, user:String, selectedCourse: String,
     var date = ""
     var time = ""
     var instructor = instructor
-    var user = user
+    var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

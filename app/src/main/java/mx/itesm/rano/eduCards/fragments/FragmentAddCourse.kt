@@ -43,7 +43,7 @@ class FragmentAddCourse(user: String) : Fragment() {
             val courseName = editTextTextCourseName.text.toString()
             if (courseId != "" && courseName != "") {
                 writeDataToCloud(courseId, courseName)
-                var fragment = FragmentCourse(userLogged)
+                var fragment = FragmentCourse()
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainer, fragment)
                     ?.addToBackStack(fragment.toString())

@@ -40,9 +40,6 @@ class MainActivity : AppCompatActivity(), ListListener {
     var keyEvent = ""
     var loginFlag:Boolean = false
     var user = FirebaseAuth.getInstance().currentUser
-    lateinit var mail:String
-    lateinit var mailNoDots:String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -58,9 +55,6 @@ class MainActivity : AppCompatActivity(), ListListener {
     private fun setInitialUI() {
         //fragmentSettings = FragmentSettings()
         if (user != null) {
-
-            mail = user?.email.toString()
-            mailNoDots = (mail.replace(".", "__dot__")).toLowerCase()
 
             activateApplication("Home")
             setFragment(FragmentHome())
@@ -127,7 +121,7 @@ class MainActivity : AppCompatActivity(), ListListener {
                     bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
                     bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
-                    setFragment(FragmentCourse(mailNoDots))
+                    setFragment(FragmentCourse())
                 }
                 R.id.live -> {
                     window.statusBarColor = resources.getColor(R.color.colorN)
@@ -145,7 +139,7 @@ class MainActivity : AppCompatActivity(), ListListener {
                     bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
                     bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
 
-                    setFragment(FragmentLive(mailNoDots))
+                    setFragment(FragmentLive())
                 }
                 R.id.settings -> {
                     window.statusBarColor = resources.getColor(R.color.colorO)
@@ -350,16 +344,16 @@ class MainActivity : AppCompatActivity(), ListListener {
         var currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         if (currentFragment is FragmentCourse) {
             course = element
-            setFragmentWithBackStack(FragmentGroup(mailNoDots, course))
+            setFragmentWithBackStack(FragmentGroup(course))
         } else if (currentFragment is FragmentGroup) {
             group = element
-            setFragmentWithBackStack(FragmentStudent(mailNoDots, course, group))
+            setFragmentWithBackStack(FragmentStudent(course, group))
         } else if (currentFragment is FragmentStudent) {
             student = element
-            setFragmentWithBackStack(FragmentCauses(mailNoDots, course, group, student))
+            setFragmentWithBackStack(FragmentCauses(course, group, student))
         } else if (currentFragment is FragmentCauses){
             keyEvent = element
-            setFragmentWithBackStack(FragmentCardDetail(instructor,mailNoDots, course, group, student, keyEvent))
+            setFragmentWithBackStack(FragmentCardDetail(instructor, course, group, student, keyEvent))
         }
     }
 

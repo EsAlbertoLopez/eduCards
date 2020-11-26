@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
 
-class FragmentCourse (user: String): Fragment() {
+class FragmentCourse (): Fragment() {
     lateinit var root: View
-    var loginUser = user
+    var loginUser = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -29,8 +30,8 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentLive(username: String) : Fragment(){
-    var user = username
+class FragmentLive() : Fragment(){
+    var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
     lateinit var root: View

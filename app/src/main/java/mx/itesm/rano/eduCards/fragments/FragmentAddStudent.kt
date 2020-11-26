@@ -45,7 +45,7 @@ class FragmentAddStudent(user:String, course: String, group: String) : Fragment(
             val studentMail = editTextTutorMailAddress.text.toString()
             if (studentId != "" && studentName != "") {
                 writeDataToCloud(studentId, studentName, studentMail)
-                var fragment = FragmentStudent(user, course, group)
+                var fragment = FragmentStudent(course, group)
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainer, fragment)
                     ?.addToBackStack(fragment.toString())
