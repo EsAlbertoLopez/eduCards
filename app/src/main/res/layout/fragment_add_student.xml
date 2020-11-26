@@ -95,7 +95,8 @@
             android:id="@+id/tvMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tutor Mail"
+            android:fontFamily="@font/nunitosans_extrabold"
+            android:text="Tutor Email"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#1B1A1A"
             android:textSize="34sp" />
@@ -105,7 +106,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Type the tutotr's mail"
+            android:fontFamily="@font/nunitosans_regular"
+            android:hint="Type the tutor's mail"
             android:inputType="textEmailAddress" />
 
         <Button

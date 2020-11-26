@@ -223,6 +223,7 @@
             android:id="@+id/tvEmailDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_bold"
             android:text="rano.edu.itesm@gmail.com"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"

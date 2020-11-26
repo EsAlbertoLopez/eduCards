@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
@@ -39,12 +40,14 @@ class MainActivity : AppCompatActivity(), ListListener {
     var loginFlag:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setInitialUI()
-        setCalendar()
-        printPug()
+
+            setTheme(R.style.AppTheme)
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            setInitialUI()
+            setCalendar()
+            printPug()
+
     }
 
     private fun setInitialUI() {

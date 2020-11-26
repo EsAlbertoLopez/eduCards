@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_home.*
 import mx.itesm.rano.eduCards.R
 
 class FragmentHome : Fragment() {
@@ -19,5 +20,12 @@ class FragmentHome : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
+
     }
+
+
+
+
+
+
 }
