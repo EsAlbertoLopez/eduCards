@@ -17,7 +17,7 @@ import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Card
 import mx.itesm.rano.eduCards.models.Instructor
 
-class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
+class FragmentCardDetail(selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
     var course = selectedCourse
     var group = selectedGroup
     var student = selectedStudent
@@ -27,7 +27,6 @@ class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGrou
     var author = ""
     var date = ""
     var time = ""
-    var instructor = instructor
     var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {

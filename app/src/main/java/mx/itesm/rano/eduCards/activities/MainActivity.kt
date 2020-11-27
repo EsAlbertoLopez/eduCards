@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity(), ListListener {
             setFragmentWithBackStack(FragmentCauses(course, group, student))
         } else if (currentFragment is FragmentCauses){
             keyEvent = element
-            setFragmentWithBackStack(FragmentCardDetail(instructor, course, group, student, keyEvent))
+            setFragmentWithBackStack(FragmentCardDetail(course, group, student, keyEvent))
         }
     }
 
