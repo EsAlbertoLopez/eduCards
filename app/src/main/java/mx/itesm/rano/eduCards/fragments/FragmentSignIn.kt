@@ -1,10 +1,15 @@
 package mx.itesm.rano.eduCards.fragments
 
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,33 +67,129 @@ class FragmentSignIn : Fragment() {
         this.inflater = inflater
         root = inflater.inflate(R.layout.fragment_sign_in, container, false)
         mainActivity = context as MainActivity
+        connectivityManager = mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         signedIn = mainActivity.loginFlag
         database = FirebaseDatabase.getInstance()
         setLayoutVariables()
+        setConnectivityChangeReceiver()
+        checkConnectivityStatus()
         setLogInButton()
+        setReportDetails()
         return root
     }
 
     private fun setLayoutVariables() {
         tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
         etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
+        etEmail.error = "Blank Email Field"
         etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
+        etPassword.error = "Blank Password Field"
     }
 
     private fun setLogInButton() {
-        val etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
-        val etPassword=root.findViewById<View>(R.id.editTextTextPassword) as EditText
-        val btnSignIn=root.findViewById<View>(R.id.btnSignIn) as Button
+        btnSignIn = root.findViewById<View>(R.id.btnSignIn) as Button
         btnSignIn.setOnClickListener{
-            if(mainActivity.loginFlag==false) {
+            val email = etEmail.text.toString()
+            val password = etPassword.text.toString()
+            if(mainActivity.loginFlag == false) {
                 btnSignIn.setText("SIGN IN")
                 if (etEmail != null) {
                     if (etPassword != null) {
                         verifyAccount(etEmail.text.toString(), etPassword.text.toString())
                     }
                 }
+                if (etEmail.error == null
+                    && etPassword.error == null) {
+                    verifyAccount(etEmail.text.toString(), etPassword.text.toString())
+                } else {
+                    if (email.isNotEmpty()) {
+                        etEmail.error = null
+                        if (email.contains("#")
+                            || email.contains("$")
+                            || email.contains("[")
+                            || email.contains("]")
+                            || email.contains(" ")
+                        ) {
+                            etEmail.error = "Email cannot contain ., #, $, [, ] and ' '"
+                        } else {
+                            etEmail.error = null
+                        }
+                    } else {
+                        etEmail.error = "Email is an Empty Field"
+                    }
+                    if (password.isNotEmpty()) {
+                        if (password.length >= 6) {
+                            etPassword.error = null
+                        } else {
+                            etPassword.error = "Password length cannot be less than 6 characters"
+                        }
+                    } else {
+                        etPassword.error = "Error : Password is an Empty Field"
+                    }
+                }
             }
         }
+        btnSignIn.isEnabled = false
+    }
+
+    private fun setReportDetails() {
+        etEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkConnectivityStatus()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val email = etEmail.text.toString()
+                if (email.isNotEmpty()) {
+                    if (email.contains("#")
+                        || email.contains("$")
+                        || email.contains("[")
+                        || email.contains("]")
+                        || email.contains(" ")
+                    ) {
+                        etEmail.error = "Email cannot contain ., #, $, [, ] and ' '"
+                    } else {
+                        etEmail.error = null
+                    }
+                } else {
+                    etEmail.error = "Email cannot ba an Empty Field"
+                }
+                verifyUserInputs()
+            }
+        })
+        etPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                checkConnectivityStatus()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val password = etPassword.text.toString()
+                if (password.isNotEmpty()) {
+                    if (password.length >= 6) {
+                        etPassword.error = null
+                    } else {
+                        etPassword.error = "Password length cannot be less than 6 characters"
+                    }
+                } else {
+                    etPassword.error = "Password is an Empty Field"
+                }
+                verifyUserInputs()
+            }
+        })
+    }
+
+    private fun verifyUserInputs() {
+        btnSignIn.isEnabled = !(etEmail.error != null
+                || etPassword.error != null
+                || !checkConnectivityStatus())
     }
 
     private fun verifyAccount(email: String, password: String) {
@@ -102,7 +203,6 @@ class FragmentSignIn : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-
             override fun onDataChange(snapshot: DataSnapshot) {
                 val instructor = snapshot.getValue(Instructor::class.java)
                 if (instructor != null) {
@@ -177,9 +277,35 @@ class FragmentSignIn : Fragment() {
     private fun updateUI(currentUser: FirebaseUser?) {
         if(currentUser != null) {
             print("Signed In User: ${currentUser?.displayName}")
+            etEmail.isEnabled = false
+            etPassword.isEnabled = false
         }
         else{
             print("No Sign In Account has been found")
         }
+    }
+
+    private fun setConnectivityChangeReceiver() {
+        connectivityChangeReceiver = object : BroadcastReceiver() {
+            override fun onReceive(p0: Context?, p1: Intent?) {
+                if (p1?.action.equals("android.net.conn.CONNECTIVITY_CHANGE", false)) {
+                    checkConnectivityStatus()
+                }
+            }
+        }
+    }
+
+    private fun checkConnectivityStatus(): Boolean {
+        val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        if (!isConnected) {
+            tvSubtitle.text = "You are not connected"
+            tvSubtitle.setTextColor(resources.getColor(R.color.colorWarning))
+        } else {
+            //tvSubtitle.setTextColor(resources.getColor(android:attr/textColorPrimary))
+            tvSubtitle.text = "Create your Account"
+            tvSubtitle.setTextColor(mainActivity.resolveColorAttr(mainActivity, android.R.attr.textColorPrimary))
+        }
+        return isConnected
     }
 }

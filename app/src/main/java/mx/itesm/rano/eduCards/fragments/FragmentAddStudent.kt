@@ -45,12 +45,7 @@ class FragmentAddStudent(user:String, course: String, group: String) : Fragment(
             val studentMail = editTextTutorMailAddress.text.toString()
             if (studentId != "" && studentName != "") {
                 writeDataToCloud(studentId, studentName, studentMail)
-                //var fragment = FragmentStudent(user, course, group)
-                //fragmentManager?.beginTransaction()
-                //    ?.replace(R.id.fragmentContainer, fragment)
-                //    ?.addToBackStack(fragment.toString())
-                //    ?.replace(R.id.fragmentContainer, fragment)
-                //    ?.commit()
+                Toast.makeText(context, "Student submitted", Toast.LENGTH_LONG).show()
             } else{
                 Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
             }

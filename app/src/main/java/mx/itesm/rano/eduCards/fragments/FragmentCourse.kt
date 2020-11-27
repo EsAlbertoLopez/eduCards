@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
@@ -38,9 +39,12 @@ class FragmentCourse (): Fragment() {
             var fragment = FragmentAddCourse(loginUser)
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
-                ?.addToBackStack(fragment.toString())
-                ?.replace(R.id.fragmentContainer, fragment)
                 ?.commit()
         }
+    }
+
+    fun setWhenNoItemsInList() {
+        var tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
+        tvSubtitle.text = "Waiting for you to add Courses..."
     }
 }

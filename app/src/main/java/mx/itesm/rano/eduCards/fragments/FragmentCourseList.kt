@@ -18,6 +18,7 @@ import mx.itesm.rano.eduCards.models.Course
 
 class FragmentCourseList : ListFragment() {
     var listener: ListListener? = null
+    lateinit var parent: FragmentCourse
     lateinit var arrCourses : MutableList<String>
     var curretnInstructor = ""
 
@@ -25,6 +26,7 @@ class FragmentCourseList : ListFragment() {
         super.onAttach(context)
         if (context is ListListener){
             listener = context
+            parent = parentFragment as FragmentCourse
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,19 +60,33 @@ class FragmentCourseList : ListFragment() {
         reference.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCourses.clear()
-                for (record in snapshot.children){
-                    val course = record.getValue(Course::class.java)
-                    if (course != null){
-                        val dataCourse = "[${course.key}] ${course.name} "
-                        arrCourses.add(dataCourse)
+                if (snapshot.exists()) {
+                    for (record in snapshot.children) {
+                        val course = record.getValue(Course::class.java)
+                        if (course != null) {
+                            val dataCourse = "[${course.key}] ${course.name} "
+                            arrCourses.add(dataCourse)
+                        }
+                        if (context != null) {
+                            val adapter = ArrayAdapter<String>(
+                                context!!,
+                                android.R.layout.simple_list_item_1,
+                                arrCourses
+                            )
+                            listAdapter = adapter
+                        }
                     }
-                    if (context != null){
-                        val adapter = ArrayAdapter<String>(context!!,
+                } else {
+                    parent.setWhenNoItemsInList()
+                    arrCourses.add("There are no courses")
+                    if (context != null) {
+                        val adapter = ArrayAdapter<String>(
+                            context!!,
                             android.R.layout.simple_list_item_1,
-                            arrCourses)
+                            arrCourses
+                        )
+                        println(arrCourses.toString())
                         listAdapter = adapter
-                    }else{
-                        println("Holi")
                     }
                 }
             }
@@ -81,8 +97,12 @@ class FragmentCourseList : ListFragment() {
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
-        var element = arrCourses[position]
-        listener?.itemClicked(position, element)
+        if (arrCourses[position] == "There are no courses"){
+            Toast.makeText(context, "Please add courses to continue...", Toast.LENGTH_LONG).show()
+        } else {
+            super.onListItemClick(l, v, position, id)
+            var element = arrCourses[position]
+            listener?.itemClicked(position, element)
+        }
     }
 }

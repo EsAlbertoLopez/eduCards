@@ -18,6 +18,7 @@ import mx.itesm.rano.eduCards.models.Student
 
 class FragmentStudentList : ListFragment(){
     var listener: ListListener? = null
+    lateinit var parent: FragmentStudent
     lateinit var arrStudents: MutableList<String>
     var course = "None"
     var group = "None"
@@ -27,6 +28,7 @@ class FragmentStudentList : ListFragment(){
         super.onAttach(context)
         if (context is ListListener){
             listener = context
+            parent = parentFragment as FragmentStudent
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,21 +66,33 @@ class FragmentStudentList : ListFragment(){
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrStudents.clear()
-                for (registro in snapshot.children){
-                    val student = registro.getValue(Student::class.java)
-                    if (student != null){
-                        val dataCourse = "[${student.key}] ${student.name} "
-                        arrStudents.add(dataCourse)
+                if (snapshot.exists()) {
+                    for (registro in snapshot.children){
+                        val student = registro.getValue(Student::class.java)
+                        if (student != null) {
+                            val dataCourse = "[${student.key}] ${student.name} "
+                            arrStudents.add(dataCourse)
+                        }
+                        if (context != null) {
+                            val adapter = ArrayAdapter<String>(
+                                context!!,
+                                android.R.layout.simple_list_item_1,
+                                arrStudents
+                            )
+                            listAdapter = adapter
+                        }
                     }
+                } else {
+                    parent.setWhenNoItemsInList()
+                    arrStudents.add("There are no students")
                     if (context != null) {
                         val adapter = ArrayAdapter<String>(
                             context!!,
                             android.R.layout.simple_list_item_1,
                             arrStudents
                         )
+                        println(arrStudents.toString())
                         listAdapter = adapter
-                    }else{
-                        println("Holi")
                     }
                 }
             }
@@ -89,8 +103,12 @@ class FragmentStudentList : ListFragment(){
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        var element = arrStudents[position]
-        super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position, element)
+        if (arrStudents[position] == "There are no students"){
+            Toast.makeText(context, "Please add students to continue...", Toast.LENGTH_LONG).show()
+        } else {
+            super.onListItemClick(l, v, position, id)
+            var element = arrStudents[position]
+            listener?.itemClicked(position, element)
+        }
     }
 }

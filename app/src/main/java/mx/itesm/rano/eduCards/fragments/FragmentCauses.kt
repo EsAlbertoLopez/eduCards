@@ -35,4 +35,9 @@ class FragmentCauses(selectedCourse: String, selectedGroup: String, selectedStud
         var tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
         tvSubtitle.text = "Choose a Card from${studentName}"
     }
+
+    fun setWhenNoItemsInList() {
+        var tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
+        tvSubtitle.text = "Waiting for you to add Causes..."
+    }
 }

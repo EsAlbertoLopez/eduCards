@@ -19,6 +19,7 @@ import mx.itesm.rano.eduCards.models.Student
 
 class FragmentCausesList : ListFragment(){
     var listener: ListListener? = null
+    lateinit var parent: FragmentCauses
     lateinit var arrCauses: MutableList<String>
     lateinit var arrKeys: MutableList<String>
     var user = "None"
@@ -30,6 +31,7 @@ class FragmentCausesList : ListFragment(){
         super.onAttach(context)
         if (context is ListListener){
             listener = context
+            parent = parentFragment as FragmentCauses
         }
     }
 
@@ -71,22 +73,34 @@ class FragmentCausesList : ListFragment(){
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrCauses.clear()
-                for (registro in snapshot.children){
-                    val cause = registro.getValue(Card::class.java)
-                    if (cause != null){
-                        val dataCourse = "[${cause.description}]"
-                        arrCauses.add(dataCourse)
-                        arrKeys.add(registro.key.toString())
+                if (snapshot.exists()) {
+                    for (registro in snapshot.children){
+                        val cause = registro.getValue(Card::class.java)
+                        if (cause != null){
+                            val dataCourse = "[${cause.description}]"
+                            arrCauses.add(dataCourse)
+                            arrKeys.add(registro.key.toString())
+                        }
+                        if (context != null) {
+                            val adapter = ArrayAdapter<String>(
+                                context!!,
+                                android.R.layout.simple_list_item_1,
+                                arrCauses
+                            )
+                            listAdapter = adapter
+                        }
                     }
+                } else {
+                    parent.setWhenNoItemsInList()
+                    arrCauses.add("There are no cards")
                     if (context != null) {
                         val adapter = ArrayAdapter<String>(
                             context!!,
                             android.R.layout.simple_list_item_1,
                             arrCauses
                         )
+                        println(arrCauses.toString())
                         listAdapter = adapter
-                    }else{
-                        println("Holi")
                     }
                 }
             }
@@ -97,8 +111,12 @@ class FragmentCausesList : ListFragment(){
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        var element = arrKeys[position]
-        super.onListItemClick(l, v, position, id)
-        listener?.itemClicked(position, element)
+        if (arrCauses[position] == "There are no cards"){
+            Toast.makeText(context, "Please add cards to continue...", Toast.LENGTH_LONG).show()
+        }else {
+            super.onListItemClick(l, v, position, id)
+            var element = arrCauses[position]
+            listener?.itemClicked(position, element)
+        }
     }
 }

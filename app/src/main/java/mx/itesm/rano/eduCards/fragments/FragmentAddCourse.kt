@@ -44,11 +44,9 @@ class FragmentAddCourse(user: String) : Fragment() {
             if (courseId != "" && courseName != "") {
                 writeDataToCloud(courseId, courseName)
                 var fragment = FragmentCourse()
-                //fragmentManager?.beginTransaction()
-                //    ?.replace(R.id.fragmentContainer, fragment)
-                //    ?.addToBackStack(fragment.toString())
-                //    ?.replace(R.id.fragmentContainer, fragment)
-                //    ?.commit()
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.fragmentContainer, fragment)
+                    ?.commit()
             } else{
                 Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
             }

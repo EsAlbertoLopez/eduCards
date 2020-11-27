@@ -51,4 +51,9 @@ class FragmentStudent(course: String, group: String) : Fragment() {
                 ?.commit()
         }
     }
+
+    fun setWhenNoItemsInList() {
+        var tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
+        tvSubtitle.text = "Waiting for you to add Students..."
+    }
 }

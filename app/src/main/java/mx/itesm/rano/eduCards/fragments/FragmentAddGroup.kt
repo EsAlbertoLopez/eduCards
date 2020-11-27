@@ -46,12 +46,10 @@ class FragmentAddGroup(user:String, element: String) : Fragment() {
                 var fragment = FragmentGroup(element)
                 fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
-                ?.replace(R.id.fragmentContainer, fragment)
                 ?.commit()
-            } else{
+            } else {
                 Toast.makeText(context, "Error: The fields are empty", Toast.LENGTH_LONG).show()
             }
-
         }
     }
 

@@ -108,8 +108,7 @@ class FragmentSignUp : Fragment() {
                     etInstructor.error = "Instructor is an Empty Field"
                 }
                 if (email.isNotEmpty()) {
-                    etEmail.error = "Email is an Empty Field"
-                } else {
+                    etEmail.error = null
                     if (email.contains("#")
                         || email.contains("$")
                         || email.contains("[")
@@ -120,15 +119,17 @@ class FragmentSignUp : Fragment() {
                     } else {
                         etEmail.error = null
                     }
+                } else {
+                    etEmail.error = "Email is an Empty Field"
                 }
                 if (password.isNotEmpty()) {
-                    etPassword.error = "Error : Password is an Empty Field"
-                } else {
                     if (password.length >= 6) {
                         etPassword.error = null
                     } else {
                         etPassword.error = "Password length cannot be less than 6 characters"
                     }
+                } else {
+                    etPassword.error = "Error : Password is an Empty Field"
                 }
             }
         }

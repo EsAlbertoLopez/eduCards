@@ -73,17 +73,14 @@ class FragmentGroupList : ListFragment() {
                             val dataCourse = "[${group.key}] ${group.name} "
                             arrGroups.add(dataCourse)
                         }
-
                         if (context != null) {
                             val adapter = ArrayAdapter<String>(
                                 context!!,
                                 android.R.layout.simple_list_item_1,
                                 arrGroups
                             )
-
                             listAdapter = adapter
                         }
-
                     }
                 } else {
                     parent.setWhenNoItemsInList()
@@ -96,13 +93,9 @@ class FragmentGroupList : ListFragment() {
                         )
                         println(arrGroups.toString())
                         listAdapter = adapter
-
                     }
-
                 }
-
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
             }
@@ -112,12 +105,10 @@ class FragmentGroupList : ListFragment() {
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
         if (arrGroups[position] == "There are no groups"){
             Toast.makeText(context, "Please add groups to continue...", Toast.LENGTH_LONG).show()
-        }else {
+        } else {
             super.onListItemClick(l, v, position, id)
             var element = arrGroups[position]
             listener?.itemClicked(position, element)
         }
     }
-
-
 }
