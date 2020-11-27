@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_main.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.activities.MainActivity
 import mx.itesm.rano.eduCards.models.Instructor
@@ -105,7 +106,7 @@ class FragmentSignIn : Fragment() {
                 if (instructor != null) {
                     var recordedEmail = instructor.email
                     var recordedName = instructor.name
-                    if (recordedEmail == email) {
+                    if (recordedEmail.toLowerCase() == email.toLowerCase()) {
                         println("recordedEmail $recordedEmail")
                         if (signedIn == false) {
                             signIn(username, recordedName, email, password)
@@ -141,12 +142,13 @@ class FragmentSignIn : Fragment() {
                                 mainActivity.printPug()
                                 updateUI(user)
                                 signedIn = true
-                                var fragment = FragmentHome()
-                                fragmentManager?.beginTransaction()
-                                    ?.replace(R.id.fragmentContainer, fragment)
-                                    ?.addToBackStack(fragment.toString())
-                                    ?.replace(R.id.fragmentContainer, fragment)
-                                    ?.commit()
+                                mainActivity.bottomNavBar.menu.findItem(R.id.settings).isEnabled = true
+                                mainActivity.bottomNavBar.menu.performIdentifierAction(R.id.settings, 0)
+                                mainActivity.bottomNavBar.menu.findItem(R.id.settings).isEnabled = false
+                                //var fragment = FragmentHome()
+                                //fragmentManager?.beginTransaction()
+                                //    ?.replace(R.id.fragmentContainer, fragment)
+                                //    ?.commit()
                             } else {
                                 Toast.makeText(
                                     mainActivity,
@@ -163,10 +165,7 @@ class FragmentSignIn : Fragment() {
                             Toast.LENGTH_SHORT).show()
                         updateUI(null)
                     }
-
-                    // ...
                 })
-
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
@@ -174,7 +173,7 @@ class FragmentSignIn : Fragment() {
             print("Signed In User: ${currentUser?.displayName}")
         }
         else{
-            print("No Sign In Account has been foud")
+            print("No Sign In Account has been found")
         }
     }
 

@@ -50,19 +50,20 @@ class FragmentSettings : Fragment() {
         }
         button.setOnClickListener {
             if (FirebaseAuth.getInstance().currentUser == null) {
-                button.setText("Sign Out")
                 val fragment = FragmentSignIn()
                 fragmentManager?.beginTransaction()
                     ?.replace(R.id.fragmentContainer, fragment)
                     ?.addToBackStack(fragment.toString())
                     ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     ?.commit()
+                setSignUpButton()
             } else {
-                button.setText("Sign In")
                 mAuth = FirebaseAuth.getInstance()
                 mAuth.signOut()
+                button.setText("Sign In")
                 mainActivity.loginFlag=false
                 mainActivity.deactivateApplication("Settings")
+                setSignUpButton()
             }
 
         }
@@ -78,6 +79,7 @@ class FragmentSettings : Fragment() {
                 ?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 ?.commit()
         }
+        button.isEnabled = FirebaseAuth.getInstance().currentUser == null
     }
 
     private fun setAboutButton(){
