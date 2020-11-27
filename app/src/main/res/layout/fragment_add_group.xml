@@ -41,60 +41,65 @@
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lay"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
-        <TextView
-            android:id="@+id/tvGroupID"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Group ID"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextTextGroupID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type the New Group's ID"
-            android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/tvGroupID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Group ID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
 
-        <TextView
-            android:id="@+id/tvGroupName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Group Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            <EditText
+                android:id="@+id/editTextTextGroupID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type the New Group's ID"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editTextTextGroupName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type the New Group's Name"
-            android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/tvGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Group Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
 
-        <Button
-            android:id="@+id/btnSubmitNewgroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit New Group" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/editTextTextGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type the New Group's Name"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btnSubmitNewgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit New Group" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

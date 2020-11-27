@@ -101,6 +101,8 @@
                 android:text="Submit New Course" />
 
 
+
+
         </LinearLayout>
     </ScrollView>
 
