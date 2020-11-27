@@ -34,7 +34,6 @@ class FragmentSignUp : Fragment() {
     private lateinit var etInstitute: EditText
     private lateinit var etInstructor: EditText
     private lateinit var etEmail: EditText
-    private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnSignUp: Button
     private lateinit var connectivityChangeReceiver: BroadcastReceiver
@@ -88,24 +87,21 @@ class FragmentSignUp : Fragment() {
                     val institute = etInstitute.text.toString()
                     val instructor = etInstructor.text.toString()
                     val email = etEmail.text.toString()
-                    val username = etUsername.text.toString()
                     val password = etPassword.text.toString()
                     if (institute.isNotEmpty()
                         || instructor.isNotEmpty()
                         || email.isNotEmpty()
-                        || username.isNotEmpty()
                         || password.isNotEmpty()) {
-                        if (username.contains(".")
-                            || username.contains("#")
-                            || username.contains("$")
-                            || username.contains("[")
-                            || username.contains("]")
-                            || username.contains(" ")) {
-                            Toast.makeText(context, "Error: Username cannot contain ., #, $, [, ] and ' '", Toast.LENGTH_LONG)
+                        if (email.contains("#")
+                            || email.contains("$")
+                            || email.contains("[")
+                            || email.contains("]")
+                            || email.contains(" ")) {
+                            Toast.makeText(context, "Error: Email cannot contain ., #, $, [, ] and ' '", Toast.LENGTH_LONG)
                                 .show()
                         } else {
                             if (password.length >= 6) {
-                                signUpAccount(username, instructor, institute, password, email)
+                                signUpAccount(email, instructor, institute, password, email)
                             } else {
                                 Toast.makeText(context, "Error: Password length cannot be less than 6 characters", Toast.LENGTH_LONG)
                                     .show()
@@ -163,7 +159,6 @@ class FragmentSignUp : Fragment() {
             etInstitute.isEnabled = false
             etInstructor.isEnabled = false
             etEmail.isEnabled = false
-            etUsername.isEnabled = false
             etPassword.isEnabled = false
             btnSignUp.isEnabled = false
         } else {
@@ -186,7 +181,6 @@ class FragmentSignUp : Fragment() {
                         || etInstitute.text.isEmpty()
                         || etInstructor.text.isEmpty()
                         || etEmail.text.isEmpty()
-                        || etUsername.text.isEmpty()
                         || etPassword.text.isEmpty())
                         || !checkConnectivityStatus())
             }
@@ -206,7 +200,6 @@ class FragmentSignUp : Fragment() {
                         || etInstitute.text.isEmpty()
                         || etInstructor.text.isEmpty()
                         || etEmail.text.isEmpty()
-                        || etUsername.text.isEmpty()
                         || etPassword.text.isEmpty())
                         || !checkConnectivityStatus())
             }
@@ -226,31 +219,11 @@ class FragmentSignUp : Fragment() {
                         || etInstitute.text.isEmpty()
                         || etInstructor.text.isEmpty()
                         || etEmail.text.isEmpty()
-                        || etUsername.text.isEmpty()
                         || etPassword.text.isEmpty())
                         || !checkConnectivityStatus())
             }
         })
         etEmail.isEnabled = true
-        etUsername.addTextChangedListener (object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                checkConnectivityStatus()
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // Fires right before text is changing
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                btnSignUp.isEnabled = !((etInstitute.text.isEmpty()
-                        || etInstitute.text.isEmpty()
-                        || etInstructor.text.isEmpty()
-                        || etEmail.text.isEmpty()
-                        || etUsername.text.isEmpty()
-                        || etPassword.text.isEmpty())
-                        || !checkConnectivityStatus())
-            }
-        })
         etPassword.isEnabled = true
         etPassword.addTextChangedListener (object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -266,7 +239,6 @@ class FragmentSignUp : Fragment() {
                         || etInstitute.text.isEmpty()
                         || etInstructor.text.isEmpty()
                         || etEmail.text.isEmpty()
-                        || etUsername.text.isEmpty()
                         || etPassword.text.isEmpty())
                         || !checkConnectivityStatus())
             }

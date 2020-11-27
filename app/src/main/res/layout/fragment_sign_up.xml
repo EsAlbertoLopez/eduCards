@@ -41,109 +41,108 @@
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/laySignUpDetails"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
-        <TextView
-            android:id="@+id/tvInstitute"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Institute"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextTextInstitute"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type your organization's name"
-            android:inputType="textPersonName"
-            android:maxLength="48" />
+            <TextView
+                android:id="@+id/tvInstitute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Institute"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
+            <EditText
+                android:id="@+id/editTextTextInstitute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type your organization's name"
+                android:inputType="textPersonName"
+                android:maxLength="48" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
+            <EditText
+                android:id="@+id/editTextTextInstructorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type your name"
+                android:inputType="textPersonName"
+                android:maxLength="48" />
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
 
-        <EditText
-            android:id="@+id/editTextTextInstructorName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type your name"
-            android:inputType="textPersonName"
-            android:maxLength="48" />
+            <EditText
+                android:id="@+id/editTextTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type your email"
+                android:inputType="textEmailAddress"
+                android:maxLength="48" />
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Email"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            <TextView
+                android:id="@+id/tvPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Password"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?android:attr/textColorPrimary" />
 
-        <EditText
-            android:id="@+id/editTextTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type your email"
-            android:inputType="textEmailAddress"
-            android:maxLength="48" />
+            <EditText
+                android:id="@+id/editTextTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:fontFamily="@font/nunitosans_regular"
+                android:hint="Type your password"
+                android:inputType="textPassword"
+                android:maxLength="48" />
 
-        <TextView
-            android:id="@+id/tvPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Password"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="?android:attr/textColorPrimary" />
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign Up" />
 
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:fontFamily="@font/nunitosans_regular"
-            android:hint="Type your password"
-            android:inputType="textPassword"
-            android:maxLength="48" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="If you already have an account, try signing in!"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="?android:attr/textColorPrimary" />
+        </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/btnSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign Up" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="If you already have an account, try signing in!"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="?android:attr/textColorPrimary" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
