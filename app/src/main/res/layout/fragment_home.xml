@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunitosans_extrabold"
                     android:text="Summary"
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textColor="?android:attr/textColorPrimary" />
 
@@ -78,16 +78,66 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunitosans_extrabold"
                     android:text="General View"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="?android:attr/textColorPrimary" />
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunitosans_extrabold"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvInstitute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunitosans_semibold"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="?android:attr/textColorPrimary" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunitosans_extrabold"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunitosans_semibold"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="?android:attr/textColorPrimary" />
             </LinearLayout>
 
         </LinearLayout>

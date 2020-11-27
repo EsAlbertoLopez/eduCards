@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunitosans_regular"
-                android:text="The main objective of this project is focused on the area of education, where what is sought is for teachers to have better control of their students in a more automated way. It is a record of conduct through a system of cards, whether of good or bad behavior. "
+                android:text="The purpose of this project is focused on education where what is sought is for teachers to have a better means to manage and measure the quality of her classes. This is achievable by recording and reflecting on student positive or negative behaviour, which eduCards helps automate by logging them in a card system."
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?android:attr/textColorPrimary"

@@ -15,9 +15,10 @@ import kotlinx.android.synthetic.main.fragment_card_detail.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Instructor
+import java.text.DateFormat
+import java.util.*
 
 class FragmentHome : Fragment() {
-
     var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
     private val messages = mutableListOf<String>(
         "Buen día", "¡Suerte!", "¿Queso?",
@@ -28,9 +29,14 @@ class FragmentHome : Fragment() {
         "Ameno", "Descarga D-DEF", "Gracias, RMRomán",
         "Hecho por Raíl Ortíz Mateos", "Hecho por Nataly P. López", "Hecho por Oswaldo Morales",
         "Hecho por Alberto López Reyes", "Hecho por RANO", "Quality Assurance, baby!",
-        "Usa Cubrebocas"
+        "Usa Cubrebocas", "¡Hola, Ray!", "¡Hola, Val!"
     )
     lateinit var root: View
+    lateinit var tvSubtitle: TextView
+    lateinit var tvName: TextView
+    lateinit var tvInstitute: TextView
+    lateinit var tvDay: TextView
+    lateinit var tvEmail: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,19 +54,38 @@ class FragmentHome : Fragment() {
     }
 
     private fun setLayoutVariables() {
+        setLayHeadingVariables()
+        setUserHeadingVariables()
+    }
+
+    private fun setLayHeadingVariables() {
         setWelcomeMessage()
+    }
+
+    private fun setUserHeadingVariables() {
+        tvName = root.findViewById(R.id.tvName)
+        tvInstitute = root.findViewById(R.id.tvInstitute)
+        tvEmail = root.findViewById(R.id.tvEmail)
+
+        tvDay = root.findViewById(R.id.tvDay)
+        var calendar = Calendar.getInstance()
+        var currentDate = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.time)
+        tvDay.text = currentDate
     }
 
     private fun readDataFromCloud() {
         val database = FirebaseDatabase.getInstance()
-        val reference = database.getReference("/Instructors/$user/Courses")
-        reference.addValueEventListener(object : ValueEventListener {
+        val userReference = database.getReference("Instructors/$user")
+        userReference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val tree = snapshot.getValue()
-                if (tree != null) {
-                    print("TREE : ")
-                    print(tree.javaClass.toString())
-                    print(tree.toString())
+                val person = snapshot.getValue(Instructor::class.java)
+                if (person != null) {
+                    tvName.text = person.name
+                    tvInstitute.text = person.institute
+                    tvEmail.text = person.email
+                }
+                if (view != null){
+                    print("Null view")
                 }
             }
 
