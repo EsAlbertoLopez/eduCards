@@ -77,7 +77,6 @@ class FragmentSignUp : Fragment() {
         etInstitute = root.findViewById<View>(R.id.editTextTextInstitute) as EditText
         etInstructor = root.findViewById<View>(R.id.editTextTextInstructorName) as EditText
         etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
-        etUsername = root.findViewById<View>(R.id.editTextTextUsername) as EditText
         etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
     }
 

@@ -68,13 +68,11 @@ class FragmentSignIn : Fragment() {
     private fun setLayoutVariables() {
         tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
         etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
-        etUsername = root.findViewById<View>(R.id.editTextTextUsername) as EditText
         etPassword = root.findViewById<View>(R.id.editTextTextPassword) as EditText
     }
 
     private fun setLogInButton() {
         val etEmail = root.findViewById<View>(R.id.editTextTextEmail) as EditText
-        val etUsername=root.findViewById<View>(R.id.editTextTextUsername) as EditText
         val etPassword=root.findViewById<View>(R.id.editTextTextPassword) as EditText
         val btnSignIn=root.findViewById<View>(R.id.btnSignIn) as Button
         btnSignIn.setOnClickListener{
@@ -82,14 +80,14 @@ class FragmentSignIn : Fragment() {
                 btnSignIn.setText("SIGN IN")
                 if (etEmail != null) {
                     if (etPassword != null) {
-                        verifyAccount(etUsername.text.toString(), etEmail.text.toString(), etPassword.text.toString())
+                        verifyAccount(etEmail.text.toString(), etPassword.text.toString())
                     }
                 }
             }
         }
     }
 
-    private fun verifyAccount(username: String, email: String, password: String) {
+    private fun verifyAccount(email: String, password: String) {
         var emailNodots = (email.replace(".", "__dot__")).toLowerCase()
         var reference = database.getReference("/Instructors/$emailNodots")
         reference.addValueEventListener(object: ValueEventListener {
@@ -108,7 +106,7 @@ class FragmentSignIn : Fragment() {
                     if (recordedEmail == email) {
                         println("recordedEmail $recordedEmail")
                         if (signedIn == false) {
-                            signIn(username, recordedName, email, password)
+                            signIn(recordedName, email, password)
                         }
                     } else {
                         print("Failed to verify")
@@ -119,7 +117,7 @@ class FragmentSignIn : Fragment() {
         })
     }
 
-    private fun signIn(username: String, name: String, email: String, password: String){
+    private fun signIn(name: String, email: String, password: String){
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this.context as MainActivity,
                 OnCompleteListener<AuthResult?> { task ->
@@ -136,7 +134,6 @@ class FragmentSignIn : Fragment() {
                                 Toast.makeText(mainActivity,
                                     "Authentication succeeded",
                                     Toast.LENGTH_LONG).show()
-                                mainActivity.username = username
                                 mainActivity.instructor = name
                                 mainActivity.printPug()
                                 updateUI(user)
