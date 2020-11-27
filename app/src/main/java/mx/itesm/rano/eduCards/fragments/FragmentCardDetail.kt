@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_card_detail.*
 import mx.itesm.rano.eduCards.R
 import mx.itesm.rano.eduCards.models.Card
+import mx.itesm.rano.eduCards.models.Instructor
 
 class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGroup: String, selectedStudent: String, keyEvent: String) : Fragment() {
     var course = selectedCourse
@@ -44,6 +45,23 @@ class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGrou
         val studentId = student.split("[", "]")[1]
         val database = FirebaseDatabase.getInstance()
         val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/$key")
+        val userReference = database.getReference("Instructors/$user")
+        userReference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val person = snapshot.getValue(Instructor::class.java)
+                if (person != null) {
+                    author = person.name
+                }
+                if (view != null){
+                    tvCardAuthor.text = author
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
         reference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val card = snapshot.getValue(Card::class.java)
@@ -58,7 +76,6 @@ class FragmentCardDetail(instructor:String, selectedCourse: String, selectedGrou
                     tvStudentName.text = student.split("[", "]")[2]
                     tvCardType.text = cause
                     tvCardDescription.text = description
-                    tvCardAuthor.text = instructor
                     tvCardDate.text = date
                     tvCardTime.text = time
                     when(cause){
