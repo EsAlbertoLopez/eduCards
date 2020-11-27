@@ -313,7 +313,7 @@ class FragmentLive : Fragment(){
             chronometer.start()
             btnStart.isEnabled = false
             btnStopResume.isEnabled = true
-            btnRestart.isEnabled = true
+            btnRestart.isEnabled = false
             chronometerState = true
         }
         btnStart.isEnabled = true
@@ -324,11 +324,16 @@ class FragmentLive : Fragment(){
                 pauseOffset = SystemClock.elapsedRealtime() - chronometer.base
                 btnStopResume.setText("Resume")
                 chronometerState = false
+                btnRestart.isEnabled = true
+
             } else {
                 chronometer.base = SystemClock.elapsedRealtime() - pauseOffset
                 chronometer.start()
                 btnStopResume.setText("Stop")
                 chronometerState = true
+                btnRestart.isEnabled = false
+
+
             }
         }
         btnStopResume.isEnabled = false
@@ -337,7 +342,7 @@ class FragmentLive : Fragment(){
             chronometer.base = SystemClock.elapsedRealtime()
             pauseOffset = 0
             btnRestart.isEnabled = false
-            btnStopResume.isEnabled = true
+            btnStopResume.isEnabled = false
             btnStopResume.setText("Stop")
             btnStart.isEnabled = true
         }
