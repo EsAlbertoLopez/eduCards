@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.TypedValue
+import android.view.MenuItem
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -42,29 +43,24 @@ class MainActivity : AppCompatActivity(), ListListener {
     var user = FirebaseAuth.getInstance().currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
             setTheme(R.style.AppTheme)
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
             setInitialUI()
             setCalendar()
             printPug()
-
     }
 
     private fun setInitialUI() {
         //fragmentSettings = FragmentSettings()
         if (user != null) {
-
             activateApplication("Home")
             setFragment(FragmentHome())
-
-            //currentFragment = fragmentHome
         } else {
-            deactivateApplication("Home")
+            deactivateApplication("Settings")
+            bottomNavBar.menu.performIdentifierAction(R.id.settings, 0)
             setFragment(FragmentSignIn())
         }
-        bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
         hideBottomNavBarWhenKeyboardIsShown()
     }
 
@@ -99,10 +95,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorR
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
                     setFragment(FragmentHome())
                     //currentFragment = fragmentHome
                 }
@@ -117,10 +109,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorA
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
                     setFragment(FragmentCourse())
                 }
                 R.id.live -> {
@@ -134,11 +122,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorN
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
-
                     setFragment(FragmentLive())
                 }
                 R.id.settings -> {
@@ -152,10 +135,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorO
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(false)
                     setFragment(FragmentSettings())
                     //deactivateApplication("Settings")
                 }
@@ -178,10 +157,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorDeactivated
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
                     //var fragmentAuthenticationLock = FragmentAuthenticationLock("Home")
                     setFragment(FragmentAuthenticationLock("Home"))
                     //currentFragment = fragmentAuthenticationLock
@@ -197,10 +172,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorDeactivated
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
                     //var fragmentAuthenticationLock = FragmentAuthenticationLock("Geeral")
                     setFragment(FragmentAuthenticationLock("General"))
                     //currentFragment = fragmentAuthenticationLock
@@ -216,10 +187,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorDeactivated
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(false)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(true)
                     //var fragmentAuthenticationLock = FragmentAuthenticationLock("Live")
                     setFragment(FragmentAuthenticationLock("Live"))
                     //currentFragment = fragmentAuthenticationLock
@@ -235,10 +202,6 @@ class MainActivity : AppCompatActivity(), ListListener {
                             R.color.colorO
                         ), android.graphics.PorterDuff.Mode.MULTIPLY
                     )
-                    bottomNavBar.menu.findItem(R.id.home).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.general).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.live).setEnabled(true)
-                    bottomNavBar.menu.findItem(R.id.settings).setEnabled(false)
                     setFragment(FragmentSettings())
                     //currentFragment = fragmentSettings
                     //activateApplication("Settings")

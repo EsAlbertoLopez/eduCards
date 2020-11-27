@@ -139,9 +139,7 @@ class FragmentSignIn : Fragment() {
                                 mainActivity.printPug()
                                 updateUI(user)
                                 signedIn = true
-                                mainActivity.bottomNavBar.menu.findItem(R.id.settings).isEnabled = true
                                 mainActivity.bottomNavBar.menu.performIdentifierAction(R.id.settings, 0)
-                                mainActivity.bottomNavBar.menu.findItem(R.id.settings).isEnabled = false
                                 //var fragment = FragmentHome()
                                 //fragmentManager?.beginTransaction()
                                 //    ?.replace(R.id.fragmentContainer, fragment)
