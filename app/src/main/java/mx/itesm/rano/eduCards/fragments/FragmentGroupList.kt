@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.ListFragment
@@ -16,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import mx.itesm.rano.eduCards.interfaces.ListListener
 import mx.itesm.rano.eduCards.models.Group
 
-class FragmentGroupList : ListFragment(){
+class FragmentGroupList : ListFragment() {
     var listener: ListListener? = null
     lateinit var parent: FragmentGroup
     lateinit var arrGroups: MutableList<String>
@@ -25,13 +26,13 @@ class FragmentGroupList : ListFragment(){
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is ListListener){
+        if (context is ListListener) {
             listener = context
             parent = parentFragment as FragmentGroup
         }
     }
 
-    fun getValueParent(){
+    fun getValueParent() {
         selected = parent.element
         user = parent.user
     }
@@ -65,30 +66,43 @@ class FragmentGroupList : ListFragment(){
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroups.clear()
-                print("Here" + arrGroups.toString())
-                for (registro in snapshot.children) {
-                    val group = registro.getValue(Group::class.java)
-                    if (group != null) {
-                        val dataCourse = "[${group.key}] ${group.name} "
-                        arrGroups.add(dataCourse)
-                    } else {
-                    }
-                    if (arrGroups.isNotEmpty()) {
+                if (snapshot.exists()) {
+                    for (registro in snapshot.children) {
+                        val group = registro.getValue(Group::class.java)
+                        if (group != null) {
+                            val dataCourse = "[${group.key}] ${group.name} "
+                            arrGroups.add(dataCourse)
+                        }
+
                         if (context != null) {
                             val adapter = ArrayAdapter<String>(
                                 context!!,
                                 android.R.layout.simple_list_item_1,
                                 arrGroups
                             )
+
                             listAdapter = adapter
-                        }else{
-                            println("Holi")
                         }
-                    } else {
-                        parent.setWhenNoItemsInList()
+
                     }
+                } else {
+                    parent.setWhenNoItemsInList()
+                    arrGroups.add("There are no groups")
+                    if (context != null) {
+                        val adapter = ArrayAdapter<String>(
+                            context!!,
+                            android.R.layout.simple_list_item_1,
+                            arrGroups
+                        )
+                        println(arrGroups.toString())
+                        listAdapter = adapter
+
+                    }
+
                 }
+
             }
+
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
             }
@@ -96,8 +110,14 @@ class FragmentGroupList : ListFragment(){
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
-        var element = arrGroups[position]
-        listener?.itemClicked(position, element)
+        if (arrGroups[position] == "There are no groups"){
+            Toast.makeText(context, "Please add groups to continue...", Toast.LENGTH_LONG).show()
+        }else {
+            super.onListItemClick(l, v, position, id)
+            var element = arrGroups[position]
+            listener?.itemClicked(position, element)
+        }
     }
+
+
 }
