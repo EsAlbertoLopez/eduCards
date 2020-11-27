@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import mx.itesm.rano.eduCards.R
 
@@ -24,8 +25,15 @@ class FragmentStudent(course: String, group: String) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         root = inflater.inflate(R.layout.fragment_student, container, false)
+        setLayoutVariables()
         setButtons()
         return root
+    }
+
+    private fun setLayoutVariables() {
+        var groupName = group.split("[", "]")[2]
+        var tvSubtitle = root.findViewById<View>(R.id.tvSubtitle) as TextView
+        tvSubtitle.text = "Choose a Student from${groupName}"
     }
 
     private fun setButtons() {

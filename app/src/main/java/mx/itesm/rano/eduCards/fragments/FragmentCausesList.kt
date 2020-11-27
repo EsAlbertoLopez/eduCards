@@ -32,6 +32,7 @@ class FragmentCausesList : ListFragment(){
             listener = context
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arrCauses = mutableListOf()

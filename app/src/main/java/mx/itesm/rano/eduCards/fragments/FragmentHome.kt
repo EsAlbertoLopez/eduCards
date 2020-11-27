@@ -19,7 +19,8 @@ class FragmentHome : Fragment() {
         "¡Gracias, Lola!", "Listo para trabajar", "Sasquatch",
         "Ameno", "Descarga D-DEF", "Gracias, RMRomán",
         "Hecho por Raíl Ortíz Mateos", "Hecho por Nataly P. López", "Hecho por Oswaldo Morales",
-        "Hecho por Alberto López Reyes", "Hecho por RANO", "Quality Assurance, baby!"
+        "Hecho por Alberto López Reyes", "Hecho por RANO", "Quality Assurance, baby!",
+        "Usa Cubrebocas"
     )
     lateinit var root: View
 

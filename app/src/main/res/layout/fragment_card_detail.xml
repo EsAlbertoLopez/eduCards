@@ -25,7 +25,7 @@
             android:fontFamily="@font/nunitosans_black"
             android:text="Student Name"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
@@ -44,9 +44,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/layInformation"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
             android:fontFamily="@font/nunitosans_extrabold"
             android:text="Card Author"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/textColorPrimary" />
 
         <LinearLayout
@@ -102,7 +102,7 @@
                 android:fontFamily="@font/nunitosans_regular"
                 android:text="Date"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:fontFamily="@font/nunitosans_regular"
                 android:text="Time"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="?android:attr/textColorPrimary" />
         </LinearLayout>
 

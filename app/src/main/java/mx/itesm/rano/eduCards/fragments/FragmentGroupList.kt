@@ -18,7 +18,8 @@ import mx.itesm.rano.eduCards.models.Group
 
 class FragmentGroupList : ListFragment(){
     var listener: ListListener? = null
-    lateinit var arrGroups : MutableList<String>
+    lateinit var parent: FragmentGroup
+    lateinit var arrGroups: MutableList<String>
     var selected = "None"
     var user = "None"
 
@@ -26,13 +27,13 @@ class FragmentGroupList : ListFragment(){
         super.onAttach(context)
         if (context is ListListener){
             listener = context
+            parent = parentFragment as FragmentGroup
         }
     }
 
     fun getValueParent(){
-        val myParent = parentFragment as FragmentGroup
-        selected = myParent.element
-        user = myParent.user
+        selected = parent.element
+        user = parent.user
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,21 +65,27 @@ class FragmentGroupList : ListFragment(){
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrGroups.clear()
+                print("Here" + arrGroups.toString())
                 for (registro in snapshot.children) {
                     val group = registro.getValue(Group::class.java)
                     if (group != null) {
                         val dataCourse = "[${group.key}] ${group.name} "
                         arrGroups.add(dataCourse)
+                    } else {
                     }
-                    if (context != null) {
-                        val adapter = ArrayAdapter<String>(
-                            context!!,
-                            android.R.layout.simple_list_item_1,
-                            arrGroups
-                        )
-                        listAdapter = adapter
-                    }else{
-                        println("Holi")
+                    if (arrGroups.isNotEmpty()) {
+                        if (context != null) {
+                            val adapter = ArrayAdapter<String>(
+                                context!!,
+                                android.R.layout.simple_list_item_1,
+                                arrGroups
+                            )
+                            listAdapter = adapter
+                        }else{
+                            println("Holi")
+                        }
+                    } else {
+                        parent.setWhenNoItemsInList()
                     }
                 }
             }
