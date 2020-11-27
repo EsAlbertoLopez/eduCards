@@ -99,7 +99,6 @@ class FragmentCausesList : ListFragment(){
                             android.R.layout.simple_list_item_1,
                             arrCauses
                         )
-                        println(arrCauses.toString())
                         listAdapter = adapter
                     }
                 }
@@ -115,7 +114,7 @@ class FragmentCausesList : ListFragment(){
             Toast.makeText(context, "Please add cards to continue...", Toast.LENGTH_LONG).show()
         }else {
             super.onListItemClick(l, v, position, id)
-            var element = arrCauses[position]
+            var element = arrKeys[position]
             listener?.itemClicked(position, element)
         }
     }
