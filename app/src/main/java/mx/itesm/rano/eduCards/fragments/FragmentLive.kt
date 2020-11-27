@@ -360,6 +360,7 @@ class FragmentLive() : Fragment(){
     private fun setReportDetails() {
         var editTextDescription = root.findViewById<View>(R.id.editTextTextMultiLineDescription) as EditText
         editTextDescription.addTextChangedListener (object : TextWatcher {
+            var tvEventDescription = root.findViewById<View>(R.id.tvEventDescription) as TextView
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 // Fires right as the text is being changed (even supplies the range of text)
             }
@@ -371,6 +372,9 @@ class FragmentLive() : Fragment(){
             override fun afterTextChanged(s: Editable) {
                 btnDsicard.isEnabled = !(arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty())
                 btnSave.isEnabled = !(arrStudents.isEmpty() || editTextTextMultiLineDescription.text.isEmpty())
+                //tvEventDescription.text = "Event Description"
+                var charactersLeft = 280 - editTextDescription.text.toString().length
+                tvEventDescription.text = "${charactersLeft} Characters Left"
                 //tvDisplay.setText(s.toString())
             }
         })
