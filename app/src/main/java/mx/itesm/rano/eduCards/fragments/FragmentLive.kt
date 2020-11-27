@@ -30,7 +30,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentLive() : Fragment(){
+class FragmentLive : Fragment(){
     var user = FirebaseAuth.getInstance().currentUser?.email?.replace(".", "__dot__").toString()
     var pauseOffset: Long = 0
     var chronometerState: Boolean = false
@@ -44,6 +44,7 @@ class FragmentLive() : Fragment(){
     lateinit var arrStudents: MutableList<String>
     var arrMail: MutableList<String> = arrayListOf()
     lateinit var arrGroup: MutableList<String>
+    lateinit var recordedTime: String
     lateinit var selectedCourse: String
     lateinit var selectedGroup: String
     lateinit var selectedStudent: String
@@ -136,7 +137,6 @@ class FragmentLive() : Fragment(){
                     if (course != null){
                         val dataCourse = "[${course.key}] ${course.name} "
                         arrCourses.add(dataCourse)
-
                     }
                 }
                 setSpinner(
@@ -247,7 +247,7 @@ class FragmentLive() : Fragment(){
                         val cause = selectedCause
                         val description = editTextTextMultiLineDescription.text.toString()
                         writeDataToCloud(courseId, groupId, studentId, cause, description)
-                        sendMail(cause, description)
+                        sendMail(cause, description, selectedCourse.split("[", "]")[2], selectedCourse.split("[", "]")[2], recordedTime)
                         editTextTextMultiLineDescription.text.clear()
                     })
                     .setNegativeButton("Cancel", DialogInterface.OnClickListener{
@@ -284,7 +284,7 @@ class FragmentLive() : Fragment(){
         btnDiscard.isEnabled = false
     }
 
-    private fun sendMail(cause: String, description: String) {
+    private fun sendMail(cause: String, description: String, course: String, date: String, time: String) {
         val subject = cause
         val miIntent = Intent(Intent.ACTION_SEND)
         miIntent.data = Uri.parse("mailto:")
@@ -292,7 +292,11 @@ class FragmentLive() : Fragment(){
 
         miIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(mailTutor))
         miIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        miIntent.putExtra(Intent.EXTRA_TEXT, "El alumno ${selectedStudent.split("[", "]")[2]} hizo ${description}")
+        miIntent.putExtra(Intent.EXTRA_TEXT,
+            "Hola, tutor de ${selectedStudent.split("[", "]")[2]}." +
+                    "\nSe ha registrado una tarjeta de ${cause} por lo siguiente:\n\n" +
+                    "${description}\n\n" +
+                    "Esta tarjeta se registró para ${course} el ${tvDay.text} a las ${time}.")
 
         try {
             startActivity(Intent.createChooser(miIntent, "Choose Email Client..."))
@@ -344,10 +348,28 @@ class FragmentLive() : Fragment(){
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
         val dateTime = currentDate.split(" ")
+        recordedTime = dateTime[1]
         val card = Card(cause, explanation, user, dateTime[0], dateTime[1])
-        val reference = database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
-        val ref = reference.push()
-        ref.setValue(card)
+        val cardReference =
+            database.getReference("/Instructors/$user/Courses/$courseId/Groups/$groupId/Alumnos/$studentId/Events/")
+        cardReference.push().setValue(card)
+        //var statReference = database.getReference("/Instructors/$user/Statistics/${card.type}")
+        //statReference.setValue(0)
+        //statReference.addValueEventListener(object : ValueEventListener {
+        //    override fun onDataChange(snapshot: DataSnapshot) {
+        //        var count = snapshot.getValue()
+        //        print("Counter\n")
+        //        print(count?.javaClass.toString() + "\n")
+        //        print(count.toString() + "\n")
+        //    }
+        //
+        //    override fun onCancelled(error: DatabaseError) {
+        //        Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
+        //    }
+        //})
+        //var countLong = count as Long
+        //countLong = countLong + 1
+        //statReference.setValue(countLong)
     }
 
     private fun setCalendar() {

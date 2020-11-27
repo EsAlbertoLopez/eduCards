@@ -1,6 +1,8 @@
 package mx.itesm.rano.eduCards.fragments
 
 import android.content.BroadcastReceiver
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
@@ -42,7 +45,7 @@ class FragmentSignIn : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAuth=FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance()
     }
 
     override fun onStart() {
@@ -91,7 +94,7 @@ class FragmentSignIn : Fragment() {
     private fun verifyAccount(email: String, password: String) {
         var emailNodots = (email.replace(".", "__dot__")).toLowerCase()
         var reference = database.getReference("/Instructors/$emailNodots")
-        reference.addValueEventListener(object: ValueEventListener {
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(
                     mainActivity,
@@ -99,6 +102,7 @@ class FragmentSignIn : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             override fun onDataChange(snapshot: DataSnapshot) {
                 val instructor = snapshot.getValue(Instructor::class.java)
                 if (instructor != null) {
@@ -113,7 +117,7 @@ class FragmentSignIn : Fragment() {
                         print("Failed to verify")
                     }
                 }
-        }
+            }
 
         })
     }
@@ -132,14 +136,19 @@ class FragmentSignIn : Fragment() {
                                 mainActivity.loginFlag = true
                                 println("hola ${user.email}")
 
-                                Toast.makeText(mainActivity,
+                                Toast.makeText(
+                                    mainActivity,
                                     "Authentication succeeded",
-                                    Toast.LENGTH_LONG).show()
+                                    Toast.LENGTH_LONG
+                                ).show()
                                 mainActivity.instructor = name
                                 mainActivity.printPug()
                                 updateUI(user)
                                 signedIn = true
-                                mainActivity.bottomNavBar.menu.performIdentifierAction(R.id.settings, 0)
+                                mainActivity.bottomNavBar.menu.performIdentifierAction(
+                                    R.id.settings,
+                                    0
+                                )
                                 //var fragment = FragmentHome()
                                 //fragmentManager?.beginTransaction()
                                 //    ?.replace(R.id.fragmentContainer, fragment)
@@ -155,9 +164,11 @@ class FragmentSignIn : Fragment() {
                     } else {
                         // If sign in fails, display a message to the user.
                         println("signInWithEmail:failure ${task.exception}")
-                        Toast.makeText(mainActivity,
+                        Toast.makeText(
+                            mainActivity,
                             "Authentication failed: ${task.exception?.localizedMessage}",
-                            Toast.LENGTH_SHORT).show()
+                            Toast.LENGTH_SHORT
+                        ).show()
                         updateUI(null)
                     }
                 })
@@ -171,5 +182,4 @@ class FragmentSignIn : Fragment() {
             print("No Sign In Account has been found")
         }
     }
-
 }
