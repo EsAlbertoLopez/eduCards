@@ -44,191 +44,198 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layProjectName"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layHeading">
 
-        <TextView
-            android:id="@+id/tvSubtitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Project Name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#FF5722"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/layProjectDetails"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/ivAppLogo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/logoappbig" />
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvAppName"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSubtitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/nunitosans_blackitalic"
-                android:gravity="center"
-                android:text="eduCards"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="36sp"
-                android:textStyle="bold|italic" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvProjectDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Project Description"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#C2185B"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/tvProjectDescriptionDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_regular"
-            android:text="The main objective of this project is focused on the area of education, where what is sought is for teachers to have better control of their students in a more automated way. It is a record of conduct through a system of cards, whether of good or bad behavior. "
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/tvTeamMembers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Team Members"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#303F9F"
-            android:textSize="30sp" />
-
-        <LinearLayout
-            android:id="@+id/layTeamMembers"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Project Name"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#FF5722"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/layProjectDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/ivAppLogo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/logoappbig" />
 
                 <TextView
-                    android:id="@+id/tvAlberto"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvAppName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunitosans_bolditalic"
-                    android:text="Alberto Lopez "
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nunitosans_blackitalic"
+                    android:gravity="center"
+                    android:text="eduCards"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16dp" />
+                    android:textSize="36sp"
+                    android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/tvNataly"
-                    android:layout_width="match_parent"
+                <Space
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunitosans_bolditalic"
-                    android:text="Nataly Lopez "
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/tvOswaldo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunitosans_bolditalic"
-                    android:text="Oswaldo Morales "
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/tvRaul"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunitosans_bolditalic"
-                    android:text="Raúl Ortiz"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="16dp" />
-
+                    android:layout_weight="1" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvProjectDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Project Description"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="#C2185B"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tvProjectDescriptionDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_regular"
+                android:text="The main objective of this project is focused on the area of education, where what is sought is for teachers to have better control of their students in a more automated way. It is a record of conduct through a system of cards, whether of good or bad behavior. "
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/tvTeamMembers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Team Members"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#303F9F"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:id="@+id/layTeamMembers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAlberto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunitosans_bolditalic"
+                        android:text="Alberto Lopez "
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvNataly"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunitosans_bolditalic"
+                        android:text="Nataly Lopez "
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvOswaldo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunitosans_bolditalic"
+                        android:text="Oswaldo Morales "
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/tvRaul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunitosans_bolditalic"
+                        android:text="Raúl Ortiz"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_extrabold"
+                android:text="Contact"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#388E3C"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_bold"
+                android:text="E-mail"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvEmailDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitosans_bold"
+                android:text="rano.edu.itesm@gmail.com"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18sp" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/tvContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_extrabold"
-            android:text="Contact"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#388E3C"
-            android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_bold"
-            android:text="E-mail"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvEmailDetail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_bold"
-            android:text="rano.edu.itesm@gmail.com"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
