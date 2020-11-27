@@ -337,7 +337,7 @@ class FragmentLive : Fragment(){
             chronometer.base = SystemClock.elapsedRealtime()
             pauseOffset = 0
             btnRestart.isEnabled = false
-            btnStopResume.isEnabled = false
+            btnStopResume.isEnabled = true
             btnStopResume.setText("Stop")
             btnStart.isEnabled = true
         }

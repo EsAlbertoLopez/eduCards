@@ -1,3 +1,5 @@
+
+
 package mx.itesm.rano.eduCards.activities
 
 import android.content.Context
@@ -341,5 +343,8 @@ class MainActivity : AppCompatActivity(), ListListener {
 
     fun printPug() {
         println("User : ${username}")
+
     }
+
+
 }
